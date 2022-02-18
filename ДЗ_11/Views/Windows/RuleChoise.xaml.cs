@@ -10,21 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPF_Test
+namespace ДЗ_11.Views.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для RuleChoise.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class RuleChoise : Window
     {
-        public MainWindow()
+        public RuleChoise()
         {
             InitializeComponent();
-            Window ruleChoise = new Window();
-            ruleChoise.ShowDialog();
         }
     }
 }

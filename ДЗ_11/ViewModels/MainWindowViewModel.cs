@@ -5,6 +5,6 @@ namespace ДЗ_11.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-        MessageBox 
+        
     }
 }
