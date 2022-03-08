@@ -11,8 +11,8 @@ namespace ДЗ_11
         public MainWindow()
         {
             InitializeComponent();
-            RuleChoise rule = new RuleChoise();
-            rule.ShowDialog();
+            //RuleChoise rule = new RuleChoise();
+            //rule.ShowDialog();
         }
     }
 }

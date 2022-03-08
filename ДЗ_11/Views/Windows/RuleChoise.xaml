@@ -3,13 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ДЗ_11.Views.Windows"
+        xmlns:local="clr-namespace:ДЗ_11"
         xmlns:view="clr-namespace:ДЗ_11.ViewModels"
         mc:Ignorable="d"
-        Title="Выбор прав доступа" Height="250" Width="250"
-        DataContext="RuleChoiseViewModel">
+        Title="Выбор прав доступа" Height="250" Width="250">
+        
+    <Window.DataContext>
+        <view:RuleChoiseViewModel/>
+    </Window.DataContext>
     <StackPanel Orientation="Vertical">
-        <Button Content="Консультант" Width="120" Height="25" Margin="0,50,0,0"/>
+        <Button Content="Консультант" Width="120" Height="25" Margin="0,50,0,0" Command="{Binding ChoiseRuleApplicationCommand}"/>
         <Button Content="Менеджер" Width="120" Height="25"  Margin="0,50,0,0"/>
     </StackPanel>
 </Window>
