@@ -9,7 +9,7 @@
         Title="Выбор прав доступа" Height="250" Width="250"
         DataContext="RuleChoiseViewModel">
     <StackPanel Orientation="Vertical">
-        <Button Content="Консультант" Width="100" Height="25" Margin="0,50,0,0"/>
-        <Button Content="Менеджер" Height="25" Width="100" Margin="0,50,0,0"/>
+        <Button Content="Консультант" Width="120" Height="25" Margin="0,50,0,0"/>
+        <Button Content="Менеджер" Width="120" Height="25"  Margin="0,50,0,0"/>
     </StackPanel>
 </Window>

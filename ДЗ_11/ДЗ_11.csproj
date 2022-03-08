@@ -66,6 +66,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Infrastructure\Commands\Base\Command.cs" />
+    <Compile Include="Infrastructure\Commands\RelayCommand.cs" />
     <Compile Include="ViewModels\RuleChoiseViewModel.cs" />
     <Compile Include="Views\Windows\RuleChoise.xaml.cs">
       <DependentUpon>RuleChoise.xaml</DependentUpon>
@@ -121,7 +123,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Infrastructure\" />
     <Folder Include="Models\AbstractModels\" />
     <Folder Include="Services\" />
   </ItemGroup>
