@@ -6,7 +6,25 @@
         xmlns:local="clr-namespace:ДЗ_11"
         mc:Ignorable="d"
         Title="BankSystem" Height="450" Width="800">
-    <Grid>
-        <Button/>
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Меню" Height="20" Width="auto">
+                <MenuItem Header="Сохранить"/>
+                <MenuItem Header="Загрузить"/>
+                <MenuItem Header="Смена пользователя"/>
+                <MenuItem Header="Выход"/>
+            </MenuItem>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Text="TEST"></TextBlock>
+            </StatusBarItem>
+        </StatusBar>
+        <Grid>
+            <ListBox>
+                <ListBoxItem Content="1"/>
+                <ListBoxItem Content="2"/>
+            </ListBox>
+        </Grid>
+    </DockPanel>
 </Window>

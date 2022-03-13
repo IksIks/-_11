@@ -67,6 +67,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Infrastructure\Commands\Base\Command.cs" />
+    <Compile Include="Infrastructure\Commands\ChoiseCommand.cs" />
     <Compile Include="Infrastructure\Commands\RelayCommand.cs" />
     <Compile Include="ViewModels\RuleChoiseViewModel.cs" />
     <Compile Include="Views\Windows\RuleChoise.xaml.cs">

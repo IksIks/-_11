@@ -8,10 +8,32 @@ namespace ДЗ_11.Models
 {
     internal class Client
     {
+        public Guid Id { get; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Patronymic { get; set; }
         public uint PhoneNumber { get; set; }
-        public uint PassportNumber { get; set; }
+        public Passport PassportNumber { get; set; }
+
+        public Client(string name, string lastNamr, string patronymic, uint phoneNumber, Passport passportNumber)
+        {
+            Id = Guid.NewGuid();
+            Name = name;
+            LastName = lastNamr;
+            Patronymic = patronymic;
+            PhoneNumber = phoneNumber;
+            PassportNumber = passportNumber;
+        }
+    }
+
+    internal class Passport
+    {
+        public ushort Series { get; set; }
+        public uint Number { get; set; }
+        public Passport(ushort series, uint number)
+        {
+            Series = series;
+            Number = number;
+        }
     }
 }
