@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:ДЗ_11"
         mc:Ignorable="d"
         xmlns:view="clr-namespace:ДЗ_11.ViewModels"
+        xmlns:cmd="clr-namespace:ДЗ_11.Infrastructure.Commands"
         Title="BankSystem" Height="500" Width="1000">
     <Window.DataContext>
         <view:MainWindowViewModel/>
@@ -29,8 +30,8 @@
                 <ColumnDefinition Width="30*"/>
                 <ColumnDefinition Width="121*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Клиенты" Height="90" Width="110" Margin="30,37,60,265"/>
-            <ListView Grid.Column="1" ItemsSource="{Binding Test}">
+            <Button Grid.Column="0" Content="Клиенты" Height="90" Width="110" Margin="30,37,60,265" Command="{Binding ShowListUsersCommand}"/>
+            <ListView Grid.Column="1" ItemsSource="{Binding Users}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="№" Width="Auto" DisplayMemberBinding="{Binding Id}"/>
@@ -38,7 +39,7 @@
                         <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Name}"/>
                         <GridViewColumn Header="Отчество" DisplayMemberBinding="{Binding Patronymic}"/>
                         <GridViewColumn Header="Телефон" DisplayMemberBinding="{Binding PhoneNumber}"/>
-                        <GridViewColumn Header="Серия и номер паспорта" DisplayMemberBinding="{Binding PassportNumber}"/>
+                        <GridViewColumn Header="Серия и номер паспорта" DisplayMemberBinding="{Binding passportNumber}"/>
                     </GridView>
                 </ListView.View>
             </ListView>

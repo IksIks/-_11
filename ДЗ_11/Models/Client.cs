@@ -1,39 +1,80 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ДЗ_11.ViewModels.Base;
 
 namespace ДЗ_11.Models
 {
-    internal class Client
+    internal class Client : ViewModel
     {
-        public Guid Id { get; }
-        public string Name { get; set; }
-        public string LastName { get; set; }
-        public string Patronymic { get; set; }
-        public uint PhoneNumber { get; set; }
-        public Passport PassportNumber { get; set; }
+        
+        private Guid id;
+        public Guid Id
+        {
+            get => id;
+            //set => Set(ref id, value);
+        }
+
+
+        private string name;
+        public string Name
+        {
+            get => name;
+            set => Set(ref name, value);
+        }
+
+        private string lastName;
+        public string LastName
+        {
+            get => lastName;
+            set => Set(ref lastName, value);
+        }
+
+        private string patronymic;
+        public string Patronymic
+        {
+            get => patronymic;
+            set => Set(ref patronymic, value);
+        }
+
+        private uint phoneNumber;
+        public uint PhoneNumber
+        {
+            get => phoneNumber;
+            set => Set(ref phoneNumber, value);
+        }
+
+        public Passport passportNumber { get; set; }
 
         public Client(string name, string lastName, string patronymic, uint phoneNumber, Passport passportNumber)
         {
-            Id = Guid.NewGuid();
-            Name = name;
-            LastName = lastName;
-            Patronymic = patronymic;
-            PhoneNumber = phoneNumber;
-            PassportNumber = passportNumber;
+            this.id = Guid.NewGuid();
+            this.name = name;
+            this.lastName = lastName;
+            this.patronymic = patronymic;
+            this.phoneNumber = phoneNumber;
+            this.passportNumber = passportNumber;
         }
     }
 
-    internal class Passport
+    internal class Passport: ViewModel
     {
-        public ushort Series { get; set; }
-        public uint Number { get; set; }
+        private ushort series;
+        public ushort Series
+        {
+            get => series;
+            set => Set(ref series, value);
+        }
+
+        private uint number;
+        public uint Number
+        {
+            get => number;
+            set => Set(ref number, value);
+        }
+
         public Passport(ushort series, uint number)
         {
-            Series = series;
-            Number = number;
+            this.series = series;
+            this.number = number;
         }
     }
 }
