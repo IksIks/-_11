@@ -14,8 +14,8 @@ namespace ДЗ_11.Infrastructure.Commands
             window.Show();
             var ruleChoise = Application.Current.Windows[0];
             ruleChoise.Close();
-            MainWindowViewModel temp = new MainWindowViewModel();
-            temp.AddClients();
+            //MainWindowViewModel temp = new MainWindowViewModel();
+            //temp.AddClients();
 
         }
     }

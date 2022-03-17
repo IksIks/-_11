@@ -15,11 +15,11 @@ namespace ДЗ_11.Models
         public uint PhoneNumber { get; set; }
         public Passport PassportNumber { get; set; }
 
-        public Client(string name, string lastNamr, string patronymic, uint phoneNumber, Passport passportNumber)
+        public Client(string name, string lastName, string patronymic, uint phoneNumber, Passport passportNumber)
         {
             Id = Guid.NewGuid();
             Name = name;
-            LastName = lastNamr;
+            LastName = lastName;
             Patronymic = patronymic;
             PhoneNumber = phoneNumber;
             PassportNumber = passportNumber;

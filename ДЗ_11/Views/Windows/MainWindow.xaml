@@ -5,26 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ДЗ_11"
         mc:Ignorable="d"
-        Title="BankSystem" Height="450" Width="800">
+        xmlns:view="clr-namespace:ДЗ_11.ViewModels"
+        Title="BankSystem" Height="500" Width="1000">
+    <Window.DataContext>
+        <view:MainWindowViewModel/>
+    </Window.DataContext>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Меню" Height="20" Width="auto">
-                <MenuItem Header="Сохранить"/>
-                <MenuItem Header="Загрузить"/>
-                <MenuItem Header="Смена пользователя"/>
-                <MenuItem Header="Выход"/>
+                <MenuItem Header="Сохранить" FontSize="14"/>
+                <MenuItem Header="Загрузить" FontSize="14"/>
+                <MenuItem Header="Смена пользователя" FontSize="14"/>
+                <MenuItem Header="Выход" FontSize="14"/>
             </MenuItem>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
-                <TextBlock Text="TEST"></TextBlock>
+                <TextBlock Text="Text"></TextBlock>
             </StatusBarItem>
         </StatusBar>
-        <Grid>
-            <ListBox>
-                <ListBoxItem Content="1"/>
-                <ListBoxItem Content="2"/>
-            </ListBox>
+        <Grid ShowGridLines="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="121*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Клиенты" Height="90" Width="110" Margin="30,37,60,265"/>
+            <ListView Grid.Column="1" ItemsSource="{Binding Test}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="№" Width="Auto" DisplayMemberBinding="{Binding Id}"/>
+                        <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding LastName}"/>
+                        <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Отчество" DisplayMemberBinding="{Binding Patronymic}"/>
+                        <GridViewColumn Header="Телефон" DisplayMemberBinding="{Binding PhoneNumber}"/>
+                        <GridViewColumn Header="Серия и номер паспорта" DisplayMemberBinding="{Binding PassportNumber}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
     </DockPanel>
 </Window>
