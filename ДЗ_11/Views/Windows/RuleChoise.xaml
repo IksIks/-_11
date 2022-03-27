@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cmd="clr-namespace:ДЗ_11.Infrastructure.Commands"
         xmlns:local="clr-namespace:ДЗ_11"
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:view="clr-namespace:ДЗ_11.ViewModels"
         mc:Ignorable="d"
         Title="Выбор прав доступа" Height="250" Width="250">
@@ -12,12 +13,18 @@
         <view:RuleChoiseViewModel/>
     </Window.DataContext>
     <StackPanel Orientation="Vertical">
-        <Button Content="Консультант" Width="120" Height="25" Margin="0,50,0,0" Command="{Binding ChoiseRuleApplicationCommand}" CommandParameter="0">
+        <Button Width="134" Height="34" Margin="0,50,0,0" Command="{Binding ChoiseRuleApplicationCommand}" CommandParameter="0">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal" Width="Auto">
+                    <fa:ImageAwesome Icon="Regular_User" Height="15" Margin="0,0,5,0" Foreground="Aqua"/>
+                    <TextBlock Text="Консультант" />
+                </StackPanel>
+            </Button.Content>
             <!--<Button.Command>
                 <cmd:ChoiseCommand/>
             </Button.Command>-->
         </Button>
-        <Button Content="Менеджер" Width="120" Height="25"  Margin="0,50,0,0" CommandParameter="1">
+        <Button Content="Менеджер" Width="135" Height="34"  Margin="0,50,0,0" CommandParameter="1">
             <Button.Command>
                 <cmd:ChoiseCommand/>
             </Button.Command>

@@ -27,13 +27,14 @@
         </StatusBar>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="30*" MinWidth="160"/>
                 <ColumnDefinition Width="121*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Test" Height="90" Width="110" Margin="30,37,60,265"/>
+            <Button Grid.Column="0" Content="Добавить клиента" Width="150" Padding="1"
+                   VerticalAlignment="Top" Margin="10" Command="{Binding ShowListUsersCommand}"/>
             <!--<Button Grid.Column="0" Content="Клиенты" Height="90" Width="110" Margin="30,37,60,265" Command="{Binding ShowListUsersCommand}"
                     CommandParameter="{Binding Users.Count}" IsEnabled="{Binding BtnShowListUsersStatus}"/>-->
-            <DataGrid Grid.Column="1" AutoGenerateColumns="False" ItemsSource="{Binding Users}">
+            <DataGrid Grid.Column="1" AutoGenerateColumns="False" ItemsSource="{Binding Clients}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="№" Width="Auto" Binding="{Binding Id}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Фамилия" Width="Auto" Binding="{Binding LastName}"/>

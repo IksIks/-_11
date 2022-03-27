@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using ДЗ_11.Infrastructure.Commands;
 using ДЗ_11.ViewModels.Base;
-using ДЗ_11.ViewModels;
 
 namespace ДЗ_11.ViewModels
 {
