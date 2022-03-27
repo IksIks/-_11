@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:view="clr-namespace:ДЗ_11.ViewModels"
         xmlns:cmd="clr-namespace:ДЗ_11.Infrastructure.Commands"
-        Title="BankSystem" Height="500" Width="1000">
+        Title="BankSystem" Height="500" Width="Auto">
     <Window.DataContext>
         <view:MainWindowViewModel/>
     </Window.DataContext>
@@ -25,24 +25,24 @@
                 <TextBlock Text="Text"></TextBlock>
             </StatusBarItem>
         </StatusBar>
-        <Grid ShowGridLines="True">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30*"/>
                 <ColumnDefinition Width="121*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Клиенты" Height="90" Width="110" Margin="30,37,60,265" Command="{Binding ShowListUsersCommand}"/>
-            <ListView Grid.Column="1" ItemsSource="{Binding Users}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="№" Width="Auto" DisplayMemberBinding="{Binding Id}"/>
-                        <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding LastName}"/>
-                        <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="Отчество" DisplayMemberBinding="{Binding Patronymic}"/>
-                        <GridViewColumn Header="Телефон" DisplayMemberBinding="{Binding PhoneNumber}"/>
-                        <GridViewColumn Header="Серия и номер паспорта" DisplayMemberBinding="{Binding passportNumber}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <Button Grid.Column="0" Content="Test" Height="90" Width="110" Margin="30,37,60,265"/>
+            <!--<Button Grid.Column="0" Content="Клиенты" Height="90" Width="110" Margin="30,37,60,265" Command="{Binding ShowListUsersCommand}"
+                    CommandParameter="{Binding Users.Count}" IsEnabled="{Binding BtnShowListUsersStatus}"/>-->
+            <DataGrid Grid.Column="1" AutoGenerateColumns="False" ItemsSource="{Binding Users}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="№" Width="Auto" Binding="{Binding Id}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Фамилия" Width="Auto" Binding="{Binding LastName}"/>
+                    <DataGridTextColumn Header="Имя" Width="Auto" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Отчество" Width="Auto" Binding="{Binding Patronymic}"/>
+                    <DataGridTextColumn Header="Телефон" Width="Auto" Binding="{Binding PhoneNumber}"/>
+                    <DataGridTextColumn Header="Серия и номер паспорта" Width="Auto" Binding="{Binding PassportNumber}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
     </DockPanel>
 </Window>

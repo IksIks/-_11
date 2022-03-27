@@ -42,7 +42,7 @@ namespace ДЗ_11.Models
             set => Set(ref phoneNumber, value);
         }
 
-        public Passport passportNumber { get; set; }
+        public Passport PassportNumber { get; set; }
 
         public Client(string name, string lastName, string patronymic, uint phoneNumber, Passport passportNumber)
         {
@@ -51,7 +51,7 @@ namespace ДЗ_11.Models
             this.lastName = lastName;
             this.patronymic = patronymic;
             this.phoneNumber = phoneNumber;
-            this.passportNumber = passportNumber;
+            this.PassportNumber = passportNumber;
         }
     }
 
@@ -75,6 +75,10 @@ namespace ДЗ_11.Models
         {
             this.series = series;
             this.number = number;
+        }
+        public override string ToString()
+        {
+            return $"{Series} {Number}";
         }
     }
 }

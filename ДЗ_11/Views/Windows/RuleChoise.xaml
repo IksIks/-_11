@@ -12,11 +12,15 @@
         <view:RuleChoiseViewModel/>
     </Window.DataContext>
     <StackPanel Orientation="Vertical">
-        <Button Content="Консультант" Width="120" Height="25" Margin="0,50,0,0">
+        <Button Content="Консультант" Width="120" Height="25" Margin="0,50,0,0" Command="{Binding ChoiseRuleApplicationCommand}" CommandParameter="0">
+            <!--<Button.Command>
+                <cmd:ChoiseCommand/>
+            </Button.Command>-->
+        </Button>
+        <Button Content="Менеджер" Width="120" Height="25"  Margin="0,50,0,0" CommandParameter="1">
             <Button.Command>
                 <cmd:ChoiseCommand/>
             </Button.Command>
         </Button>
-        <Button Content="Менеджер" Width="120" Height="25"  Margin="0,50,0,0"/>
     </StackPanel>
 </Window>

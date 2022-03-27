@@ -2,11 +2,14 @@
 using System.Windows.Input;
 using ДЗ_11.Infrastructure.Commands;
 using ДЗ_11.ViewModels.Base;
+using ДЗ_11.ViewModels;
 
 namespace ДЗ_11.ViewModels
 {
     internal class RuleChoiseViewModel : ViewModel
     {
+        
+        #region Команда при выборе пользователя
         public ICommand ChoiseRuleApplicationCommand { get; }
         private void OnChoiseRuleApplicationCommandExecuted(object parametr)
         {
@@ -16,9 +19,11 @@ namespace ДЗ_11.ViewModels
             ruleChoise.Close();
         }
         private bool CanChoiseRuleApplicationCommandCanExecute(object parametr) => true;
+        #endregion
         public RuleChoiseViewModel()
         {
             ChoiseRuleApplicationCommand = new RelayCommand(OnChoiseRuleApplicationCommandExecuted, CanChoiseRuleApplicationCommandCanExecute);
+            
         }
     }
 }
