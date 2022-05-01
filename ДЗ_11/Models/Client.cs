@@ -1,4 +1,5 @@
 ﻿using System;
+using ДЗ_11.ViewModels;
 using ДЗ_11.ViewModels.Base;
 
 namespace ДЗ_11.Models
@@ -57,21 +58,36 @@ namespace ДЗ_11.Models
 
     internal class Passport: ViewModel
     {
-        private ushort series;
-        public ushort Series
+        private string series;
+        public string Series
         {
-            get => series;
+            get
+            {
+                if (!RuleChoiseViewModel.canSeeText)
+                {
+                    return new String('*', 4);
+                }
+                return series;
+            }
             set => Set(ref series, value);
         }
 
-        private uint number;
-        public uint Number
+        private string number;
+        public string Number
         {
-            get => number;
+            get
+            {
+                if (!RuleChoiseViewModel.canSeeText)
+                {
+                    return new String('*', 6);
+                }
+                return number;
+            }
             set => Set(ref number, value);
         }
 
-        public Passport(ushort series, uint number)
+
+        public Passport(string series, string number)
         {
             this.series = series;
             this.number = number;

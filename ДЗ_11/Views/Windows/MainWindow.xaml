@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ДЗ_11"
+        xmlns:pass ="clr-namespace:ДЗ_11.Models"
         mc:Ignorable="d"
         xmlns:view="clr-namespace:ДЗ_11.ViewModels"
         xmlns:cmd="clr-namespace:ДЗ_11.Infrastructure.Commands"
-        Title="BankSystem" Height="500" Width="Auto">
+        Title="BankSystem" Height="500" Width="900">
     <Window.DataContext>
         <view:MainWindowViewModel/>
     </Window.DataContext>
@@ -27,14 +28,14 @@
         </StatusBar>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30*" MinWidth="160"/>
-                <ColumnDefinition Width="121*"/>
+                <ColumnDefinition Width="40" MinWidth="160"/>
+                <ColumnDefinition Width="39*"/>
+                <ColumnDefinition Width="331*"/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Content="Добавить клиента" Width="150" Padding="1"
-                   VerticalAlignment="Top" Margin="10" Command="{Binding ShowListUsersCommand}"/>
-            <!--<Button Grid.Column="0" Content="Клиенты" Height="90" Width="110" Margin="30,37,60,265" Command="{Binding ShowListUsersCommand}"
-                    CommandParameter="{Binding Users.Count}" IsEnabled="{Binding BtnShowListUsersStatus}"/>-->
-            <DataGrid Grid.Column="1" AutoGenerateColumns="False" ItemsSource="{Binding Clients}">
+                   VerticalAlignment="Top" Margin="10,10,0,0" Command="{Binding ShowListUsersCommand}" Cursor="Hand"/>
+            <DataGrid Grid.Column="1" AutoGenerateColumns="False" ItemsSource="{Binding Clients}" GridLinesVisibility="Vertical"
+                      AlternatingRowBackground="LightGray" VerticalGridLinesBrush="DarkGray" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="№" Width="Auto" Binding="{Binding Id}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Фамилия" Width="Auto" Binding="{Binding LastName}"/>
@@ -42,6 +43,13 @@
                     <DataGridTextColumn Header="Отчество" Width="Auto" Binding="{Binding Patronymic}"/>
                     <DataGridTextColumn Header="Телефон" Width="Auto" Binding="{Binding PhoneNumber}"/>
                     <DataGridTextColumn Header="Серия и номер паспорта" Width="Auto" Binding="{Binding PassportNumber}"/>
+                    <!--<DataGridTemplateColumn Header="Серия и номер паспорта" Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="pass:Passport">
+                                <TextBlock Text="{Binding Series}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>-->
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

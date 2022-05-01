@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ДЗ_11.Models.AbstractModels;
 
 namespace ДЗ_11.Models
 {
-    internal class Consultant
+    internal class Consultant : BaseUser
     {
+        public override void AddClient()
+        {
+            
+        }
 
+        public override void DeleteClient()
+        {
+           
+        }
+
+        
     }
 }
