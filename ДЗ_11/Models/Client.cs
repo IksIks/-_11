@@ -11,9 +11,7 @@ namespace ДЗ_11.Models
         public Guid Id
         {
             get => id;
-            //set => Set(ref id, value);
         }
-
 
         private string name;
         public string Name
@@ -63,7 +61,7 @@ namespace ДЗ_11.Models
         {
             get
             {
-                if (!RuleChoiseViewModel.canSeeText)
+                if (!RuleChoiseViewModel.CanSeeText)
                 {
                     return new String('*', 4);
                 }
@@ -77,7 +75,7 @@ namespace ДЗ_11.Models
         {
             get
             {
-                if (!RuleChoiseViewModel.canSeeText)
+                if (!RuleChoiseViewModel.CanSeeText)
                 {
                     return new String('*', 6);
                 }

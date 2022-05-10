@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         xmlns:view="clr-namespace:ДЗ_11.ViewModels"
         xmlns:cmd="clr-namespace:ДЗ_11.Infrastructure.Commands"
-        Title="BankSystem" Height="500" Width="900">
+        Title="BankSystem" Height="500" Width="1020"
+        WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <view:MainWindowViewModel/>
     </Window.DataContext>
@@ -23,7 +24,7 @@
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
-                <TextBlock Text="Text"></TextBlock>
+                <TextBlock Text="{Binding IsReadOnly}" Width="50"/>
             </StatusBarItem>
         </StatusBar>
         <Grid>
@@ -33,16 +34,16 @@
                 <ColumnDefinition Width="331*"/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Content="Добавить клиента" Width="150" Padding="1"
-                   VerticalAlignment="Top" Margin="10,10,0,0" Command="{Binding ShowListUsersCommand}" Cursor="Hand"/>
+                   VerticalAlignment="Top" Margin="10,10,0,0" Command="{Binding AddNewUserCommand}" Cursor="Hand"/>
             <DataGrid Grid.Column="1" AutoGenerateColumns="False" ItemsSource="{Binding Clients}" GridLinesVisibility="Vertical"
                       AlternatingRowBackground="LightGray" VerticalGridLinesBrush="DarkGray" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="№" Width="Auto" Binding="{Binding Id}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Фамилия" Width="Auto" Binding="{Binding LastName}"/>
-                    <DataGridTextColumn Header="Имя" Width="Auto" Binding="{Binding Name}"/>
-                    <DataGridTextColumn Header="Отчество" Width="Auto" Binding="{Binding Patronymic}"/>
+                    <DataGridTextColumn Header="Фамилия" Width="Auto" Binding="{Binding LastName}" IsReadOnly="{Binding IsReadOnly}"/>
+                    <DataGridTextColumn Header="Имя" Width="Auto" Binding="{Binding Name}" IsReadOnly="{Binding IsReadOnly}"/>
+                    <DataGridTextColumn Header="Отчество" Width="Auto" Binding="{Binding Patronymic}" IsReadOnly="{Binding IsReadOnly}"/>
                     <DataGridTextColumn Header="Телефон" Width="Auto" Binding="{Binding PhoneNumber}"/>
-                    <DataGridTextColumn Header="Серия и номер паспорта" Width="Auto" Binding="{Binding PassportNumber}"/>
+                    <DataGridTextColumn Header="Серия и номер паспорта" Width="Auto" Binding="{Binding PassportNumber}" IsReadOnly="{Binding IsReadOnly}"/>
                     <!--<DataGridTemplateColumn Header="Серия и номер паспорта" Width="Auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="pass:Passport">

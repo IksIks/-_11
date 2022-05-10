@@ -9,43 +9,45 @@ namespace ДЗ_11.ViewModels
 {
     internal class RuleChoiseViewModel : ViewModel
     {
-        public static bool canSeeText = false;
+        public static bool CanSeeText;
         private void OpenWindow()
         {
             MainWindow window = new MainWindow();
             window.Show();
+            //double height = SystemParameters.FullPrimaryScreenHeight;
+            //double width = SystemParameters.FullPrimaryScreenWidth;
+            //window.Top = (height - window.Height) / 2;
+            //window.Left = (width - window.Width) / 2;
             var ruleChoise = Application.Current.Windows[0];
             ruleChoise.Close();
         }
-        public void CreateClients()
-        {
-            Random r = new Random();
-            for (int i = 0; i < 5; i++)
-            {
-                Client temp = new Client("name" + i,
-                                        "LastName" + i,
-                                        "Patronymic" + i,
-                                        (uint)(i * Math.Pow(10, 8)),
-                                        new Passport((i * Math.Pow(10, 32)).ToString(),
-                                        (i * Math.Pow(10, 3)).ToString()));
-                MainWindowViewModel.Clients.Add(temp);
-            }
-        }
 
-        #region Команда при выборе пользователя
+        #region Команда выбора прав доступа для консультанта
         public ICommand ConsultantRuleApplicationCommand { get; }
         private void OnConsultantRuleApplicationCommandExecuted(object parametr)
         {
-            CreateClients();
+            CanSeeText = false;
             OpenWindow();
         }
-
-
         private bool CanConsultantRuleApplicationCommandCanExecute(object parametr) => true;
+
         #endregion
+
+        #region Команда выбора прав доступа для менеджера
+        public ICommand ManagerRuleApplicationCommand { get; }
+        private void OnManagerRuleApplicationCommandExecuted(object parametr)
+        {
+            CanSeeText = true;
+            OpenWindow();
+        }
+        private bool CanManagerRuleApplicationCommandCanExecute(object parametr) => true;
+
+        #endregion
+
         public RuleChoiseViewModel()
         {
             ConsultantRuleApplicationCommand = new RelayCommand(OnConsultantRuleApplicationCommandExecuted, CanConsultantRuleApplicationCommandCanExecute);
+            ManagerRuleApplicationCommand = new RelayCommand(OnManagerRuleApplicationCommandExecuted, CanManagerRuleApplicationCommandCanExecute);
             
         }
     }
