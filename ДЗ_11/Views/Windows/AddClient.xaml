@@ -6,29 +6,30 @@
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:local="clr-namespace:ДЗ_11.Views.Windows"
         mc:Ignorable="d"
-        Title="Добавление нового клиента" Height="400" Width="250"
+        Title="Новый клиент" Height="400" Width="250"
         xmlns:view="clr-namespace:ДЗ_11.ViewModels"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Background="White">
     <Window.DataContext>
         <view:AddClientViewModel/>
     </Window.DataContext>
     <StackPanel Orientation="Vertical" Margin="15">
         <Label Content="Фамилия"/>
-        <TextBox Text=""/>
+        <TextBox Text="{Binding NewClient.LastName}"/>
         <Label Content="Имя"/>
-        <TextBox Text=""/>
+        <TextBox Text="{Binding NewClient.Name}"/>
         <Label Content="Отчество"/>
-        <TextBox Text=""/>
+        <TextBox Text="{Binding NewClient.Patronymic}"/>
         <Label Content="Телефон"/>
-        <TextBox Text=""/>
+        <TextBox Text="{Binding NewClient.PhoneNumber}"/>
         <Label Content="Серия и номер паспорта"/>
-        <TextBox Text=""/>
-        <Grid>
+        <TextBox Text="{Binding NewClient.PassportNumber}"/>
+        <Grid Margin="0,10,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="53*"/>
                 <ColumnDefinition Width="57*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin="2" Padding="1">
+            <Button Grid.Column="0" Margin="2" Padding="1" Command="{Binding CreateNewClientCommand}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Regular_Save" Height="15" Margin="0,0,4,0"/>

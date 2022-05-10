@@ -9,15 +9,11 @@ namespace ДЗ_11.ViewModels
 {
     internal class RuleChoiseViewModel : ViewModel
     {
-        public static bool CanSeeText;
+        public static bool CanSeeOrChangeText;
         private void OpenWindow()
         {
             MainWindow window = new MainWindow();
             window.Show();
-            //double height = SystemParameters.FullPrimaryScreenHeight;
-            //double width = SystemParameters.FullPrimaryScreenWidth;
-            //window.Top = (height - window.Height) / 2;
-            //window.Left = (width - window.Width) / 2;
             var ruleChoise = Application.Current.Windows[0];
             ruleChoise.Close();
         }
@@ -26,7 +22,7 @@ namespace ДЗ_11.ViewModels
         public ICommand ConsultantRuleApplicationCommand { get; }
         private void OnConsultantRuleApplicationCommandExecuted(object parametr)
         {
-            CanSeeText = false;
+            CanSeeOrChangeText = false;
             OpenWindow();
         }
         private bool CanConsultantRuleApplicationCommandCanExecute(object parametr) => true;
@@ -37,7 +33,7 @@ namespace ДЗ_11.ViewModels
         public ICommand ManagerRuleApplicationCommand { get; }
         private void OnManagerRuleApplicationCommandExecuted(object parametr)
         {
-            CanSeeText = true;
+            CanSeeOrChangeText = true;
             OpenWindow();
         }
         private bool CanManagerRuleApplicationCommandCanExecute(object parametr) => true;

@@ -17,82 +17,134 @@ namespace ДЗ_11.Models
         public string Name
         {
             get => name;
-            set => Set(ref name, value);
+            set
+            {
+                if(RuleChoiseViewModel.CanSeeOrChangeText)
+                    Set(ref name, value);
+                else
+                    Set(ref name, name);
+            }
         }
 
         private string lastName;
         public string LastName
         {
             get => lastName;
-            set => Set(ref lastName, value);
+            set
+            {
+                if (RuleChoiseViewModel.CanSeeOrChangeText)
+                    Set(ref lastName, value);
+                else
+                    Set(ref lastName, lastName);
+            }
         }
 
         private string patronymic;
         public string Patronymic
         {
             get => patronymic;
-            set => Set(ref patronymic, value);
+            set
+            {
+                if (RuleChoiseViewModel.CanSeeOrChangeText)
+                    Set(ref patronymic, value);
+                else
+                    Set(ref patronymic, patronymic);
+            }
         }
 
-        private uint phoneNumber;
-        public uint PhoneNumber
+        private string phoneNumber;
+        public string PhoneNumber
         {
             get => phoneNumber;
             set => Set(ref phoneNumber, value);
         }
 
-        public Passport PassportNumber { get; set; }
+        private string passport;
+        public string Passport
+        {
+            get
+            {
+                if (!RuleChoiseViewModel.CanSeeOrChangeText)
+                {
+                    return new String('*', 10);
+                }
+                return passport;
+            }
+            set
+            {
+                if (RuleChoiseViewModel.CanSeeOrChangeText)
+                    Set(ref passport, value);
+                else
+                    Set(ref passport, passport);
+            }
+        }
 
-        public Client(string name, string lastName, string patronymic, uint phoneNumber, Passport passportNumber)
+        public Client()
+        {
+            id = Guid.NewGuid();
+        }
+        public Client(string name, string lastName, string patronymic, string phoneNumber, string passportNumber)
         {
             this.id = Guid.NewGuid();
             this.name = name;
             this.lastName = lastName;
             this.patronymic = patronymic;
             this.phoneNumber = phoneNumber;
-            this.PassportNumber = passportNumber;
+            this.passport = passportNumber;
         }
     }
 
-    internal class Passport: ViewModel
-    {
-        private string series;
-        public string Series
-        {
-            get
-            {
-                if (!RuleChoiseViewModel.CanSeeText)
-                {
-                    return new String('*', 4);
-                }
-                return series;
-            }
-            set => Set(ref series, value);
-        }
+    //internal class Passport: ViewModel
+    //{
+    //    private string series;
+    //    public string Series
+    //    {
+    //        get
+    //        {
+    //            if (!RuleChoiseViewModel.CanSeeOrChangeText)
+    //            {
+    //                return new String('*', 4);
+    //            }
+    //            return series;
+    //        }
+    //        set
+    //        {
+    //            if (RuleChoiseViewModel.CanSeeOrChangeText)
+    //                Set(ref series, value);
+    //            else
+    //                Set(ref series, series);
+    //        }
+    //    }
 
-        private string number;
-        public string Number
-        {
-            get
-            {
-                if (!RuleChoiseViewModel.CanSeeText)
-                {
-                    return new String('*', 6);
-                }
-                return number;
-            }
-            set => Set(ref number, value);
-        }
+    //    private string number;
+    //    public string Number
+    //    {
+    //        get
+    //        {
+    //            if (!RuleChoiseViewModel.CanSeeOrChangeText)
+    //            {
+    //                return new String('*', 6);
+    //            }
+    //            return number;
+    //        }
+    //        set
+    //        {
+    //            if (RuleChoiseViewModel.CanSeeOrChangeText)
+    //                Set(ref number, value);
+    //            else
+    //                Set(ref number, number);
+    //        }
+    //    }
 
-
-        public Passport(string series, string number)
-        {
-            this.series = series;
-            this.number = number;
-        }
-        public override string ToString()
-        {
-            return $"{Series} {Number}";
-        }
-    }
+        //public Passport() { }
+        //public Passport(string series, string number)
+        //{
+        //    this.series = series;
+        //    this.number = number;
+        //}
+        //public override string ToString()
+        //{
+        //    return $"{Series} {Number}";
+        //}
+    //}
 }
