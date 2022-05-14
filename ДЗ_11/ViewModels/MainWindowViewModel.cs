@@ -14,10 +14,7 @@ namespace ДЗ_11.ViewModels
     {
         //private bool StatusBtnShowListUsers = true;
 
-        //private bool isReadOnly;
-        public bool IsReadOnly { get; }
-
-
+       
         #region Команда открытия окна для добавления клиента
         /// <summary>Команда вывода всех клиентов</summary>
         public ICommand AddNewUserCommand { get; }
@@ -66,7 +63,7 @@ namespace ДЗ_11.ViewModels
             ChangeRuleCommand = new RelayCommand(OnChangeRuleCommandExecuted, CanChangeRuleCommandExecute);
             AddNewUserCommand = new RelayCommand(OnAddNewUserCommandExecuted, CanAddNewUserCommandExecute);
             CreateClients();
-            IsReadOnly = !RuleChoiseViewModel.CanSeeOrChangeText;
+            
         }
 
     }

@@ -9,7 +9,7 @@ namespace ДЗ_11.ViewModels
 {
     internal class AddClientViewModel : ViewModel
     {
-        public Client NewClient { get; set; } = new Client();
+        public Client NewClient { get; set; }
 
         //public Client NewClient
         //{
@@ -21,7 +21,7 @@ namespace ДЗ_11.ViewModels
         private void OnCreateNewClientCommandExecuted(object parameter)
         {
             HelpClass.Clients.Add(NewClient);
-            Application.Current.Windows[1].Close();
+            Application.Current.Windows[2].Close();
         }
         private bool CanCreateNewClientCommandExecute(object parameter) => true;
 
@@ -31,7 +31,7 @@ namespace ДЗ_11.ViewModels
         public AddClientViewModel()
         {
             CreateNewClientCommand = new RelayCommand(OnCreateNewClientCommandExecuted, CanCreateNewClientCommandExecute);
-            
+            NewClient = new Client();
         }
     }
 }
