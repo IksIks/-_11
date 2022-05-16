@@ -23,7 +23,7 @@
         <Label Content="Телефон"/>
         <TextBox Text="{Binding NewClient.PhoneNumber}"/>
         <Label Content="Серия и номер паспорта"/>
-        <TextBox Text="{Binding NewClient.PassportNumber}"/>
+        <TextBox Text="{Binding NewClient.Passport}"/>
         <Grid Margin="0,10,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="53*"/>

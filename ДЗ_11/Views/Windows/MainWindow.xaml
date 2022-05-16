@@ -33,9 +33,15 @@
                 <ColumnDefinition Width="39*"/>
                 <ColumnDefinition Width="331*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Добавить клиента" Width="150" Padding="0,0,6,0"
+            <StackPanel Grid.Column="0" Orientation="Vertical">
+                <Button Content="Добавить клиента" Width="150" Padding="0,0,6,0"
                    VerticalAlignment="Top" Margin="10,10,10,0" Command="{Binding AddNewUserCommand}" Cursor="Hand"/>
-            <DataGrid Grid.Column="1" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Clients}" GridLinesVisibility="Vertical"
+                <Button Content="Удалить клиента" Width="150" Padding="0,0,6,0"
+                   VerticalAlignment="Top" Margin="10,10,10,0" Command="{Binding DeleteClientCommand}"
+                        CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}" Cursor="Hand"/>
+            </StackPanel>
+            <DataGrid Name="DataGrid" Grid.Column="1" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Clients}"
+                      GridLinesVisibility="Vertical" CanUserDeleteRows="False"
                       AlternatingRowBackground="LightGray" VerticalGridLinesBrush="DarkGray" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id клиента" Width="Auto" Binding="{Binding Id}" IsReadOnly="True"/>
@@ -45,7 +51,9 @@
                     <DataGridTextColumn Header="Телефон" Width="Auto" Binding="{Binding PhoneNumber}"/>
                     <DataGridTextColumn Header="Серия и номер паспорта" Width="Auto" Binding="{Binding Passport}"/>
                 </DataGrid.Columns>
+                
             </DataGrid>
+            
         </Grid>
     </DockPanel>
 </Window>

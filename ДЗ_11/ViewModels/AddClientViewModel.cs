@@ -9,13 +9,13 @@ namespace ДЗ_11.ViewModels
 {
     internal class AddClientViewModel : ViewModel
     {
-        public Client NewClient { get; set; }
+        private Client newClient;
 
-        //public Client NewClient
-        //{
-        //    get { return newClient; }
-        //    set { Set(ref newClient, value); }
-        //}
+        public Client NewClient
+        {
+            get { return newClient; }
+            set { Set(ref newClient, value); }
+        }
 
         public ICommand CreateNewClientCommand { get; }
         private void OnCreateNewClientCommandExecuted(object parameter)

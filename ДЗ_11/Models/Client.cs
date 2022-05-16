@@ -83,6 +83,11 @@ namespace ДЗ_11.Models
         {
             id = Guid.NewGuid();
         }
+        public Client(Guid id)
+        {
+            this.id = id;
+        }
+
         public Client(string name, string lastName, string patronymic, string phoneNumber, string passportNumber)
         {
             this.id = Guid.NewGuid();
