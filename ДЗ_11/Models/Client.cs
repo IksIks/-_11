@@ -119,6 +119,16 @@ namespace ДЗ_11.Models
             this.passport = passportNumber;
             DateClientChange = DateTime.Now;
         }
+        public Client(Guid id, string name, string lastName, string patronymic, string phoneNumber, string passportNumber, DateTime dateClientChange)
+              : this (name, lastName, patronymic,phoneNumber,passportNumber)
+        {
+            this.id = id;
+            this.DateClientChange = dateClientChange;
+        }
+        public override string ToString()
+        {
+            return $"{Id} {LastName} {Name} {Patronymic} {PhoneNumber} {Passport} {DateClientChange}";
+        }
     }
     
 }

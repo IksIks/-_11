@@ -10,11 +10,22 @@ using ДЗ_11.Data;
 using System.Linq;
 using System.ComponentModel;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ДЗ_11.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
+        private string fileName = "bankClients.txt";
+        #region Свойство для отображения изменений в окне
+        private string clientChanges;
+        public string ClientChanges
+        {
+            get => clientChanges;
+            set => Set(ref clientChanges, value);
+        } 
+        #endregion
+
         #region Команда открытия окна для добавления клиента
         /// <summary>Команда вывода всех клиентов</summary>
         public ICommand AddNewUserCommand { get; }
@@ -46,20 +57,72 @@ namespace ДЗ_11.ViewModels
         #region Команда удаление клиента
         /// <summary>Команда удаление клиента</summary>
         public ICommand DeleteClientCommand { get; }
-        private void OnDeleteClientCommandExecuted(object parametr)
+        private void OnDeleteClientCommandExecuted(object parameter)
         {
-            Clients.Remove(parametr as Client);
+            Clients.Remove(parameter as Client);
         }
-        private bool CanDeleteClientCommandExecute(object parametr) => parametr is Client && RuleChoiseViewModel.CanSeeOrChangeText ? true: false;
+        private bool CanDeleteClientCommandExecute(object parameter) => parameter is Client && RuleChoiseViewModel.CanSeeOrChangeText ? true: false;
 
         #endregion
 
-        private string clientChanges;
-        public string ClientChanges
+        #region Команда сохранения клиентов и логов
+        /// <summary>
+        /// Команда сохранения клиентов и логов
+        /// </summary>
+        public ICommand SaveCommand { get; }
+        private void OnSaveCommandExecuted(object parametr)
         {
-            get => clientChanges;
-            set => Set(ref clientChanges, value);
+            string fileLog = "bankLog.txt";
+            
+            if (!File.Exists(fileName))
+                File.Create(fileName);
+            using (StreamWriter write = new StreamWriter(fileName))
+            {
+                foreach (var item in Clients)
+                {
+                    write.WriteLine(item.ToString());
+                }
+            }
+            using (StreamWriter write = File.AppendText(fileLog))
+            {
+                foreach (var item in ChangedPropertys)
+                {
+                    write.WriteLine(item);
+                }
+            }
+
         }
+        private bool CanSaveCommandExecute(object parametr)
+        {
+            if (Clients.Count > 0) return true;
+            return false;
+        }
+        #endregion
+
+        #region Команда загрузки клиентов из файла
+        /// <summary>
+        /// Команда загрузки клиентов из файла
+        /// </summary>
+        public ICommand RestoreBankClientsCommand { get; }
+        private void OnRestoreBankClientsCommandExecuted(object parameter)
+        {
+            using (StreamReader read = new StreamReader(fileName))
+            {
+                string line;
+                while (!read.EndOfStream)
+                {
+                    line = read.ReadLine();
+                    var splitLine = line.Split(' ');
+
+                    Client client = new Client(Guid.Parse(splitLine[0]), splitLine[1], splitLine[2], splitLine[3], splitLine[4], splitLine[5], DateTime.Parse(splitLine[6]));
+
+                    Clients.Add(client);
+                }
+            }
+        }
+
+        private bool CanRestoreBankClientsCommandExecute(object parameter) => (Clients.Count > 0) ? false : true; 
+        #endregion
 
         /// <summary>
         /// основная коллекция клиентов
@@ -74,14 +137,13 @@ namespace ДЗ_11.ViewModels
         /// <summary>
         /// коллекция для хранения изменений
         /// </summary>
-        private List<string> changedPropertys = new List<string>();
+        //private List<string> changedPropertys = new List<string>();
 
-        public List<string> ChangedPropertys
-        {
-            get => changedPropertys;
-            set => Set(ref changedPropertys, value);
-        }
-
+        public List<string> ChangedPropertys { get; set; } = new List<string>();
+        //{
+        //    get => changedPropertys;
+        //    set => Set(ref changedPropertys, value);
+        //}
 
         /// <summary>
         /// Автоматические клиенты для тестирования
@@ -90,15 +152,22 @@ namespace ДЗ_11.ViewModels
         {
             for (int i = 1; i < 6; i++)
             {
-                Client temp = new Client("name" + i,
-                                        "LastName" + i,
+                Client temp = new Client("LastName" + i,
+                                        "name" + i,
                                         "Patronymic" + i,
                                         (i * Math.Pow(10, 8)).ToString(),
                                         (i * 1111111111).ToString());
+                                        
                Clients.Add(temp);
             }
         }
-        private void UpdateChanges(object sender, PropertyChangedEventArgs e)
+
+        /// <summary>
+        /// Метод для отслеживания изменений в свойствах елементов коллекции Clients
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WriteChanges(object sender, PropertyChangedEventArgs e)
         {
             string rule = RuleChoiseViewModel.CanSeeOrChangeText ? "Менеджер" : "Консультант";
             if (sender is Client tempClient)
@@ -108,25 +177,33 @@ namespace ДЗ_11.ViewModels
             }
             ChangedPropertys.Add(ClientChanges);
         }
+
+        /// <summary>
+        /// Событие для отслеживания изменений в коллекции Clients
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Clients_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (e.OldItems != null)
                 foreach (INotifyPropertyChanged item in e.OldItems)
-                    item.PropertyChanged -= UpdateChanges;
+                    item.PropertyChanged -= WriteChanges;
             if (e.NewItems != null)
                 foreach (INotifyPropertyChanged item in e.NewItems)
-                    item.PropertyChanged += UpdateChanges;
+                    item.PropertyChanged += WriteChanges;
             switch(e.Action)
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     {
                         ClientChanges = $"Менеджер добавил клиента {((e.NewItems[0] as Client).Id).ToString()}";
+                        ChangedPropertys.Add(ClientChanges);
                         break;
                     }
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
                     {
                         ClientChanges = $"Менеджер удалил клиента {(e.OldItems[0] as Client).Id.ToString()}";
+                        ChangedPropertys.Add(ClientChanges);
                         break;
                     }
             }
@@ -138,8 +215,10 @@ namespace ДЗ_11.ViewModels
             ChangeRuleCommand = new RelayCommand(OnChangeRuleCommandExecuted, CanChangeRuleCommandExecute);
             AddNewUserCommand = new RelayCommand(OnAddNewUserCommandExecuted, CanAddNewUserCommandExecute);
             DeleteClientCommand = new RelayCommand(OnDeleteClientCommandExecuted, CanDeleteClientCommandExecute);
+            SaveCommand = new RelayCommand(OnSaveCommandExecuted, CanSaveCommandExecute);
+            RestoreBankClientsCommand = new RelayCommand(OnRestoreBankClientsCommandExecuted, CanRestoreBankClientsCommandExecute);
             Clients.CollectionChanged += Clients_CollectionChanged;
-            CreateClients();
+            //CreateClients();
             
         }
 

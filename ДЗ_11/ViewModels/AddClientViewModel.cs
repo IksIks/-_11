@@ -24,11 +24,16 @@ namespace ДЗ_11.ViewModels
             HelpClass.Clients.Add(NewClient);
             Application.Current.Windows[2].Close();
         }
-        private bool CanCreateNewClientCommandExecute(object parameter) => true;
+        private bool CanCreateNewClientCommandExecute(object parameter)
+        {
+            if (newClient.Name != null && NewClient.LastName != null && NewClient.Patronymic != null && NewClient.Passport != null && NewClient.PhoneNumber != null)
+                return true;
+            return false;
+        }
         #endregion
 
         #region Команда отмены создания нового клиента
-        /// <summary>Команда добавления нового клиента</summary>
+        /// <summary>Команда отмены создания нового клиента</summary>
         public ICommand StopCreateNewClientCommand { get; }
         private void OnStopCreateNewClientCommandExecuted(object parameter)
         {

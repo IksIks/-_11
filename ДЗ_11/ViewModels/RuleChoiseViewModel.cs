@@ -9,7 +9,10 @@ namespace ДЗ_11.ViewModels
 {
     internal class RuleChoiseViewModel : ViewModel
     {
-        public static bool CanSeeOrChangeText;
+        /// <summary>
+        /// Определяет права доступа для работы в приложении
+        /// </summary>
+        public static bool CanSeeOrChangeText { get; set; }
         private void OpenWindow()
         {
             MainWindow window = new MainWindow();
@@ -19,6 +22,7 @@ namespace ДЗ_11.ViewModels
         }
 
         #region Команда выбора прав доступа для консультанта
+
         public ICommand ConsultantRuleApplicationCommand { get; }
         private void OnConsultantRuleApplicationCommandExecuted(object parametr)
         {

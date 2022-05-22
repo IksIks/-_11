@@ -16,8 +16,8 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Меню" Height="20" Width="auto">
-                <MenuItem Header="Сохранить" FontSize="14"/>
-                <MenuItem Header="Загрузить" FontSize="14"/>
+                <MenuItem Header="Сохранить базу" FontSize="14" Command="{Binding SaveCommand}"/>
+                <MenuItem Header="Загрузить базу" FontSize="14" Command="{Binding RestoreBankClientsCommand}"/>
                 <MenuItem Header="Смена пользователя" FontSize="14" Command="{Binding ChangeRuleCommand}"/>
                 <MenuItem Header="Выход" FontSize="14"/>
             </MenuItem>
