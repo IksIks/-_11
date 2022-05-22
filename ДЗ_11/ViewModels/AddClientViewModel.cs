@@ -10,23 +10,22 @@ namespace ДЗ_11.ViewModels
     internal class AddClientViewModel : ViewModel
     {
         private Client newClient;
-
         public Client NewClient
         {
             get { return newClient; }
             set { Set(ref newClient, value); }
         }
 
+        #region Команда добавления нового клиента
+        /// <summary>Команда добавления нового клиента</summary>
         public ICommand CreateNewClientCommand { get; }
         private void OnCreateNewClientCommandExecuted(object parameter)
         {
             HelpClass.Clients.Add(NewClient);
             Application.Current.Windows[2].Close();
         }
-        private bool CanCreateNewClientCommandExecute(object parameter) => true;
-
-
-
+        private bool CanCreateNewClientCommandExecute(object parameter) => true; 
+        #endregion
 
         public AddClientViewModel()
         {

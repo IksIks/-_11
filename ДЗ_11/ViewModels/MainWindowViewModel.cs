@@ -8,6 +8,8 @@ using ДЗ_11.Views.Windows;
 using System.Windows;
 using ДЗ_11.Data;
 using System.Linq;
+using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace ДЗ_11.ViewModels
 {
@@ -49,15 +51,37 @@ namespace ДЗ_11.ViewModels
             Clients.Remove(parametr as Client);
         }
         private bool CanDeleteClientCommandExecute(object parametr) => parametr is Client && RuleChoiseViewModel.CanSeeOrChangeText ? true: false;
-        
+
         #endregion
 
+        private string clientChanges;
+        public string ClientChanges
+        {
+            get => clientChanges;
+            set => Set(ref clientChanges, value);
+        }
+
+        /// <summary>
+        /// основная коллекция клиентов
+        /// </summary>
         private ObservableCollection<Client> clients = HelpClass.Clients;
         public ObservableCollection<Client> Clients
         {
             get => clients;
             set => Set(ref clients, value);
         }
+
+        /// <summary>
+        /// коллекция для хранения изменений
+        /// </summary>
+        private List<string> changedPropertys = new List<string>();
+
+        public List<string> ChangedPropertys
+        {
+            get => changedPropertys;
+            set => Set(ref changedPropertys, value);
+        }
+
 
         /// <summary>
         /// Автоматические клиенты для тестирования
@@ -74,15 +98,51 @@ namespace ДЗ_11.ViewModels
                Clients.Add(temp);
             }
         }
+        private void UpdateChanges(object sender, PropertyChangedEventArgs e)
+        {
+            string rule = RuleChoiseViewModel.CanSeeOrChangeText ? "Менеджер" : "Консультант";
+            if (sender is Client tempClient)
+            {
+                ClientChanges = $"{rule} изменил в {tempClient.Id} поле {tempClient.ClientPropertyTranslater[e.PropertyName]}, " +
+                                $"время {tempClient.DateClientChange = DateTime.Now}";
+            }
+            ChangedPropertys.Add(ClientChanges);
+        }
+        private void Clients_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.OldItems != null)
+                foreach (INotifyPropertyChanged item in e.OldItems)
+                    item.PropertyChanged -= UpdateChanges;
+            if (e.NewItems != null)
+                foreach (INotifyPropertyChanged item in e.NewItems)
+                    item.PropertyChanged += UpdateChanges;
+            switch(e.Action)
+            {
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    {
+                        ClientChanges = $"Менеджер добавил клиента {((e.NewItems[0] as Client).Id).ToString()}";
+                        break;
+                    }
 
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    {
+                        ClientChanges = $"Менеджер удалил клиента {(e.OldItems[0] as Client).Id.ToString()}";
+                        break;
+                    }
+            }
+        }
+
+       
         public MainWindowViewModel()
         {
             ChangeRuleCommand = new RelayCommand(OnChangeRuleCommandExecuted, CanChangeRuleCommandExecute);
             AddNewUserCommand = new RelayCommand(OnAddNewUserCommandExecuted, CanAddNewUserCommandExecute);
             DeleteClientCommand = new RelayCommand(OnDeleteClientCommandExecuted, CanDeleteClientCommandExecute);
-            //CreateClients();
+            Clients.CollectionChanged += Clients_CollectionChanged;
+            CreateClients();
             
         }
 
+       
     }
 }
