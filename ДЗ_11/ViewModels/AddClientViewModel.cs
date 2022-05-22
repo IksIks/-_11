@@ -24,12 +24,23 @@ namespace ДЗ_11.ViewModels
             HelpClass.Clients.Add(NewClient);
             Application.Current.Windows[2].Close();
         }
-        private bool CanCreateNewClientCommandExecute(object parameter) => true; 
+        private bool CanCreateNewClientCommandExecute(object parameter) => true;
+        #endregion
+
+        #region Команда отмены создания нового клиента
+        /// <summary>Команда добавления нового клиента</summary>
+        public ICommand StopCreateNewClientCommand { get; }
+        private void OnStopCreateNewClientCommandExecuted(object parameter)
+        {
+            Application.Current.Windows[2].Close();
+        }
+        private bool CanStopCreateNewClientCommandExecute(object parameter) => true;
         #endregion
 
         public AddClientViewModel()
         {
             CreateNewClientCommand = new RelayCommand(OnCreateNewClientCommandExecuted, CanCreateNewClientCommandExecute);
+            StopCreateNewClientCommand = new RelayCommand(OnStopCreateNewClientCommandExecuted, CanStopCreateNewClientCommandExecute);
             NewClient = new Client();
         }
     }

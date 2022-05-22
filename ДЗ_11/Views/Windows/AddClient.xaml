@@ -37,7 +37,7 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="1" Margin="2" Padding="1" Background="Red">
+            <Button Grid.Column="1" Margin="2" Padding="1" Background="Red" Command="{Binding StopCreateNewClientCommand}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Regular_WindowClose" Height="15" Margin="0,0,4,0"/>
