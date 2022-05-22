@@ -109,18 +109,18 @@ namespace ДЗ_11.Models
             DateClientChange = DateTime.Now;
         }
 
-        public Client(string name, string lastName, string patronymic, string phoneNumber, string passportNumber)
+        public Client(string lastName, string name, string patronymic, string phoneNumber, string passportNumber)
         {
             this.id = Guid.NewGuid();
-            this.name = name;
             this.lastName = lastName;
+            this.name = name;
             this.patronymic = patronymic;
             this.phoneNumber = phoneNumber;
             this.passport = passportNumber;
             DateClientChange = DateTime.Now;
         }
-        public Client(Guid id, string name, string lastName, string patronymic, string phoneNumber, string passportNumber, DateTime dateClientChange)
-              : this (name, lastName, patronymic,phoneNumber,passportNumber)
+        public Client(Guid id, string lastName, string name,  string patronymic, string phoneNumber, string passportNumber, DateTime dateClientChange)
+              : this (lastName, name, patronymic,phoneNumber,passportNumber)
         {
             this.id = id;
             this.DateClientChange = dateClientChange;
