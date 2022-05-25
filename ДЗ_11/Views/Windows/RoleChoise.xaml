@@ -1,21 +1,19 @@
-﻿<Window x:Class="ДЗ_11.Views.Windows.RuleChoise"
+﻿<Window x:Class="ДЗ_11.Views.Windows.RoleChoise"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:cmd="clr-namespace:ДЗ_11.Infrastructure.Commands"
-        xmlns:local="clr-namespace:ДЗ_11"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:view="clr-namespace:ДЗ_11.ViewModels"
         mc:Ignorable="d"
         Title="Выбор прав доступа" Height="250" Width="250"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
-        <view:RuleChoiseViewModel/>
+        <view:RoleChoiseViewModel/>
     </Window.DataContext>
     
     <StackPanel Orientation="Vertical">
-        <Button Width="134" Height="34" Margin="0,50,0,0" Command="{Binding ConsultantRuleApplicationCommand}">
+        <Button Width="134" Height="34" Margin="0,50,0,0" Command="{Binding ConsultantRoleApplicationCommand}">
             <Button.Content>
                 <StackPanel Orientation="Horizontal" Width="Auto">
                     <fa:ImageAwesome Icon="Regular_User" Height="15" Margin="0,0,5,0" Foreground="Aqua"/>
@@ -23,7 +21,7 @@
                 </StackPanel>
             </Button.Content>
         </Button>
-        <Button Width="135" Height="34"  Margin="0,50,0,0" Command="{Binding ManagerRuleApplicationCommand}">
+        <Button Width="135" Height="34"  Margin="0,50,0,0" Command="{Binding ManagerRoleApplicationCommand}">
             <Button.Content>
                 <StackPanel Orientation="Horizontal" Width="Auto">
                     <fa:ImageAwesome Icon="Regular_User" Height="15" Margin="0,0,5,0" Foreground="Aqua"/>

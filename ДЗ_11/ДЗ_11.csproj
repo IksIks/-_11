@@ -78,12 +78,12 @@
     <Compile Include="Infrastructure\Commands\RelayCommand.cs" />
     <Compile Include="Models\AbstractModels\BaseUser.cs" />
     <Compile Include="ViewModels\AddClientViewModel.cs" />
-    <Compile Include="ViewModels\RuleChoiseViewModel.cs" />
+    <Compile Include="ViewModels\RoleChoiseViewModel.cs" />
     <Compile Include="Views\Windows\AddClient.xaml.cs">
       <DependentUpon>AddClient.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Windows\RuleChoise.xaml.cs">
-      <DependentUpon>RuleChoise.xaml</DependentUpon>
+    <Compile Include="Views\Windows\RoleChoise.xaml.cs">
+      <DependentUpon>RoleChoise.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\Windows\AddClient.xaml">
       <SubType>Designer</SubType>
@@ -106,7 +106,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Windows\RuleChoise.xaml">
+    <Page Include="Views\Windows\RoleChoise.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

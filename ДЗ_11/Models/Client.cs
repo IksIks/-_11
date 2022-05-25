@@ -14,9 +14,9 @@ namespace ДЗ_11.Models
         private string patronymic;
         private string phoneNumber;
         private string passport;
-        //private DateTime dateClientChange;
 
         #endregion
+
         #region Свойства
         public Guid Id
         {
@@ -28,7 +28,7 @@ namespace ДЗ_11.Models
             get => name;
             set
             {
-                if (RuleChoiseViewModel.CanSeeOrChangeText)
+                if (RoleChoiseViewModel.ManadgerRole)
                     Set(ref name, value);
                 else
                     Set(ref name, name);
@@ -40,7 +40,7 @@ namespace ДЗ_11.Models
             get => lastName;
             set
             {
-                if (RuleChoiseViewModel.CanSeeOrChangeText)
+                if (RoleChoiseViewModel.ManadgerRole)
                     Set(ref lastName, value);
                 else
                     Set(ref lastName, lastName);
@@ -52,7 +52,7 @@ namespace ДЗ_11.Models
             get => patronymic;
             set
             {
-                if (RuleChoiseViewModel.CanSeeOrChangeText)
+                if (RoleChoiseViewModel.ManadgerRole)
                     Set(ref patronymic, value);
                 else
                     Set(ref patronymic, patronymic);
@@ -69,7 +69,7 @@ namespace ДЗ_11.Models
         {
             get
             {
-                if (!RuleChoiseViewModel.CanSeeOrChangeText)
+                if (!RoleChoiseViewModel.ManadgerRole)
                 {
                     return new String('*', 10);
                 }
@@ -77,17 +77,13 @@ namespace ДЗ_11.Models
             }
             set
             {
-                if (RuleChoiseViewModel.CanSeeOrChangeText)
+                if (RoleChoiseViewModel.ManadgerRole)
                     Set(ref passport, value);
                 else
                     Set(ref passport, passport);
             }
         }
         public DateTime DateClientChange { get; set; }
-        //{
-        //    get => dateClientChange;
-        //    set => Set(ref dateClientChange, value);
-        //}
 
         /// <summary>
         /// Словарь для перевода свойств в кирилицу
@@ -103,6 +99,7 @@ namespace ДЗ_11.Models
         };
         #endregion
 
+        #region Конструкторы
         public Client()
         {
             id = Guid.NewGuid();
@@ -119,12 +116,16 @@ namespace ДЗ_11.Models
             this.passport = passportNumber;
             DateClientChange = DateTime.Now;
         }
-        public Client(Guid id, string lastName, string name,  string patronymic, string phoneNumber, string passportNumber, DateTime dateClientChange)
-              : this (lastName, name, patronymic,phoneNumber,passportNumber)
+
+        public Client(Guid id, string lastName, string name, string patronymic,
+                      string phoneNumber, string passportNumber, DateTime dateClientChange)
+                      : this(lastName, name, patronymic, phoneNumber, passportNumber)
         {
             this.id = id;
             this.DateClientChange = dateClientChange;
-        }
+        } 
+        #endregion
+
         public override string ToString()
         {
             return $"{Id} {LastName} {Name} {Patronymic} {PhoneNumber} {Passport} {DateClientChange}";

@@ -16,16 +16,34 @@ namespace ДЗ_11.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-        private string fileName = "bankClients.txt";
+        private string role = RoleChoiseViewModel.ManadgerRole ? "Менеджер" : "Консультант";
+        private readonly string bankClients = "bankClients.txt";
+
+        /// <summary>
+        /// коллекция для хранения изменений
+        /// </summary>
+        public List<string> ChangedPropertys { get; set; } = new List<string>();
+
+        /// <summary>
+        /// основная коллекция клиентов
+        /// </summary>
+        private ObservableCollection<Client> clients = HelpClass.Clients;
+        public ObservableCollection<Client> Clients
+        {
+            get => clients;
+            set => Set(ref clients, value);
+        }
+
         #region Свойство для отображения изменений в окне
         private string clientChanges;
         public string ClientChanges
         {
             get => clientChanges;
             set => Set(ref clientChanges, value);
-        } 
+        }
         #endregion
 
+        #region Команды управления
         #region Команда открытия окна для добавления клиента
         /// <summary>Команда вывода всех клиентов</summary>
         public ICommand AddNewUserCommand { get; }
@@ -36,7 +54,7 @@ namespace ДЗ_11.ViewModels
         }
         private bool CanAddNewUserCommandExecute(object parametr)
         {
-            if (RuleChoiseViewModel.CanSeeOrChangeText)
+            if (RoleChoiseViewModel.ManadgerRole)
                 return true;
             return false;
         }
@@ -44,14 +62,14 @@ namespace ДЗ_11.ViewModels
 
         #region Команда смены пользователя
         /// <summary>Команда смены пользователя</summary>
-        public ICommand ChangeRuleCommand { get; }
-        private void OnChangeRuleCommandExecuted(object parameter)
+        public ICommand ChangeRoleCommand { get; }
+        private void OnChangeRoleCommandExecuted(object parameter)
         {
-            RuleChoise ruleChoiseWindow = new RuleChoise();
-            ruleChoiseWindow.Show();
+            RoleChoise roleChoiseWindow = new RoleChoise();
+            roleChoiseWindow.Show();
             Application.Current.Windows[0].Close();
         }
-        private bool CanChangeRuleCommandExecute(object parametr) => true;
+        private bool CanChangeRoleCommandExecute(object parametr) => true;
         #endregion
 
         #region Команда удаление клиента
@@ -61,7 +79,7 @@ namespace ДЗ_11.ViewModels
         {
             Clients.Remove(parameter as Client);
         }
-        private bool CanDeleteClientCommandExecute(object parameter) => parameter is Client && RuleChoiseViewModel.CanSeeOrChangeText ? true: false;
+        private bool CanDeleteClientCommandExecute(object parameter) => parameter is Client && RoleChoiseViewModel.ManadgerRole ? true : false;
 
         #endregion
 
@@ -73,10 +91,9 @@ namespace ДЗ_11.ViewModels
         private void OnSaveCommandExecuted(object parametr)
         {
             string fileLog = "bankLog.txt";
-            
-            if (!File.Exists(fileName))
-                File.Create(fileName);
-            using (StreamWriter write = new StreamWriter(fileName))
+            if (!File.Exists(bankClients))
+                File.Create(bankClients).Close();
+            using (StreamWriter write = new StreamWriter(bankClients))
             {
                 foreach (var item in Clients)
                 {
@@ -90,11 +107,16 @@ namespace ДЗ_11.ViewModels
                     write.WriteLine(item);
                 }
             }
-
+            ClientChanges = $"{role} сохранил клиентов в базу";
+            ChangedPropertys.Add(clientChanges);
         }
         private bool CanSaveCommandExecute(object parametr)
         {
-            if (Clients.Count > 0) return true;
+            if (Clients.Count > 0)
+            {
+                RoleChoiseViewModel.ManadgerRole = true;
+                return true;
+            }
             return false;
         }
         #endregion
@@ -106,44 +128,41 @@ namespace ДЗ_11.ViewModels
         public ICommand RestoreBankClientsCommand { get; }
         private void OnRestoreBankClientsCommandExecuted(object parameter)
         {
-            using (StreamReader read = new StreamReader(fileName))
+            using (StreamReader read = new StreamReader(bankClients))
             {
                 string line;
                 while (!read.EndOfStream)
                 {
                     line = read.ReadLine();
                     var splitLine = line.Split(' ');
-
-                    Client client = new Client(Guid.Parse(splitLine[0]), splitLine[1], splitLine[2], splitLine[3], splitLine[4], splitLine[5], DateTime.Parse(splitLine[6]));
-
+                    Client client = new Client(Guid.Parse(splitLine[0]), splitLine[1], splitLine[2],
+                                                          splitLine[3], splitLine[4], splitLine[5],
+                                                          DateTime.Parse(splitLine[6]));
                     Clients.Add(client);
                 }
             }
+            ClientChanges = $"{role} загрузил клиентов из базы";
+            ChangedPropertys.Add(ClientChanges);
         }
 
-        private bool CanRestoreBankClientsCommandExecute(object parameter) => (Clients.Count > 0) ? false : true; 
+        private bool CanRestoreBankClientsCommandExecute(object parameter)
+        {
+            if (!File.Exists(bankClients))
+                return false;
+            return (Clients.Count > 0) ? false : true;
+        }
         #endregion
 
-        /// <summary>
-        /// основная коллекция клиентов
-        /// </summary>
-        private ObservableCollection<Client> clients = HelpClass.Clients;
-        public ObservableCollection<Client> Clients
+        #region Команда закрытия приложения
+        public ICommand CloseAplicationCommand { get; }
+        private void OnCloseAplicationCommandExecuted(object parameter)
         {
-            get => clients;
-            set => Set(ref clients, value);
+            Application.Current.Windows[0].Close();
         }
+        private bool CanCloseAplicationCommandEcecute(object parameter) => true;
+        #endregion 
+        #endregion
 
-        /// <summary>
-        /// коллекция для хранения изменений
-        /// </summary>
-        //private List<string> changedPropertys = new List<string>();
-
-        public List<string> ChangedPropertys { get; set; } = new List<string>();
-        //{
-        //    get => changedPropertys;
-        //    set => Set(ref changedPropertys, value);
-        //}
 
         /// <summary>
         /// Автоматические клиенты для тестирования
@@ -169,10 +188,9 @@ namespace ДЗ_11.ViewModels
         /// <param name="e"></param>
         private void WriteChanges(object sender, PropertyChangedEventArgs e)
         {
-            string rule = RuleChoiseViewModel.CanSeeOrChangeText ? "Менеджер" : "Консультант";
             if (sender is Client tempClient)
             {
-                ClientChanges = $"{rule} изменил в {tempClient.Id} поле {tempClient.ClientPropertyTranslater[e.PropertyName]}, " +
+                ClientChanges = $"{role} изменил в {tempClient.Id} поле {tempClient.ClientPropertyTranslater[e.PropertyName]}, " +
                                 $"время {tempClient.DateClientChange = DateTime.Now}";
             }
             ChangedPropertys.Add(ClientChanges);
@@ -185,24 +203,24 @@ namespace ДЗ_11.ViewModels
         /// <param name="e"></param>
         private void Clients_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (e.OldItems != null)
-                foreach (INotifyPropertyChanged item in e.OldItems)
-                    item.PropertyChanged -= WriteChanges;
-            if (e.NewItems != null)
-                foreach (INotifyPropertyChanged item in e.NewItems)
-                    item.PropertyChanged += WriteChanges;
+            if (e.OldItems != null)                                     //
+                foreach (INotifyPropertyChanged item in e.OldItems)     // вот ответ
+                    item.PropertyChanged -= WriteChanges;               // на мой вопрос
+            if (e.NewItems != null)                                     //
+                foreach (INotifyPropertyChanged item in e.NewItems)     //
+                    item.PropertyChanged += WriteChanges;               //
             switch(e.Action)
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     {
-                        ClientChanges = $"Менеджер добавил клиента {((e.NewItems[0] as Client).Id).ToString()}";
+                        ClientChanges = $"{role} добавил клиента {(e.NewItems[0] as Client).Id}";
                         ChangedPropertys.Add(ClientChanges);
                         break;
                     }
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
                     {
-                        ClientChanges = $"Менеджер удалил клиента {(e.OldItems[0] as Client).Id.ToString()}";
+                        ClientChanges = $"Менеджер удалил клиента {(e.OldItems[0] as Client).Id}";
                         ChangedPropertys.Add(ClientChanges);
                         break;
                     }
@@ -212,16 +230,13 @@ namespace ДЗ_11.ViewModels
        
         public MainWindowViewModel()
         {
-            ChangeRuleCommand = new RelayCommand(OnChangeRuleCommandExecuted, CanChangeRuleCommandExecute);
+            ChangeRoleCommand = new RelayCommand(OnChangeRoleCommandExecuted, CanChangeRoleCommandExecute);
             AddNewUserCommand = new RelayCommand(OnAddNewUserCommandExecuted, CanAddNewUserCommandExecute);
             DeleteClientCommand = new RelayCommand(OnDeleteClientCommandExecuted, CanDeleteClientCommandExecute);
             SaveCommand = new RelayCommand(OnSaveCommandExecuted, CanSaveCommandExecute);
             RestoreBankClientsCommand = new RelayCommand(OnRestoreBankClientsCommandExecuted, CanRestoreBankClientsCommandExecute);
+            CloseAplicationCommand = new RelayCommand(OnCloseAplicationCommandExecuted, CanCloseAplicationCommandEcecute);
             Clients.CollectionChanged += Clients_CollectionChanged;
-            //CreateClients();
-            
         }
-
-       
     }
 }
