@@ -54,8 +54,7 @@ namespace ДЗ_11.ViewModels
         }
         private bool CanAddNewUserCommandExecute(object parametr)
         {
-            if (RoleChoiseViewModel.ManadgerRole)
-                return true;
+            if (RoleChoiseViewModel.ManadgerRole) return true;
             return false;
         }
         #endregion
@@ -79,7 +78,7 @@ namespace ДЗ_11.ViewModels
         {
             Clients.Remove(parameter as Client);
         }
-        private bool CanDeleteClientCommandExecute(object parameter) => parameter is Client && RoleChoiseViewModel.ManadgerRole ? true : false;
+        private bool CanDeleteClientCommandExecute(object parameter) => parameter is Client && RoleChoiseViewModel.ManadgerRole; /*? true : false;*/
 
         #endregion
 
@@ -167,19 +166,19 @@ namespace ДЗ_11.ViewModels
         /// <summary>
         /// Автоматические клиенты для тестирования
         /// </summary>
-        private void CreateClients()
-        {
-            for (int i = 1; i < 6; i++)
-            {
-                Client temp = new Client("LastName" + i,
-                                        "name" + i,
-                                        "Patronymic" + i,
-                                        (i * Math.Pow(10, 8)).ToString(),
-                                        (i * 1111111111).ToString());
+        //private void CreateClients()
+        //{
+        //    for (int i = 1; i < 6; i++)
+        //    {
+        //        Client temp = new Client("LastName" + i,
+        //                                "name" + i,
+        //                                "Patronymic" + i,
+        //                                (i * Math.Pow(10, 8)).ToString(),
+        //                                (i * 1111111111).ToString());
                                         
-               Clients.Add(temp);
-            }
-        }
+        //       Clients.Add(temp);
+        //    }
+        //}
 
         /// <summary>
         /// Метод для отслеживания изменений в свойствах елементов коллекции Clients

@@ -76,7 +76,10 @@
     <Compile Include="Infrastructure\Commands\Base\Command.cs" />
     <Compile Include="Infrastructure\Commands\ChoiseCommand.cs" />
     <Compile Include="Infrastructure\Commands\RelayCommand.cs" />
+    <Compile Include="Models\AbstractModels\BaseAccount.cs" />
     <Compile Include="Models\AbstractModels\BaseUser.cs" />
+    <Compile Include="Models\DepositAccount.cs" />
+    <Compile Include="Models\NonDepositeAccount.cs" />
     <Compile Include="ViewModels\AddClientViewModel.cs" />
     <Compile Include="ViewModels\RoleChoiseViewModel.cs" />
     <Compile Include="Views\Windows\AddClient.xaml.cs">
