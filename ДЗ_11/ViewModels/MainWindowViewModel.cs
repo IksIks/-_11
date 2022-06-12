@@ -202,12 +202,12 @@ namespace ДЗ_11.ViewModels
         /// <param name="e"></param>
         private void Clients_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (e.OldItems != null)                                     //
-                foreach (INotifyPropertyChanged item in e.OldItems)     // вот ответ
-                    item.PropertyChanged -= WriteChanges;               // на мой вопрос
-            if (e.NewItems != null)                                     //
-                foreach (INotifyPropertyChanged item in e.NewItems)     //
-                    item.PropertyChanged += WriteChanges;               //
+            if (e.OldItems != null)                                     
+                foreach (INotifyPropertyChanged item in e.OldItems)     
+                    item.PropertyChanged -= WriteChanges;               
+            if (e.NewItems != null)                                     
+                foreach (INotifyPropertyChanged item in e.NewItems)     
+                    item.PropertyChanged += WriteChanges;               
             switch(e.Action)
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:

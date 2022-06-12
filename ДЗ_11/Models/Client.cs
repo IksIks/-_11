@@ -14,6 +14,7 @@ namespace ДЗ_11.Models
         private string patronymic;
         private string phoneNumber;
         private string passport;
+        private DepositAccount account;
 
         #endregion
 
@@ -83,6 +84,13 @@ namespace ДЗ_11.Models
                     Set(ref passport, passport);
             }
         }
+
+        public DepositAccount Account
+        {
+            get => account;
+            set => Set(ref account, value);
+        }
+
         public DateTime DateClientChange { get; set; }
 
         /// <summary>

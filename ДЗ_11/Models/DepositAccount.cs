@@ -4,18 +4,14 @@ using ДЗ_11.ViewModels.Base;
 
 namespace ДЗ_11.Models
 {
-    internal class DepositAccount : BaseAccount
+    internal class DepositAccount : NonDepositeAccount
     {
-
         public bool DepositInsurance { get; set; }
-        public Cash Currency { get; set; }
-        
 
-        public enum Cash
+
+        public DepositAccount() : base()
         {
-            RUB,
-            USD,
-            EURO
+
         }
     }
 }
