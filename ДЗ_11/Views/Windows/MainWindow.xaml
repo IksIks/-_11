@@ -38,10 +38,10 @@
                 <Button Content="Удалить клиента" Width="150" Padding="0,0,6,0"
                    VerticalAlignment="Top" Margin="10,10,10,0" Command="{Binding DeleteClientCommand}"
                         CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}" Cursor="Hand"/>
-                <Button Content="Пополнить баланс" Width="150" Padding="0,0,6,0"
-                   VerticalAlignment="Top" Margin="10,10,10,0" Command="{Binding 11111, Path=SelectedItem}" Cursor="Hand"/>
-                <Button Content="Перевести средства" Width="150" Padding="0,0,6,0"
-                   VerticalAlignment="Top" Margin="10,10,10,0" Command="{Binding 11111, Path=SelectedItem}" Cursor="Hand"/>
+                <Button Content="Операции" Width="150" Padding="0,0,6,0"
+                   VerticalAlignment="Top" Margin="10,10,10,0" Command="{Binding ClientOperationsCommand}"
+                        CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}" Cursor="Hand"/>
+                
             </StackPanel>
             <DataGrid Name="DataGrid" Grid.Column="1" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Clients}"
                       GridLinesVisibility="Vertical" CanUserDeleteRows="False" Width="Auto"

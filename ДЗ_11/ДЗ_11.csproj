@@ -85,10 +85,17 @@
     <Compile Include="Views\Windows\AddClient.xaml.cs">
       <DependentUpon>AddClient.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Windows\ClientOperations.xaml.cs">
+      <DependentUpon>ClientOperations.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Windows\RoleChoise.xaml.cs">
       <DependentUpon>RoleChoise.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\Windows\AddClient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\ClientOperations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -159,7 +159,17 @@ namespace ДЗ_11.ViewModels
             Application.Current.Windows[0].Close();
         }
         private bool CanCloseAplicationCommandEcecute(object parameter) => true;
-        #endregion 
+        #endregion
+
+        #region Команда выполнения операции с клиентом
+        public ICommand ClientOperationsCommand { get; }
+        private void OnClientOperationsCommadExecuted(object parameter)
+        {
+            ClientOperations ClientOps = new ClientOperations();
+            ClientOps.ShowDialog();
+        }
+        private bool CanClientOperationsCommandExecute(object parameter) => parameter is Client && RoleChoiseViewModel.ManadgerRole;
+        #endregion
         #endregion
 
 
@@ -175,7 +185,7 @@ namespace ДЗ_11.ViewModels
         //                                "Patronymic" + i,
         //                                (i * Math.Pow(10, 8)).ToString(),
         //                                (i * 1111111111).ToString());
-                                        
+
         //       Clients.Add(temp);
         //    }
         //}
@@ -202,13 +212,13 @@ namespace ДЗ_11.ViewModels
         /// <param name="e"></param>
         private void Clients_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (e.OldItems != null)                                     
-                foreach (INotifyPropertyChanged item in e.OldItems)     
-                    item.PropertyChanged -= WriteChanges;               
-            if (e.NewItems != null)                                     
-                foreach (INotifyPropertyChanged item in e.NewItems)     
-                    item.PropertyChanged += WriteChanges;               
-            switch(e.Action)
+            if (e.OldItems != null)
+                foreach (INotifyPropertyChanged item in e.OldItems)
+                    item.PropertyChanged -= WriteChanges;
+            if (e.NewItems != null)
+                foreach (INotifyPropertyChanged item in e.NewItems)
+                    item.PropertyChanged += WriteChanges;
+            switch (e.Action)
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     {
@@ -226,7 +236,7 @@ namespace ДЗ_11.ViewModels
             }
         }
 
-       
+
         public MainWindowViewModel()
         {
             ChangeRoleCommand = new RelayCommand(OnChangeRoleCommandExecuted, CanChangeRoleCommandExecute);
@@ -235,6 +245,7 @@ namespace ДЗ_11.ViewModels
             SaveCommand = new RelayCommand(OnSaveCommandExecuted, CanSaveCommandExecute);
             RestoreBankClientsCommand = new RelayCommand(OnRestoreBankClientsCommandExecuted, CanRestoreBankClientsCommandExecute);
             CloseAplicationCommand = new RelayCommand(OnCloseAplicationCommandExecuted, CanCloseAplicationCommandEcecute);
+            ClientOperationsCommand = new RelayCommand(OnClientOperationsCommadExecuted, CanClientOperationsCommandExecute);
             Clients.CollectionChanged += Clients_CollectionChanged;
         }
     }
