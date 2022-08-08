@@ -14,7 +14,7 @@ namespace ДЗ_11.Models
         private string patronymic;
         private string phoneNumber;
         private string passport;
-        private DepositAccount account;
+        
 
         #endregion
 
@@ -85,12 +85,8 @@ namespace ДЗ_11.Models
             }
         }
 
-        public DepositAccount Account
-        {
-            get => account;
-            set => Set(ref account, value);
-        }
-
+        public NonDepositAccount NonDepositAccount { get; set; }
+        public DepositAccount DepositAccount { get; set; }
         public DateTime DateClientChange { get; set; }
 
         /// <summary>
@@ -112,6 +108,8 @@ namespace ДЗ_11.Models
         {
             id = Guid.NewGuid();
             DateClientChange = DateTime.Now;
+            NonDepositAccount = new NonDepositAccount();
+            DepositAccount = new DepositAccount();
         }
 
         public Client(string lastName, string name, string patronymic, string phoneNumber, string passportNumber)
@@ -123,8 +121,18 @@ namespace ДЗ_11.Models
             this.phoneNumber = phoneNumber;
             this.passport = passportNumber;
             DateClientChange = DateTime.Now;
-        }
 
+        }
+        /// <summary>
+        /// Конструктор при загрузки базы клиентов из файла
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="lastName"></param>
+        /// <param name="name"></param>
+        /// <param name="patronymic"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="passportNumber"></param>
+        /// <param name="dateClientChange"></param>
         public Client(Guid id, string lastName, string name, string patronymic,
                       string phoneNumber, string passportNumber, DateTime dateClientChange)
                       : this(lastName, name, patronymic, phoneNumber, passportNumber)

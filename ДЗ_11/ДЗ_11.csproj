@@ -79,9 +79,13 @@
     <Compile Include="Models\AbstractModels\BaseAccount.cs" />
     <Compile Include="Models\AbstractModels\BaseUser.cs" />
     <Compile Include="Models\DepositAccount.cs" />
-    <Compile Include="Models\NonDepositeAccount.cs" />
+    <Compile Include="Models\NonDepositAccount.cs" />
     <Compile Include="ViewModels\AddClientViewModel.cs" />
+    <Compile Include="ViewModels\ClientOperationsViewModel.cs" />
     <Compile Include="ViewModels\RoleChoiseViewModel.cs" />
+    <Compile Include="Views\Pages\MoneyTransfer.xaml.cs">
+      <DependentUpon>MoneyTransfer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Windows\AddClient.xaml.cs">
       <DependentUpon>AddClient.xaml</DependentUpon>
     </Compile>
@@ -91,6 +95,10 @@
     <Compile Include="Views\Windows\RoleChoise.xaml.cs">
       <DependentUpon>RoleChoise.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Pages\MoneyTransfer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Windows\AddClient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

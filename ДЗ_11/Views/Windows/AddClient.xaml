@@ -23,8 +23,8 @@
         <TextBox Text="{Binding NewClient.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Content="Серия и номер паспорта"/>
         <TextBox Text="{Binding NewClient.Passport, UpdateSourceTrigger=PropertyChanged}"/>
-        <Label Style="{StaticResource MaterialDesignLabel}" Content="Открытие продуктов:"/>
-        <CheckBox Content="Открытие кредита" Margin="2" CommandParameter=""/>
+        <!--<Label Style="{StaticResource MaterialDesignLabel}" Content="Открытие продуктов:"/>-->
+        <!--<CheckBox Content="Открытие кредита" Margin="2" IsChecked="{Binding NewClient.Account.DepositIsCheked, Mode=TwoWay}"/>-->
         <Grid Margin="0,10,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="8*"/>
