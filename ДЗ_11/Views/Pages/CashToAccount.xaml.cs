@@ -10,20 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ДЗ_11.Views.Windows
+namespace ДЗ_11.Views.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для ClientOperations.xaml
+    /// Логика взаимодействия для CashToAccount.xaml
     /// </summary>
-    public partial class ClientOperations : Window
+    public partial class CashToAccount : Page
     {
-        public ClientOperations(object parametr)
-        {
-            InitializeComponent();
-        }
-        public ClientOperations()
+        public CashToAccount()
         {
             InitializeComponent();
         }

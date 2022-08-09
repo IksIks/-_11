@@ -6,17 +6,17 @@
         xmlns:local="clr-namespace:ДЗ_11.Views.Windows" mc:Ignorable="d"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:view="clr-namespace:ДЗ_11.ViewModels"
-        Title="Операции" Height="600" Width="1000"
+        Title="Операции" Height="600" Width="500"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <view:ClientOperationsViewModel/>
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250*"/>
-            <ColumnDefinition Width="779*"/>
+            <ColumnDefinition Width="85*"/>
+            <ColumnDefinition Width="91*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Vertical" Margin="5" Grid.Column="0">
+        <StackPanel Orientation="Vertical" Margin="5,5,5,5" Grid.Column="0">
             <Button Margin="0,0,0,10" Command="{Binding OpenPageCommand}" CommandParameter="1">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -56,7 +56,7 @@
                 </Button.Content>
             </Button>
         </StackPanel>
-        <Frame Grid.Column="1" Content="{Binding Start}" Opacity="1" />
+        <Frame Grid.Column="1" Content="{Binding CurrentPage}" Opacity="1" Margin="10" NavigationUIVisibility="Hidden"/>
     </Grid>
 
 </Window>

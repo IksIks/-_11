@@ -165,6 +165,7 @@ namespace ДЗ_11.ViewModels
         public ICommand ClientOperationsCommand { get; }
         private void OnClientOperationsCommadExecuted(object parameter)
         {
+            HelpClass.TempClient = parameter as Client;
             ClientOperations ClientOps = new ClientOperations();
             ClientOps.ShowDialog();
         }

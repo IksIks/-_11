@@ -12,18 +12,25 @@ namespace ДЗ_11.ViewModels
     internal class ClientOperationsViewModel : ViewModel
     {
         private Page moneyTransfers;
-        private Page start;
-       
+        private Page currentPage;
+        private Page cashToAccount;
+
+        public Page CashToAccount
+        {
+            get { return cashToAccount; }
+            set { Set(ref cashToAccount, value); }
+        }
+
         public Page MoneyTransfers
         {
             get { return moneyTransfers; }
-            set { Set (ref moneyTransfers, value); }
+            set { Set(ref moneyTransfers, value); }
         }
         
-        public Page Start
+        public Page CurrentPage
         {
-            get { return start; }
-            set { Set(ref start, value); }
+            get { return currentPage; }
+            set { Set(ref currentPage, value); }
         }
 
 
@@ -34,13 +41,13 @@ namespace ДЗ_11.ViewModels
             byte buttonIndexInXAML = Convert.ToByte(parametr);
             switch (buttonIndexInXAML)
             {
-                case 1: Start = MoneyTransfers;
+                case 1: CurrentPage = CashToAccount;
                     break;
-                case 2: Start = MoneyTransfers;
+                case 2: CurrentPage = MoneyTransfers;
                     break;
-                case 3: Start = MoneyTransfers;
+                case 3: CurrentPage = MoneyTransfers;
                     break;
-                case 4: Start = MoneyTransfers;
+                case 4: CurrentPage = MoneyTransfers;
                     break;
             }            
         }
@@ -50,7 +57,7 @@ namespace ДЗ_11.ViewModels
         {
             OpenPageCommand = new RelayCommand(OnOpenPageCommandExecuted, CanOpenPageCommandExecute);
             MoneyTransfers = new Views.Pages.MoneyTransfer();
-            
+            CashToAccount = new Views.Pages.CashToAccount();
         }
     }
 }

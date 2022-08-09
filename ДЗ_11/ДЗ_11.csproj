@@ -80,9 +80,15 @@
     <Compile Include="Models\AbstractModels\BaseUser.cs" />
     <Compile Include="Models\DepositAccount.cs" />
     <Compile Include="Models\NonDepositAccount.cs" />
+    <Compile Include="Services\BindEnumClass.cs" />
+    <Compile Include="Services\CashEnum.cs" />
     <Compile Include="ViewModels\AddClientViewModel.cs" />
+    <Compile Include="ViewModels\CashToAccountViewModel.cs" />
     <Compile Include="ViewModels\ClientOperationsViewModel.cs" />
     <Compile Include="ViewModels\RoleChoiseViewModel.cs" />
+    <Compile Include="Views\Pages\CashToAccount.xaml.cs">
+      <DependentUpon>CashToAccount.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\MoneyTransfer.xaml.cs">
       <DependentUpon>MoneyTransfer.xaml</DependentUpon>
     </Compile>
@@ -95,6 +101,10 @@
     <Compile Include="Views\Windows\RoleChoise.xaml.cs">
       <DependentUpon>RoleChoise.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Pages\CashToAccount.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\MoneyTransfer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -156,9 +166,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

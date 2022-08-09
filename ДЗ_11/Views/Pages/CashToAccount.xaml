@@ -1,0 +1,31 @@
+﻿<Page x:Class="ДЗ_11.Views.Pages.CashToAccount"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ДЗ_11.Views.Pages" mc:Ignorable="d" 
+      xmlns:view="clr-namespace:ДЗ_11.ViewModels"
+      xmlns:enum="clr-namespace:ДЗ_11.Services"
+      xmlns:fa="http://schemas.fontawesome.com/icons/"
+      d:DesignHeight="200" d:DesignWidth="150"
+      Title="CashToAccount" Background="LightGray">
+    <Page.DataContext>
+        <view:CashToAccountViewModel/>
+    </Page.DataContext>
+    <StackPanel Orientation="Vertical" Margin="15,5,15,5">
+        <TextBlock Style="{StaticResource MaterialDesignCharacterCounterTextBlock}" Text="Сумма зачисления" Foreground="Black" TextWrapping="Wrap" TextAlignment="Left"/>
+        <TextBox FontSize="14" Height="25" Width="100" HorizontalAlignment="Left" FlowDirection="RightToLeft" Text="{Binding TransferAmount, UpdateSourceTrigger=PropertyChanged}"
+                 />
+        <TextBlock Style="{StaticResource MaterialDesignCharacterCounterTextBlock}" Text="Валюта" Foreground="Black" TextWrapping="Wrap" TextAlignment="Left"/>
+        <ComboBox Grid.Column="1" Margin="2" Height="25" Width="56" ItemsSource="{Binding Source={enum:BindEnumClass {x:Type enum:Cash}}}"
+                  HorizontalAlignment="Left" SelectedItem="{Binding Currency}">
+        </ComboBox>
+        <Button Background="Red" Cursor="Hand" Command="{Binding CreditToAccountCommand, UpdateSourceTrigger=PropertyChanged}">
+            <StackPanel Orientation="Horizontal">
+                <fa:ImageAwesome Icon="Solid_Wallet" Height="12"/>
+                <TextBlock Text="Внести" Margin="5" FontSize="12"/>
+            </StackPanel>
+        </Button>
+
+    </StackPanel>
+</Page>

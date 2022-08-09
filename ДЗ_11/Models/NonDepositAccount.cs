@@ -1,5 +1,6 @@
 ﻿using System;
 using ДЗ_11.Models.AbstractModels;
+using ДЗ_11.Services;
 using ДЗ_11.ViewModels.Base;
 
 namespace ДЗ_11.Models
@@ -23,12 +24,7 @@ namespace ДЗ_11.Models
             set => Set(ref currency, value);
         }
 
-        public enum Cash
-        {
-            RUB,
-            USD,
-            EURO
-        }
+        
 
         public NonDepositAccount()
         {
