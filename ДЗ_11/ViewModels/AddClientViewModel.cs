@@ -21,7 +21,8 @@ namespace ДЗ_11.ViewModels
         public ICommand CreateNewClientCommand { get; }
         private void OnCreateNewClientCommandExecuted(object parameter)
         {
-            HelpClass.Clients.Add(NewClient);
+            HelpClass.TempClient = NewClient;
+            //HelpClass.Clients.Add(NewClient);
             Application.Current.Windows[2].Close();
         }
         private bool CanCreateNewClientCommandExecute(object parameter)

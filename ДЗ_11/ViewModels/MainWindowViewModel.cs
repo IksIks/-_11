@@ -22,7 +22,7 @@ namespace ДЗ_11.ViewModels
         public List<string> ChangedPropertys { get; set; } = new List<string>();
 
         /// <summary> Основная коллекция клиентов</summary>
-        private ObservableCollection<Client> clients = HelpClass.Clients;
+        private ObservableCollection<Client> clients = new ObservableCollection<Client>();
         public ObservableCollection<Client> Clients
         {
             get => clients;
@@ -39,6 +39,7 @@ namespace ДЗ_11.ViewModels
         #endregion
 
         #region Команды управления
+
         #region Команда открытия окна для добавления клиента
         /// <summary>Команда вывода всех клиентов</summary>
         public ICommand AddNewUserCommand { get; }
@@ -46,6 +47,7 @@ namespace ДЗ_11.ViewModels
         {
             AddClient addClientWindow = new AddClient();
             addClientWindow.ShowDialog();
+            Clients.Add(HelpClass.TempClient);
         }
         private bool CanAddNewUserCommandExecute(object parametr)
         {
