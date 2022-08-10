@@ -1,34 +1,46 @@
 ﻿using System;
 using ДЗ_11.Models.AbstractModels;
 using ДЗ_11.Services;
-using ДЗ_11.ViewModels.Base;
 
 namespace ДЗ_11.Models
 {
-    internal class NonDepositAccount : ViewModel
-    {    private int balance;
-        private Cash currency;
+    internal class NonDepositAccount : BaseAccount
+    {    
+        private uint balanceRUB_Account;
+        private uint balanceUSD_Account;
+        private uint balanceEURO_Account;
+        //private Cash currency;
 
         
-        public DateTime DateOfCreation { get; set; }
-        public DateTime DateOfClose { get; set; }
-        public int Balance
-        {
-            get => balance;
-            set => Set(ref balance, value);
-        }
-        public Cash Currency
-        {
-            get => currency;
-            set => Set(ref currency, value);
-        }
+        public override DateTime DateOfCreation { get; set; }
+        public override DateTime DateOfClose { get; set; }
 
-        
+        public override uint BalanceRUB_Account
+        {
+            get => balanceRUB_Account;
+            set => Set(ref balanceRUB_Account, value);
+        }
+        public uint BalanceUSD_Account
+        {
+            get => balanceUSD_Account;
+            set => Set(ref balanceUSD_Account, value);
+        }
+        public uint BalanceEURO_Account
+        {
+            get => balanceEURO_Account;
+            set => Set(ref balanceEURO_Account, value);
+        }
+        //public override Cash Currency
+        //{
+        //    get => currency;
+        //    set => Set(ref currency, value);
+        //}
 
-        public NonDepositAccount()
+        public NonDepositAccount() : base()
         {            
-            DateOfCreation = DateTime.Now;
-            balance = 0;
+            balanceRUB_Account = 0;
+            balanceUSD_Account = 0;
+            BalanceEURO_Account = 0;
         }
 
     }

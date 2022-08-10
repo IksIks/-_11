@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using ДЗ_11.Data;
 using ДЗ_11.Infrastructure.Commands;
-using ДЗ_11.Models;
 using ДЗ_11.Services;
 using ДЗ_11.ViewModels.Base;
 
@@ -11,9 +10,9 @@ namespace ДЗ_11.ViewModels
     internal class CashToAccountViewModel : ViewModel
     {
         private Cash currency;
-        private int transferAmount;
+        private uint transferAmount;
 
-        public int TransferAmount
+        public uint TransferAmount
         {
             get { return transferAmount; }
             set { Set (ref transferAmount, value); }
@@ -37,8 +36,16 @@ namespace ДЗ_11.ViewModels
         }
         private void OnCreditToAccountCommandExecuted(object parametr)
         {
-            HelpClass.TempClient.NonDepositAccount.Balance += TransferAmount;
-            HelpClass.TempClient.NonDepositAccount.Currency = Currency;
+            switch (Currency)
+            {
+                case Cash.RUB: HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account += TransferAmount;
+                    break;
+                case Cash.USD: HelpClass.TempClient.NonDepositAccount.BalanceUSD_Account += TransferAmount;
+                    break;
+                case Cash.EURO: HelpClass.TempClient.NonDepositAccount.BalanceEURO_Account += TransferAmount;
+                    break;
+            }
+            //HelpClass.TempClient.NonDepositAccount.Currency = Currency;
             Application.Current.Windows[2].Close();
         }
         #endregion
