@@ -6,11 +6,10 @@ using ДЗ_11.ViewModels.Base;
 namespace ДЗ_11.Models
 {
     internal class NonDepositAccount : ViewModel
-    {
-        private int balance;
+    {    private int balance;
         private Cash currency;
 
-        //public Guid Id { get; }
+        
         public DateTime DateOfCreation { get; set; }
         public DateTime DateOfClose { get; set; }
         public int Balance
@@ -27,8 +26,7 @@ namespace ДЗ_11.Models
         
 
         public NonDepositAccount()
-        {
-            //Id = Guid.NewGuid();
+        {            
             DateOfCreation = DateTime.Now;
             balance = 0;
         }

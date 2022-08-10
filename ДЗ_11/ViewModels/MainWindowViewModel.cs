@@ -1,16 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
+using System.Windows;
 using System.Windows.Input;
+using ДЗ_11.Data;
 using ДЗ_11.Infrastructure.Commands;
 using ДЗ_11.Models;
 using ДЗ_11.ViewModels.Base;
 using ДЗ_11.Views.Windows;
-using System.Windows;
-using ДЗ_11.Data;
-using System.Linq;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.IO;
 
 namespace ДЗ_11.ViewModels
 {
@@ -19,14 +18,10 @@ namespace ДЗ_11.ViewModels
         private string role = RoleChoiseViewModel.ManadgerRole ? "Менеджер" : "Консультант";
         private readonly string bankClients = "bankClients.txt";
 
-        /// <summary>
-        /// коллекция для хранения изменений
-        /// </summary>
+        /// <summary> Коллекция для хранения изменений</summary>
         public List<string> ChangedPropertys { get; set; } = new List<string>();
 
-        /// <summary>
-        /// основная коллекция клиентов
-        /// </summary>
+        /// <summary> Основная коллекция клиентов</summary>
         private ObservableCollection<Client> clients = HelpClass.Clients;
         public ObservableCollection<Client> Clients
         {
@@ -191,9 +186,7 @@ namespace ДЗ_11.ViewModels
         //    }
         //}
 
-        /// <summary>
-        /// Метод для отслеживания изменений в свойствах елементов коллекции Clients
-        /// </summary>
+        /// <summary> Метод для отслеживания изменений в свойствах елементов коллекции Clients </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void WriteChanges(object sender, PropertyChangedEventArgs e)
@@ -206,9 +199,7 @@ namespace ДЗ_11.ViewModels
             ChangedPropertys.Add(ClientChanges);
         }
 
-        /// <summary>
-        /// Событие для отслеживания изменений в коллекции Clients
-        /// </summary>
+        /// <summary> Событие для отслеживания изменений в коллекции Clients </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Clients_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

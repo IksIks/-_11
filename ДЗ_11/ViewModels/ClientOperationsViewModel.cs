@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Navigation;
 using ДЗ_11.Infrastructure.Commands;
 using ДЗ_11.ViewModels.Base;
-using ДЗ_11.Views.Pages;
-using ДЗ_11.Views.Windows;
 
 namespace ДЗ_11.ViewModels
 {
