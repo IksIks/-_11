@@ -11,6 +11,13 @@ namespace ДЗ_11.ViewModels
         private Page moneyTransfers;
         private Page currentPage;
         private Page cashToAccount;
+        private Page transferBetweenAccounts;
+
+        public Page TransferBetweenAccounts
+        {
+            get { return transferBetweenAccounts; }
+            set { Set(ref transferBetweenAccounts, value); }
+        }
 
         public Page CashToAccount
         {
@@ -31,7 +38,8 @@ namespace ДЗ_11.ViewModels
         }
 
 
-        
+
+        #region Команда открытия страницы
         public ICommand OpenPageCommand { get; }
         private void OnOpenPageCommandExecuted(object parametr)
         {
@@ -40,20 +48,22 @@ namespace ДЗ_11.ViewModels
             {
                 case 1: CurrentPage = CashToAccount;
                     break;
-                case 2: CurrentPage = MoneyTransfers;
+                case 2: CurrentPage = TransferBetweenAccounts;
                     break;
                 case 3: CurrentPage = MoneyTransfers;
                     break;
                 case 4: CurrentPage = MoneyTransfers;
                     break;
-            }            
-        }
+            }
+        }         
         private bool CanOpenPageCommandExecute(object parametr) => true;
+        #endregion
 
         public ClientOperationsViewModel()
         {
             OpenPageCommand = new RelayCommand(OnOpenPageCommandExecuted, CanOpenPageCommandExecute);
             MoneyTransfers = new Views.Pages.MoneyTransfer();
+            TransferBetweenAccounts = new Views.Pages.TransferBetweenAccounts();
             CashToAccount = new Views.Pages.CashToAccount();
         }
     }

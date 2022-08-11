@@ -41,13 +41,15 @@ namespace ДЗ_11.ViewModels
         #region Команды управления
 
         #region Команда открытия окна для добавления клиента
-        /// <summary>Команда вывода всех клиентов</summary>
+        /// <summary>Команда открытия окна для добавления клиента</summary>
         public ICommand AddNewUserCommand { get; }
         private void OnAddNewUserCommandExecuted(object parametr)
         {
             AddClient addClientWindow = new AddClient();
             addClientWindow.ShowDialog();
-            Clients.Add(HelpClass.TempClient);
+            if (HelpClass.TempClient != null)
+                Clients.Add(HelpClass.TempClient);
+            HelpClass.TempClient = null;
         }
         private bool CanAddNewUserCommandExecute(object parametr)
         {

@@ -16,6 +16,7 @@ namespace ДЗ_11.ViewModels
             set { Set(ref newClient, value); }
         }
 
+        
         #region Команда добавления нового клиента
         /// <summary>Команда добавления нового клиента</summary>
         public ICommand CreateNewClientCommand { get; }
@@ -32,6 +33,11 @@ namespace ДЗ_11.ViewModels
             return false;
         }
         #endregion
+        
+        private void Test()
+        {
+            HelpClass.TempClient = null;
+        }
 
         #region Команда отмены создания нового клиента
         /// <summary>Команда отмены создания нового клиента</summary>
