@@ -43,5 +43,18 @@ namespace ДЗ_11.Models
             BalanceEURO_Account = 0;
         }
 
+        public NonDepositAccount(DateTime dateOfCreation, uint balanceRUB_Account, uint balanceUSD_Account, uint balanceEURO_Account, DateTime dateOfClose)
+        {
+            DateOfCreation = dateOfCreation;
+            this.balanceRUB_Account = balanceRUB_Account;
+            this.balanceUSD_Account = balanceUSD_Account;
+            this.balanceEURO_Account= balanceEURO_Account;
+            DateOfClose = dateOfClose;
+        }
+
+        public override string ToString()
+        {
+            return $"Обычный счет {DateOfCreation} {BalanceRUB_Account} {BalanceUSD_Account} {BalanceEURO_Account} {DateOfClose}";
+        }
     }
 }

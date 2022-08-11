@@ -133,7 +133,16 @@ namespace ДЗ_11.ViewModels
                     var splitLine = line.Split(' ');
                     Client client = new Client(Guid.Parse(splitLine[0]), splitLine[1], splitLine[2],
                                                           splitLine[3], splitLine[4], splitLine[5],
-                                                          DateTime.Parse(splitLine[6]));
+                                                          DateTime.Parse((splitLine[6]) + " " + (splitLine[7])),
+                                                          new NonDepositAccount(DateTime.Parse((splitLine[10]) + " " + (splitLine[11])),
+                                                                                uint.Parse(splitLine[12]),
+                                                                                uint.Parse(splitLine[13]),
+                                                                                uint.Parse(splitLine[14]),
+                                                                                DateTime.Parse((splitLine[15]) + " " + (splitLine[16]))),
+                                                          new DepositAccount(DateTime.Parse((splitLine[19]) + " " + (splitLine[20])),
+                                                                             double.Parse(splitLine[21]),
+                                                                             uint.Parse(splitLine[22]),
+                                                                             DateTime.Parse((splitLine[23]) + " " + (splitLine[24]))));
                     Clients.Add(client);
                 }
             }

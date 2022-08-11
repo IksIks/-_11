@@ -8,7 +8,6 @@ namespace ДЗ_11.Models
     {
         private uint balanceRUB_Account;
 
-        public bool DepositInsurance { get; set; }
         public double DepositPercent { get; set; }
         public override DateTime DateOfCreation { get ; set ; }
         public override DateTime DateOfClose { get ; set ; }
@@ -23,6 +22,17 @@ namespace ДЗ_11.Models
         {
             balanceRUB_Account = 0;
             DepositPercent = 20;
+        }
+        public DepositAccount(DateTime dateOfCreation, double depositPercent, uint balanceRUB_Account, DateTime dateOfClose)
+        {
+            DateOfCreation = dateOfCreation;
+            DepositPercent = depositPercent;
+            this.balanceRUB_Account = balanceRUB_Account;
+            DateOfClose = dateOfClose;
+        }
+        public override string ToString()
+        {
+            return $"Кредитный счет {DateOfCreation} {DepositPercent} {BalanceRUB_Account} {DateOfClose}";
         }
     }
 }

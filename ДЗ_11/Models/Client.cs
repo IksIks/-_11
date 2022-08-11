@@ -14,7 +14,7 @@ namespace ДЗ_11.Models
         private string patronymic;
         private string phoneNumber;
         private string passport;
-        
+
 
         #endregion
 
@@ -112,7 +112,8 @@ namespace ДЗ_11.Models
             DepositAccount = new DepositAccount();
         }
 
-        public Client(string lastName, string name, string patronymic, string phoneNumber, string passportNumber)
+        public Client(string lastName, string name, string patronymic, string phoneNumber, string passportNumber,
+                      NonDepositAccount nonDepositAccount, DepositAccount depositAccount)
         {
             this.id = Guid.NewGuid();
             this.lastName = lastName;
@@ -121,7 +122,8 @@ namespace ДЗ_11.Models
             this.phoneNumber = phoneNumber;
             this.passport = passportNumber;
             DateClientChange = DateTime.Now;
-
+            NonDepositAccount = nonDepositAccount;
+            DepositAccount = depositAccount;
         }
         /// <summary>
         /// Конструктор при загрузки базы клиентов из файла
@@ -134,18 +136,18 @@ namespace ДЗ_11.Models
         /// <param name="passportNumber"></param>
         /// <param name="dateClientChange"></param>
         public Client(Guid id, string lastName, string name, string patronymic,
-                      string phoneNumber, string passportNumber, DateTime dateClientChange)
-                      : this(lastName, name, patronymic, phoneNumber, passportNumber)
+                      string phoneNumber, string passportNumber, DateTime dateClientChange, NonDepositAccount nonDepositAccount, DepositAccount depositAccount)
+                      : this(lastName, name, patronymic, phoneNumber, passportNumber, nonDepositAccount, depositAccount)
         {
             this.id = id;
-            this.DateClientChange = dateClientChange;
-        } 
+            DateClientChange = dateClientChange;
+        }
         #endregion
 
         public override string ToString()
         {
-            return $"{Id} {LastName} {Name} {Patronymic} {PhoneNumber} {Passport} {DateClientChange}";
+            return $"{Id} {LastName} {Name} {Patronymic} {PhoneNumber} {Passport} {DateClientChange} {NonDepositAccount} {DepositAccount}";
         }
     }
-    
+
 }
