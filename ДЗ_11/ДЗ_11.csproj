@@ -86,6 +86,7 @@
     <Compile Include="ViewModels\CashToAccountViewModel.cs" />
     <Compile Include="ViewModels\ClientOperationsViewModel.cs" />
     <Compile Include="ViewModels\RoleChoiseViewModel.cs" />
+    <Compile Include="ViewModels\TransferBetweenAccountsViewModel.cs" />
     <Compile Include="Views\Pages\CashToAccount.xaml.cs">
       <DependentUpon>CashToAccount.xaml</DependentUpon>
     </Compile>

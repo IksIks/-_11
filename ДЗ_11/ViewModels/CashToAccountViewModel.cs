@@ -9,7 +9,7 @@ namespace ДЗ_11.ViewModels
 {
     internal class CashToAccountViewModel : ViewModel
     {
-        private Cash currency;
+        //private Cash currency;
         private double transferAmount;
         public string select = default;
 
@@ -19,11 +19,11 @@ namespace ДЗ_11.ViewModels
             set { Set (ref transferAmount, value); }
         }
 
-        public Cash Currency
-        {
-            get { return currency; }
-            set { Set (ref currency, value); }
-        }
+        public Cash Currency { private get; set; }
+        //{
+        //    get { return currency; }
+        //    set { Set (ref currency, value); }
+        //}
         #region Команды
 
         /// <summary>

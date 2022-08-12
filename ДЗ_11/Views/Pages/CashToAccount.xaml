@@ -16,7 +16,7 @@
         <TextBlock Style="{StaticResource MaterialDesignCharacterCounterTextBlock}" Text="Сумма зачисления" Foreground="Black" TextWrapping="Wrap" TextAlignment="Left"/>
         <TextBox FontSize="14" Height="25" Width="100" HorizontalAlignment="Left" FlowDirection="LeftToRight" Text="{Binding TransferAmount}"/>
         <TextBlock Style="{StaticResource MaterialDesignCharacterCounterTextBlock}" Text="Валюта" Foreground="Black" TextWrapping="Wrap" TextAlignment="Left"/>
-        <ComboBox Grid.Column="1" Margin="2" Height="25" Width="56" ItemsSource="{Binding Source={enum:BindEnumClass {x:Type enum:Cash}}}"
+        <ComboBox Margin="2" Height="25" Width="56" ItemsSource="{Binding Source={enum:BindEnumClass {x:Type enum:Cash}}}"
                   HorizontalAlignment="Left" SelectedIndex="{Binding Currency}"/>
         <Button Background="Red" Cursor="Hand" Command="{Binding CreditToAccountCommand}">
             <StackPanel Orientation="Horizontal">
