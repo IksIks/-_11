@@ -10,9 +10,10 @@ namespace ДЗ_11.ViewModels
     internal class CashToAccountViewModel : ViewModel
     {
         private Cash currency;
-        private uint transferAmount;
+        private double transferAmount;
+        public string select = default;
 
-        public uint TransferAmount
+        public double TransferAmount
         {
             get { return transferAmount; }
             set { Set (ref transferAmount, value); }
@@ -31,8 +32,8 @@ namespace ДЗ_11.ViewModels
         public ICommand CreditToAccountCommand { get; }
         private bool CanCreditToAccountCommandExecute(object parametr)
         {
-            if (transferAmount == 0) return false;
-            return true;
+            if (transferAmount != 0 ) return true;
+            return false;
         }
         private void OnCreditToAccountCommandExecuted(object parametr)
         {
@@ -44,8 +45,7 @@ namespace ДЗ_11.ViewModels
                     break;
                 case Cash.EURO: HelpClass.TempClient.NonDepositAccount.BalanceEURO_Account += TransferAmount;
                     break;
-            }
-            //HelpClass.TempClient.NonDepositAccount.Currency = Currency;
+            }            
             Application.Current.Windows[2].Close();
         }
         #endregion

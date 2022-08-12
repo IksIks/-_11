@@ -7,7 +7,7 @@ namespace ДЗ_11.Models.AbstractModels
     {
         public abstract DateTime DateOfCreation { get; set; }
         public abstract DateTime DateOfClose { get; set; }
-        public abstract uint BalanceRUB_Account { get; set; }
+        public abstract double BalanceRUB_Account { get; set; }
         //public abstract Cash Currency { get; set; }
 
         public BaseAccount()

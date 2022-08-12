@@ -8,7 +8,8 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TransferBetweenAccounts">
 
-    <Grid>
+    <StackPanel Orientation="Vertical" Background="White">
+        <TextBlock Text="Счет списания"/>
         
-    </Grid>
+    </StackPanel>
 </Page>

@@ -5,12 +5,12 @@ namespace ДЗ_11.Models
 {
     internal class DepositAccount : BaseAccount
     {
-        private uint balanceRUB_Account;
+        private double balanceRUB_Account;
 
         public double DepositPercent { get; set; }
         public override DateTime DateOfCreation { get ; set ; }
         public override DateTime DateOfClose { get ; set ; }
-        public override uint BalanceRUB_Account
+        public override double BalanceRUB_Account
         {
             get => balanceRUB_Account;
             set => Set(ref balanceRUB_Account, value);
@@ -22,7 +22,7 @@ namespace ДЗ_11.Models
             balanceRUB_Account = 0;
             DepositPercent = 20;
         }
-        public DepositAccount(DateTime dateOfCreation, double depositPercent, uint balanceRUB_Account, DateTime dateOfClose)
+        public DepositAccount(DateTime dateOfCreation, double depositPercent, double balanceRUB_Account, DateTime dateOfClose)
         {
             DateOfCreation = dateOfCreation;
             DepositPercent = depositPercent;

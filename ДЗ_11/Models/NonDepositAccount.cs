@@ -5,26 +5,26 @@ namespace ДЗ_11.Models
 {
     internal class NonDepositAccount : BaseAccount
     {    
-        private uint balanceRUB_Account;
-        private uint balanceUSD_Account;
-        private uint balanceEURO_Account;
+        private double balanceRUB_Account;
+        private double balanceUSD_Account;
+        private double balanceEURO_Account;
         //private Cash currency;
 
         
         public override DateTime DateOfCreation { get; set; }
         public override DateTime DateOfClose { get; set; }
 
-        public override uint BalanceRUB_Account
+        public override double BalanceRUB_Account
         {
             get => balanceRUB_Account;
             set => Set(ref balanceRUB_Account, value);
         }
-        public uint BalanceUSD_Account
+        public double BalanceUSD_Account
         {
             get => balanceUSD_Account;
             set => Set(ref balanceUSD_Account, value);
         }
-        public uint BalanceEURO_Account
+        public double BalanceEURO_Account
         {
             get => balanceEURO_Account;
             set => Set(ref balanceEURO_Account, value);
@@ -42,7 +42,7 @@ namespace ДЗ_11.Models
             BalanceEURO_Account = 0;
         }
 
-        public NonDepositAccount(DateTime dateOfCreation, uint balanceRUB_Account, uint balanceUSD_Account, uint balanceEURO_Account, DateTime dateOfClose)
+        public NonDepositAccount(DateTime dateOfCreation, double balanceRUB_Account, double balanceUSD_Account, double balanceEURO_Account, DateTime dateOfClose)
         {
             DateOfCreation = dateOfCreation;
             this.balanceRUB_Account = balanceRUB_Account;
