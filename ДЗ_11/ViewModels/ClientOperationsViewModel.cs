@@ -3,14 +3,12 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using ДЗ_11.Data;
 using ДЗ_11.Infrastructure.Commands;
-using ДЗ_11.Models;
 using ДЗ_11.ViewModels.Base;
 
 namespace ДЗ_11.ViewModels
 {
     internal class ClientOperationsViewModel : ViewModel
     {
-        public static Client temp = new Client();
         private Page moneyTransfers;
         private Page currentPage;
         private Page cashToAccount;
@@ -77,15 +75,10 @@ namespace ДЗ_11.ViewModels
         private bool CanOpenPageCreatDepositCommandExecute(object parametr)
         {
             if (HelpClass.TempClient.DepositAccount.DepositNotExist)
-            {
+            { 
                 return true;
             }
             return false;
-            //if (temp.DepositAccount.DepositNotExist)
-            //{
-            //    return true;
-            //}
-            //return false;
         }
 
         #endregion
@@ -98,7 +91,6 @@ namespace ДЗ_11.ViewModels
             TransferBetweenAccounts = new Views.Pages.TransferBetweenAccounts();
             CashToAccount = new Views.Pages.CashToAccount();
             CreateDepositAccount = new Views.Pages.DepositAccount();
-            
         }
     }
 }
