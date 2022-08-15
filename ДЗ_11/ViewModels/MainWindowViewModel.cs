@@ -49,7 +49,7 @@ namespace ДЗ_11.ViewModels
             addClientWindow.ShowDialog();
             if (HelpClass.TempClient != null)
                 Clients.Add(HelpClass.TempClient);
-            HelpClass.TempClient = null;
+            HelpClass.TempClient = default;
         }
         private bool CanAddNewUserCommandExecute(object parametr)
         {
@@ -175,6 +175,7 @@ namespace ДЗ_11.ViewModels
         private void OnClientOperationsCommadExecuted(object parameter)
         {
             HelpClass.TempClient = parameter as Client;
+            //ClientOperationsViewModel.temp = parameter as Client;
             ClientOperations ClientOps = new ClientOperations();
             ClientOps.ShowDialog();
         }
