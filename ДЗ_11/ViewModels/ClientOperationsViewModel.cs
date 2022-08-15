@@ -12,6 +12,7 @@ namespace ДЗ_11.ViewModels
         private Page currentPage;
         private Page cashToAccount;
         private Page transferBetweenAccounts;
+        private Page createDepositAccount;
 
         public Page TransferBetweenAccounts
         {
@@ -37,7 +38,11 @@ namespace ДЗ_11.ViewModels
             set { Set(ref currentPage, value); }
         }
 
-
+        public Page CreateDepositAccount
+        {
+            get { return createDepositAccount; }
+            set { Set(ref createDepositAccount, value); }
+        }
 
         #region Команда открытия страницы
         public ICommand OpenPageCommand { get; }
@@ -52,12 +57,13 @@ namespace ДЗ_11.ViewModels
                     break;
                 case 3: CurrentPage = MoneyTransfers;
                     break;
-                case 4: CurrentPage = MoneyTransfers;
+                case 4: CurrentPage = CreateDepositAccount;
                     break;
             }
         }         
         private bool CanOpenPageCommandExecute(object parametr) => true;
         #endregion
+
 
         public ClientOperationsViewModel()
         {
@@ -65,6 +71,7 @@ namespace ДЗ_11.ViewModels
             MoneyTransfers = new Views.Pages.MoneyTransfer();
             TransferBetweenAccounts = new Views.Pages.TransferBetweenAccounts();
             CashToAccount = new Views.Pages.CashToAccount();
+            CreateDepositAccount = new Views.Pages.DepositAccount();
         }
     }
 }

@@ -1,7 +1,10 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using ДЗ_11.Data;
 using ДЗ_11.Infrastructure.Commands;
+using ДЗ_11.Models;
+using ДЗ_11.Models.AbstractModels;
 using ДЗ_11.Services;
 using ДЗ_11.ViewModels.Base;
 
@@ -12,7 +15,7 @@ namespace ДЗ_11.ViewModels
         //private Cash currency;
         private double transferAmount;
         public string select = default;
-
+        
         public double TransferAmount
         {
             get { return transferAmount; }
@@ -57,3 +60,5 @@ namespace ДЗ_11.ViewModels
         }
     }
 }
+//Продумать вывод списка счетов для выбора на какой счет зачислять(основной или кредитный => этот должен быть сначала открыт, если нету то выдать предупреждение)
+//
