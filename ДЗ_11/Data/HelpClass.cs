@@ -1,4 +1,5 @@
-﻿using ДЗ_11.Models;
+﻿using System.Linq;
+using ДЗ_11.Models;
 using ДЗ_11.Services;
 
 namespace ДЗ_11.Data
@@ -16,6 +17,7 @@ namespace ДЗ_11.Data
         //    }
         //}
 
+        public static double GetDigitPath(string temp) => double.Parse(string.Join( "", temp.Where(d => char.IsDigit(d))));
 
     }
 }

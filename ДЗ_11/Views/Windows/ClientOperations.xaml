@@ -21,7 +21,7 @@
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Solid_Coins" Height="15" Margin="0,0,10,0"/>
-                        <TextBlock Text="Внесение средств на счет" TextWrapping="Wrap"/>
+                        <TextBlock Text="Внесение средств на счет"/>
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -41,13 +41,13 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button Margin="0,0,0,10" Command="{Binding OpenPageCommand}" CommandParameter="4" Height="50"> 
+            <Button Margin="0,0,0,10" Command="{Binding OpenPageCreatDepositCommand}"> 
                 <StackPanel Orientation="Horizontal">
                     <fa:ImageAwesome Icon="Solid_Wallet" Height="15" Margin="0,0,10,0"/>
-                    <TextBlock Text="Открытие депозитного счета" TextWrapping="Wrap"/>
+                    <TextBlock Text="Открытие депозитного счета"/>
                 </StackPanel>
             </Button>
-            <Button Background="Red" Command="{Binding OpenPageCommand}" Margin="0,30" Cursor="Hand">
+            <Button Background="Red" Command="{Binding OpenPageCommand}" Margin="0,30">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Solid_TimesCircle" Height="15" Margin="0,0,10,0"/>

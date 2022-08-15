@@ -144,7 +144,8 @@ namespace ДЗ_11.ViewModels
                                                           new DepositAccount(DateTime.Parse((splitLine[19]) + " " + (splitLine[20])),
                                                                              double.Parse(splitLine[21]),
                                                                              double.Parse(splitLine[22]),
-                                                                             DateTime.Parse((splitLine[23]) + " " + (splitLine[24]))));
+                                                                             DateTime.Parse((splitLine[23]) + " " + (splitLine[24])),
+                                                                             Convert.ToBoolean(splitLine[25])));
                     Clients.Add(client);
                 }
             }

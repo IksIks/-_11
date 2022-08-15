@@ -6,7 +6,7 @@ namespace ДЗ_11.Models
     internal class DepositAccount : BaseAccount
     {
         private double balanceRUB_Account;
-
+        public bool DepositNotExist { get; set; }
         public double DepositPercent { get; set; }
         public override DateTime DateOfCreation { get ; set ; }
         public override DateTime DateOfClose { get ; set ; }
@@ -15,23 +15,25 @@ namespace ДЗ_11.Models
             get => balanceRUB_Account;
             set => Set(ref balanceRUB_Account, value);
         }
-        //public override Cash Currency { get ; set ; }
+        
 
         public DepositAccount() : base()
         {
             balanceRUB_Account = 0;
-            DepositPercent = 20;
+            DepositPercent = 5.6;
+            DepositNotExist = true;
         }
-        public DepositAccount(DateTime dateOfCreation, double depositPercent, double balanceRUB_Account, DateTime dateOfClose)
+        public DepositAccount(DateTime dateOfCreation, double depositPercent, double balanceRUB_Account, DateTime dateOfClose, bool depositNotExist)
         {
             DateOfCreation = dateOfCreation;
             DepositPercent = depositPercent;
             this.balanceRUB_Account = balanceRUB_Account;
             DateOfClose = dateOfClose;
+            DepositNotExist = depositNotExist;
         }
         public override string ToString()
         {
-            return $"Кредитный счет {DateOfCreation} {DepositPercent} {BalanceRUB_Account} {DateOfClose}";
+            return $"Депозитный счет {DateOfCreation} {DepositPercent} {BalanceRUB_Account} {DateOfClose} {DepositNotExist}";
         }
     }
 }

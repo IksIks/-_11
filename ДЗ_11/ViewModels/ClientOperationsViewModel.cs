@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.Windows.Input;
+using ДЗ_11.Data;
 using ДЗ_11.Infrastructure.Commands;
 using ДЗ_11.ViewModels.Base;
 
@@ -60,14 +61,32 @@ namespace ДЗ_11.ViewModels
                 case 4: CurrentPage = CreateDepositAccount;
                     break;
             }
-        }         
+        }
         private bool CanOpenPageCommandExecute(object parametr) => true;
+
         #endregion
 
+        #region Команда открытия счета
+        public ICommand OpenPageCreatDepositCommand { get; }
+        private void OnOpenPageCreatDepositCommandExecuted(object parametr)
+        {
+            CurrentPage = CreateDepositAccount;
+        }
+        private bool CanOpenPageCreatDepositCommandExecute(object parametr)
+        {
+            if (HelpClass.TempClient.DepositAccount.DepositNotExist)
+            { 
+                return true;
+            }
+            return false;
+        }
+
+        #endregion
 
         public ClientOperationsViewModel()
         {
             OpenPageCommand = new RelayCommand(OnOpenPageCommandExecuted, CanOpenPageCommandExecute);
+            OpenPageCreatDepositCommand = new RelayCommand(OnOpenPageCreatDepositCommandExecuted, CanOpenPageCreatDepositCommandExecute);
             MoneyTransfers = new Views.Pages.MoneyTransfer();
             TransferBetweenAccounts = new Views.Pages.TransferBetweenAccounts();
             CashToAccount = new Views.Pages.CashToAccount();

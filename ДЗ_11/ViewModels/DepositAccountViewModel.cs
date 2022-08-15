@@ -10,14 +10,21 @@ namespace ДЗ_11.ViewModels
 {
     internal class DepositAccountViewModel : ViewModel
     {
-        private double transferAmount;
+        
+
+        private double transferAmount; 
         public double TransferAmount
         {
             get { return transferAmount; }
             set { Set( ref transferAmount, value); }
         }
-
-        public double DepositPercent { get; set; } = HelpClass.TempClient.DepositAccount.DepositPercent;
+        
+        private double depositPercent = HelpClass.TempClient.DepositAccount.DepositPercent;
+        public double DepositPercent
+        {
+            get { return depositPercent; }
+            set { Set(ref depositPercent, value); }
+        }
 
         public ICommand CreditToAccountCommand { get; }
         private bool CanCreditToAccountCommandExecute(object parametr)
@@ -29,8 +36,8 @@ namespace ДЗ_11.ViewModels
         {
             HelpClass.TempClient.DepositAccount.BalanceRUB_Account = TransferAmount;
             HelpClass.TempClient.DepositAccount.DateOfCreation = DateTime.Now;
-            HelpClass.TempClient.DepositAccount.DepositPercent = 0;
-            //HelpClass.TempClient.
+            HelpClass.TempClient.DepositAccount.DepositPercent = DepositPercent;
+            HelpClass.TempClient.DepositAccount.DepositNotExist = false;
             Application.Current.Windows[2].Close();
         }
         public Client Client { get; private set; } = HelpClass.TempClient;
