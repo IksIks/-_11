@@ -9,11 +9,11 @@ namespace ДЗ_11.Models
     {
         #region Поля
         private Guid id;
-        private string name;
-        private string lastName;
-        private string patronymic;
-        private string phoneNumber;
-        private string passport;
+        private string name = default;
+        private string lastName = default;
+        private string patronymic = default;
+        private string phoneNumber = default;
+        private string passport = default;
 
 
         #endregion

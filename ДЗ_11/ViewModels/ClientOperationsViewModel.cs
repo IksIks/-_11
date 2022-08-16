@@ -58,8 +58,6 @@ namespace ДЗ_11.ViewModels
                     break;
                 case 3: CurrentPage = MoneyTransfers;
                     break;
-                case 4: CurrentPage = CreateDepositAccount;
-                    break;
             }
         }
         private bool CanOpenPageCommandExecute(object parametr) => true;

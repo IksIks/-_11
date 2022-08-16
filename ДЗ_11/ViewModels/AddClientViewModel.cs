@@ -23,7 +23,6 @@ namespace ДЗ_11.ViewModels
         private void OnCreateNewClientCommandExecuted(object parameter)
         {
             HelpClass.TempClient = NewClient;
-            //HelpClass.Clients.Add(NewClient);
             Application.Current.Windows[2].Close();
         }
         private bool CanCreateNewClientCommandExecute(object parameter)
@@ -34,10 +33,6 @@ namespace ДЗ_11.ViewModels
         }
         #endregion
         
-        private void Test()
-        {
-            HelpClass.TempClient = null;
-        }
 
         #region Команда отмены создания нового клиента
         /// <summary>Команда отмены создания нового клиента</summary>
@@ -45,6 +40,7 @@ namespace ДЗ_11.ViewModels
         private void OnStopCreateNewClientCommandExecuted(object parameter)
         {
             Application.Current.Windows[2].Close();
+            HelpClass.TempClient = new Client();
         }
         private bool CanStopCreateNewClientCommandExecute(object parameter) => true;
         #endregion
