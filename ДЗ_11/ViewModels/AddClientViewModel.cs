@@ -23,7 +23,7 @@ namespace ДЗ_11.ViewModels
         private void OnCreateNewClientCommandExecuted(object parameter)
         {
             HelpClass.TempClient = NewClient;
-            Application.Current.Windows[2].Close();
+            Application.Current.Windows[1].Close();
         }
         private bool CanCreateNewClientCommandExecute(object parameter)
         {
@@ -39,7 +39,7 @@ namespace ДЗ_11.ViewModels
         public ICommand StopCreateNewClientCommand { get; }
         private void OnStopCreateNewClientCommandExecuted(object parameter)
         {
-            Application.Current.Windows[2].Close();
+            Application.Current.Windows[1].Close();
             HelpClass.TempClient = new Client();
         }
         private bool CanStopCreateNewClientCommandExecute(object parameter) => true;

@@ -10,8 +10,6 @@ namespace ДЗ_11.ViewModels
 {
     internal class DepositAccountViewModel : ViewModel
     {
-        
-
         private double transferAmount; 
         public double TransferAmount
         {
@@ -38,7 +36,7 @@ namespace ДЗ_11.ViewModels
             HelpClass.TempClient.DepositAccount.DateOfCreation = DateTime.Now;
             HelpClass.TempClient.DepositAccount.DepositPercent = DepositPercent;
             HelpClass.TempClient.DepositAccount.DepositNotExist = false;
-            Application.Current.Windows[2].Close();
+            Application.Current.Windows[1].Close();
         }
         public Client Client { get; private set; } = HelpClass.TempClient;
 

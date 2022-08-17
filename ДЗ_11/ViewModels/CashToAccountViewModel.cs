@@ -1,10 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using ДЗ_11.Data;
 using ДЗ_11.Infrastructure.Commands;
-using ДЗ_11.Models;
-using ДЗ_11.Models.AbstractModels;
 using ДЗ_11.Services;
 using ДЗ_11.ViewModels.Base;
 
@@ -48,8 +45,8 @@ namespace ДЗ_11.ViewModels
                     break;
                 case Cash.EURO: HelpClass.TempClient.NonDepositAccount.BalanceEURO_Account += TransferAmount;
                     break;
-            }            
-            Application.Current.Windows[2].Close();
+            }
+            Application.Current.Windows[1].Close();
         }
         #endregion
 
