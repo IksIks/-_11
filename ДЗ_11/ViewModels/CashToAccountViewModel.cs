@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using ДЗ_11.Data;
 using ДЗ_11.Infrastructure.Commands;
+using ДЗ_11.Models;
 using ДЗ_11.Services;
 using ДЗ_11.ViewModels.Base;
 
@@ -9,6 +10,7 @@ namespace ДЗ_11.ViewModels
 {
     internal class CashToAccountViewModel : ViewModel
     {
+        public Client Client { get; set; } = HelpClass.TempClient;
         //private Cash currency;
         private double transferAmount;
         public string select = default;

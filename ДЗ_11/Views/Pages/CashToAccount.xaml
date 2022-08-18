@@ -13,6 +13,15 @@
         <view:CashToAccountViewModel/>
     </Page.DataContext>
     <StackPanel Orientation="Vertical" Margin="15,5,15,5">
+        <TextBlock FontSize="14" FontWeight="Bold">
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0} {1} {2}">
+                    <Binding Path="Client.LastName"/>
+                    <Binding Path="Client.Name"/>
+                    <Binding Path="Client.Patronymic"/>
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
         <TextBlock Style="{StaticResource MaterialDesignCharacterCounterTextBlock}" Text="Сумма зачисления" Foreground="Black" TextWrapping="Wrap" TextAlignment="Left"/>
         <TextBox FontSize="14" Height="25" Width="100" HorizontalAlignment="Left" FlowDirection="LeftToRight" Text="{Binding TransferAmount}"/>
         <TextBlock Style="{StaticResource MaterialDesignCharacterCounterTextBlock}" Text="Валюта" Foreground="Black" TextWrapping="Wrap" TextAlignment="Left"/>
