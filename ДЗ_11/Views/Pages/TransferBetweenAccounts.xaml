@@ -7,20 +7,27 @@
       xmlns:view="clr-namespace:ДЗ_11.ViewModels"
       xmlns:enum="clr-namespace:ДЗ_11.Services"
       xmlns:fa="http://schemas.fontawesome.com/icons/"
-      d:DesignHeight="250" d:DesignWidth="250"
+      d:DesignHeight="250" d:DesignWidth="220"
       Title="TransferBetweenAccounts" Background="White">
     <Page.DataContext>
         <view:TransferBetweenAccountsViewModel/>
     </Page.DataContext>
     <StackPanel Orientation="Vertical" Margin="10,5,10,5">
-        <TextBlock Style="{StaticResource MaterialDesignCharacterCounterTextBlock}"  Text="Счет списания" Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Left" Width="70"/>
+        <TextBlock Style="{StaticResource MaterialDesignCharacterCounterTextBlock}"  Text="Счет списания" FontSize="12" HorizontalAlignment="Left" Width="80"/>
+        <ComboBox ItemsSource="{Binding ClientAccount}"  SelectedItem="{Binding SelectedAccount}">
+            <!--<ComboBoxItem Content="Основной счет" IsSelected="True"/>
+            <ComboBoxItem Content="Депозитный счет"/>-->
+        </ComboBox>
         <Grid >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="34*"/>
-                <ColumnDefinition Width="81*"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="81"/>
+                <ColumnDefinition Width="49"/>
             </Grid.ColumnDefinitions>
-            <ComboBox Grid.Column="0" Margin="2" ItemsSource="{Binding Source={enum:BindEnumClass {x:Type enum:Cash}}}" SelectedItem="{Binding Currency}"/>
-            <TextBlock Grid.Column="1" FontSize="14" Margin="2" Text="{Binding TransferAmount}"/>
+            <ComboBox Grid.Column="0" Margin="2,2,2,2" ItemsSource="{Binding Source={enum:BindEnumClass {x:Type enum:Cash}}}"
+                      SelectedItem="{Binding Currency}" Visibility="{Binding Visibility}"/>
+            <Label Grid.Column="1" Content="{Binding Balance}" Margin="2,2,2,2"/>
+            <TextBlock Grid.Column="2" FontSize="14" Margin="5,5,-10,5" Text="{Binding TransferAmount}"/>
         </Grid>
         <StackPanel Orientation="Vertical">
             <TextBlock Style="{StaticResource MaterialDesignCharacterCounterTextBlock}" Text="Сумма списания" Foreground="Black" TextWrapping="Wrap" TextAlignment="Left"/>
@@ -41,6 +48,6 @@
             <TextBlock Grid.Column="1" FontSize="14" Margin="2" Text="{Binding TransferAmount}" Grid.ColumnSpan="2"/>
         </Grid>
         <Button Content="Перевести" Margin="15"/>
-        
+
     </StackPanel>
 </Page>

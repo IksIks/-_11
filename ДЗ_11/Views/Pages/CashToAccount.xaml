@@ -8,7 +8,7 @@
       xmlns:enum="clr-namespace:ДЗ_11.Services"
       xmlns:fa="http://schemas.fontawesome.com/icons/"
       d:DesignHeight="200" d:DesignWidth="150"
-      Title="CashToAccount" Background="LightGray">
+      Title="CashToAccount">
     <Page.DataContext>
         <view:CashToAccountViewModel/>
     </Page.DataContext>

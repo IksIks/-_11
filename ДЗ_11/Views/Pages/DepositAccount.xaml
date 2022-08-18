@@ -7,7 +7,7 @@
       xmlns:view="clr-namespace:ДЗ_11.ViewModels"
      xmlns:fa="http://schemas.fontawesome.com/icons/"
       d:DesignHeight="250" d:DesignWidth="270"
-      Title="DepositAccount" Background="White">
+      Title="DepositAccount" Background="LightGray">
     <Page.DataContext>
         <view:DepositAccountViewModel/>
     </Page.DataContext>
@@ -32,7 +32,7 @@
             </Grid.RowDefinitions>
             <Label Grid.Column="0" Grid.Row="0" Content="Сумма вклада, руб" FontSize="14"/>
             <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding TransferAmount, UpdateSourceTrigger=PropertyChanged}" FontSize="14" Margin="0,0,5,0" Cursor="IBeam" />
-            <Label Grid.Column="0" Grid.Row="1" Content="Процентная ставкаб %" FontSize="14" />
+            <Label Grid.Column="0" Grid.Row="1" Content="Процентная ставка, %" FontSize="14" />
             <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding DepositPercent}" FontSize="14" Margin="0,0,5,0"/>
         </Grid>
 
