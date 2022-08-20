@@ -4,6 +4,6 @@
     {
         RUB,
         USD,
-        EURO
+        EUR
     }
 }

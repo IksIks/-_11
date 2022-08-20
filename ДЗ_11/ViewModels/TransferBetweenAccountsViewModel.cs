@@ -16,15 +16,21 @@ namespace ДЗ_11.ViewModels
         private string visibility;
         private double accountBalance = HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account;
 
+        public double CostOneEuro { get; set; }
+        public double CostOneDollar { get; set; }
+
+        public double Test1 { get; set; }
+
+
         public string DebitAccount
         {
             get { return debitAccount; }
-            set { Set( ref debitAccount, value); }
+            set { Set(ref debitAccount, value); }
         }
         public double TransferAmount
         {
             get { return transferAmount; }
-            set { Set( ref transferAmount, value); }
+            set { Set(ref transferAmount, value); }
         }
 
         public string XmlBalance
@@ -38,7 +44,7 @@ namespace ДЗ_11.ViewModels
             get
             {
                 if (string.IsNullOrEmpty(selectedAccount))
-                    Visibility = "Visible";
+                    Visibility = "Visible"; // поменять на Hidden когда закончу разметку
                 return selectedAccount;
             }
             set
@@ -47,7 +53,7 @@ namespace ДЗ_11.ViewModels
                 if (selectedAccount == "Депозитный счет")
                 {
                     DebitAccount = "Основной счет";
-                    Visibility = "Collapsed";
+                    Visibility = "Hidden";
                     XmlBalance = "Баланс, руб";
                 }
                 else
@@ -72,16 +78,19 @@ namespace ДЗ_11.ViewModels
         };
         public List<string> ClientAccount
         {
-            get { return clientAccount; }
+            get
+            {
+                return clientAccount = !Client.DepositAccount.DepositNotExist? clientAccount : new List<string> { "Основной счет" };
+            }
             set { Set(ref clientAccount, value); }
         }
 
-        
+
         public double AccountBalance
         {
             get { return accountBalance; }
             set { Set(ref accountBalance, value); }
-            
+
         }
         private Cash currency;
         public Cash Currency
@@ -92,13 +101,17 @@ namespace ДЗ_11.ViewModels
                 Set(ref currency, value);
                 switch (currency)
                 {
-                    case Cash.RUB: AccountBalance = HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account;
+                    case Cash.RUB:
+                        AccountBalance = HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account;
                         break;
-                    case Cash.USD:  AccountBalance = HelpClass.TempClient.NonDepositAccount.BalanceUSD_Account;
+                    case Cash.USD:
+                        AccountBalance = HelpClass.TempClient.NonDepositAccount.BalanceUSD_Account;
                         break;
-                    case Cash.EURO: AccountBalance = HelpClass.TempClient.NonDepositAccount.BalanceEURO_Account;
+                    case Cash.EUR:
+                        AccountBalance = HelpClass.TempClient.NonDepositAccount.BalanceEURO_Account;
                         break;
-                        default: AccountBalance = HelpClass.TempClient.DepositAccount.BalanceRUB_Account;
+                    default:
+                        AccountBalance = HelpClass.TempClient.DepositAccount.BalanceRUB_Account;
                         break;
                 }
             }
@@ -106,7 +119,8 @@ namespace ДЗ_11.ViewModels
 
         public TransferBetweenAccountsViewModel()
         {
-
+            GetValute www = new GetValute();
+            Test1 = www.GetDataCurrentValute(Cash.EUR).valuteValue;
 
 
         }

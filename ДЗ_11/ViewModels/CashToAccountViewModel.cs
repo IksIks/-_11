@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Input;
 using ДЗ_11.Data;
 using ДЗ_11.Infrastructure.Commands;
@@ -10,8 +11,9 @@ namespace ДЗ_11.ViewModels
 {
     internal class CashToAccountViewModel : ViewModel
     {
-        public Client Client { get; set; } = HelpClass.TempClient;
-        //private Cash currency;
+        
+       
+        
         private double transferAmount;
         public string select = default;
         
@@ -45,7 +47,7 @@ namespace ДЗ_11.ViewModels
                     break;
                 case Cash.USD: HelpClass.TempClient.NonDepositAccount.BalanceUSD_Account += TransferAmount;
                     break;
-                case Cash.EURO: HelpClass.TempClient.NonDepositAccount.BalanceEURO_Account += TransferAmount;
+                case Cash.EUR: HelpClass.TempClient.NonDepositAccount.BalanceEURO_Account += TransferAmount;
                     break;
             }
             Application.Current.Windows[1].Close();
@@ -55,7 +57,6 @@ namespace ДЗ_11.ViewModels
         public CashToAccountViewModel()
         {
             CreditToAccountCommand = new RelayCommand(OnCreditToAccountCommandExecuted, CanCreditToAccountCommandExecute);
-            
         }
     }
 }
