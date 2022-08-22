@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 using ДЗ_11.Services;
 
@@ -9,13 +10,25 @@ namespace ДЗ_11.Data
 {
     internal class GetValute
     {
-        private ValCurs DownloadValuteData()
+        /// <summary>
+        /// Скачивание курса валют с сайта ЦБ
+        /// </summary>
+        /// <returns></returns>
+        private void DownloadValuteData()
         {
             var client = new HttpClient();
-            var page = "http://www.cbr.ru/scripts/XML_daily.asp?";
+            var page = $"http://www.cbr.ru/scripts/XML_daily.asp?date_req={DateTime.Now:dd/MM/yyyy}";
             var response = client.GetAsync(page).Result;
             var content = response.Content.ReadAsStringAsync().Result;
             File.WriteAllText("ValuteCurse.xml", content);
+        }
+
+        /// <summary>
+        /// Десирилизация скаченных данных из файла
+        /// </summary>
+        /// <returns>Объект типа ValCurs</returns>
+        private ValCurs GetFromXML()
+        {
             ValCurs valCurs;
             XmlSerializer ser = new XmlSerializer(typeof(ValCurs));
             using (StreamReader sr = new StreamReader("ValuteCurse.xml"))
@@ -25,9 +38,14 @@ namespace ДЗ_11.Data
             return valCurs;
         }
 
-        public (string valuteName, string valuteCharCode, double valuteValue) GetDataCurrentValute(Cash cash)
+        /// <summary>
+        /// Получение валюты в виде "Название", "Символьного Кода", "Значения"
+        /// </summary>
+        /// <param name="cash">ENUM класса GetValute</param>
+        /// <returns>Tuple<string, string, double></returns>
+        public Tuple<string, string, double> GetDataCurrentValute(Cash cash)
         {
-            var valute = DownloadValuteData();
+            var valute = new GetValute().GetFromXML();
             foreach (var item in valute.Valute)
             {
                 if(item.CharCode == cash.ToString())
@@ -35,27 +53,15 @@ namespace ДЗ_11.Data
                     var valuteName = item.Name;
                     var valuteValue = double.Parse(item.Value);
                     var valuteCharCode = item.CharCode;
-                    return (valuteName, valuteCharCode, valuteValue);
+                    return new Tuple<string, string, double>(valuteName, valuteCharCode, valuteValue);
                 }
             }
-            return (" ", " ", 0.00);
+            return new Tuple<string, string, double>(" ", " ", 0.00);
         }
-
-
 
         public GetValute()
         {
-            //var client = new HttpClient();
-            //var page = "http://www.cbr.ru/scripts/XML_daily.asp?";
-            //var response = client.GetAsync(page).Result;
-            //var content = response.Content.ReadAsStringAsync().Result;
-            //File.WriteAllText("ValuteCurse.xml", content);
-            //ValCurs valCurs;
-            //XmlSerializer ser = new XmlSerializer(typeof(ValCurs));
-            //using (StreamReader sr = new StreamReader("test.xml"))
-            //{
-            //    valCurs = ser.Deserialize(sr) as ValCurs;
-            //}
+            DownloadValuteData();
         }
 
     }

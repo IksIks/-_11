@@ -34,14 +34,29 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Vertical" Background="LightGray">
                 <Button Content="Добавить клиента" Width="150" Padding="0,0,6,0"
-                   VerticalAlignment="Top" Margin="10,10,10,0" Command="{Binding AddNewUserCommand}" Cursor="Hand"/>
+                   VerticalAlignment="Top" Margin="10,10,10,0" Command="{Binding AddNewUserCommand}"/>
                 <Button Content="Удалить клиента" Width="150" Padding="0,0,6,0"
                    VerticalAlignment="Top" Margin="10,10,10,0" Command="{Binding DeleteClientCommand}"
                         CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}" Cursor="Hand"/>
                 <Button Content="Операции" Width="150" Padding="0,0,6,0"
                    VerticalAlignment="Top" Margin="10,10,10,0" Command="{Binding ClientOperationsCommand}"
                         CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}" Cursor="Hand"/>
-                
+                <Label Content="{Binding ValuteCurse}" HorizontalAlignment="Center" Margin="0,350,0,0" FontSize="14"/>
+                <Separator Background="Red" />
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="85"/>
+                        <ColumnDefinition Width="79"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="{Binding ValuteUSDCourse.Item1}" Margin="2,0,0,0"/>
+                    <Label Grid.Column="0" Grid.Row="1" Content="{Binding ValuteEURCourse.Item1}" Margin="2,0,0,0"/>
+                    <Label Grid.Column="1" Grid.Row="0" Content="{Binding ValuteUSDCourse.Item3}" HorizontalAlignment="Right" FontWeight="Bold"/>
+                    <Label Grid.Column="1" Grid.Row="1" Content="{Binding ValuteEURCourse.Item3}" HorizontalAlignment="Right" FontWeight="Bold"/>
+                </Grid>
             </StackPanel>
             <DataGrid Name="DataGrid" Grid.Column="1" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Clients}"
                       GridLinesVisibility="Vertical" CanUserDeleteRows="False" Width="Auto"

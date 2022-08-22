@@ -119,10 +119,7 @@ namespace ДЗ_11.ViewModels
 
         public TransferBetweenAccountsViewModel()
         {
-            GetValute www = new GetValute();
-            Test1 = www.GetDataCurrentValute(Cash.EUR).valuteValue;
-
-
+            
         }
 
     }

@@ -22,7 +22,7 @@
                 </MultiBinding>
             </TextBlock.Text>
         </TextBlock>
-        <TextBlock Style="{StaticResource MaterialDesignCharacterCounterTextBlock}"  Text="{Binding Test1}" FontSize="12" HorizontalAlignment="Left" Width="80"/>
+        <TextBlock Style="{StaticResource MaterialDesignCharacterCounterTextBlock}"  Text="Счет списания" FontSize="12" HorizontalAlignment="Left" Width="80"/>
         <ComboBox ItemsSource="{Binding ClientAccount}"  SelectedItem="{Binding SelectedAccount}">
         </ComboBox>
         <Grid >
