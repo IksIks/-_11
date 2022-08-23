@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using ДЗ_11.Data;
 using ДЗ_11.Infrastructure.Commands;
 using ДЗ_11.Models;
 using ДЗ_11.ViewModels.Base;
@@ -52,6 +53,7 @@ namespace ДЗ_11.ViewModels
         {
             ConsultantRoleApplicationCommand = new RelayCommand(OnConsultantRoleApplicationCommandExecuted, CanConsultantRoleApplicationCommandCanExecute);
             ManagerRoleApplicationCommand = new RelayCommand(OnManagerRoleApplicationCommandExecuted, CanManagerRoleApplicationCommandCanExecute);
+            GetValute get = new GetValute();
         }
     }
 }

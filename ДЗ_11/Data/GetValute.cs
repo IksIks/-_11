@@ -27,7 +27,7 @@ namespace ДЗ_11.Data
         /// Десирилизация скаченных данных из файла
         /// </summary>
         /// <returns>Объект типа ValCurs</returns>
-        private ValCurs GetFromXML()
+        private static ValCurs GetFromXML()
         {
             ValCurs valCurs;
             XmlSerializer ser = new XmlSerializer(typeof(ValCurs));
@@ -43,9 +43,9 @@ namespace ДЗ_11.Data
         /// </summary>
         /// <param name="cash">ENUM класса GetValute</param>
         /// <returns>Tuple<string, string, double></returns>
-        public Tuple<string, string, double> GetDataCurrentValute(Cash cash)
+        public static Tuple<string, string, double> GetDataCurrentValute(Cash cash)
         {
-            var valute = new GetValute().GetFromXML();
+            var valute = GetFromXML();
             foreach (var item in valute.Valute)
             {
                 if(item.CharCode == cash.ToString())

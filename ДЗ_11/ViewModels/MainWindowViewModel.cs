@@ -17,7 +17,7 @@ namespace ДЗ_11.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-        public string MyProperty { get; set; }
+        
         public string ValuteCurse { get; private set; } = $"Курс валют на {DateTime.Now:dd/MM/yyyy}";
         public Tuple<string, string, double> ValuteEURCourse { get; private set; }
         public Tuple<string, string, double> ValuteUSDCourse { get; private set; }
@@ -260,9 +260,9 @@ namespace ДЗ_11.ViewModels
             CloseAplicationCommand = new RelayCommand(OnCloseAplicationCommandExecuted, CanCloseAplicationCommandEcecute);
             ClientOperationsCommand = new RelayCommand(OnClientOperationsCommadExecuted, CanClientOperationsCommandExecute);
             Clients.CollectionChanged += Clients_CollectionChanged;
-            GetValute getValute = new GetValute();
-            ValuteUSDCourse = getValute.GetDataCurrentValute(Cash.USD);
-            ValuteEURCourse = getValute.GetDataCurrentValute(Cash.EUR);
+            //GetValute getValute = new GetValute();
+            ValuteUSDCourse = GetValute.GetDataCurrentValute(Cash.USD);
+            ValuteEURCourse = GetValute.GetDataCurrentValute(Cash.EUR);
             
         }
     }
