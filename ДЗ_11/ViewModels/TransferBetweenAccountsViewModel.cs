@@ -11,40 +11,37 @@ namespace ДЗ_11.ViewModels
 {
     internal class TransferBetweenAccountsViewModel : ViewModel
     {
-        public Client Client { get; set; } = HelpClass.TempClient;
-        private string debitAccount;
+        private string anotherAccount;
         private double transferAmount;
         private string xmlBalance;
         private string selectedAccount;
-        private string visibility = "Hidden";
-        private string visibilityAccountBalance = "Hidden";
+        private string visibility = "Hidden"; // для работы с разметкой изменить на Visible
+        private string visibilityAccountBalance = "Hidden"; // для работы с разметкой изменить на Visible
         private double accountBalance = HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account;
-        private string сonversion;
         private double сonversionValute;
+        private List<string> clientAccount = new List<string>
+        {
+            "Основной счет",
+            "Депозитный счет"
+        };
+        private Cash currency;
+        public Client Client { get; set; } = HelpClass.TempClient;
 
-
+        /// <summary>Сумма после перевода в USD или EUR, для RUB - сумма не меняется</summary>
         public double ConversionValute
         {
             get { return сonversionValute; }
             set { Set(ref сonversionValute, value); }
         }
 
-        public string Conversion
+        /// <summary>Счет для зачисления</summary>
+        public string AnotherAccount
         {
-            get { return сonversion = $"Сумма перевода {ConversionValute}"; }
-            set { Set(ref сonversion, value); }
+            get { return anotherAccount; }
+            set { Set(ref anotherAccount, value); }
         }
 
-
-
-        public double CostOneEuro { get; set; }
-        public double CostOneDollar { get; set; }
-
-        public string DebitAccount
-        {
-            get { return debitAccount; }
-            set { Set(ref debitAccount, value); }
-        }
+        /// <summary>Сумма для зачисления на счет</summary>
         public double TransferAmount
         {
             get { return transferAmount; }
@@ -55,11 +52,7 @@ namespace ДЗ_11.ViewModels
                 {
                     case Cash.RUB: ConversionValute = TransferAmount;
                         break;
-                    case Cash.USD:
-                        {
-                            ConversionValute = TransferAmount * GetValute.GetDataCurrentValute(Currency).Item3;
-
-                        }
+                    case Cash.USD: ConversionValute = TransferAmount * GetValute.GetDataCurrentValute(Currency).Item3;
                         break;
                     case Cash.EUR: ConversionValute = TransferAmount * GetValute.GetDataCurrentValute(Currency).Item3;
                         break;
@@ -69,12 +62,14 @@ namespace ДЗ_11.ViewModels
             }
         }
 
+        /// <summary>Текстовое поле для указания счета в разметке</summary>
         public string XmlBalance
         {
             get { return xmlBalance; }
             set { Set(ref xmlBalance, value); }
         }
 
+        /// <summary>Выбранный пользователем счет в разметке</summary>
         public string SelectedAccount
         {
             get { return selectedAccount; }
@@ -85,19 +80,21 @@ namespace ДЗ_11.ViewModels
                 if (selectedAccount == "Депозитный счет")
                 {
                     AccountBalance = HelpClass.TempClient.DepositAccount.BalanceRUB_Account;
-                    DebitAccount = "Основной счет";
+                    AnotherAccount = "Основной счет";
                     Visibility = "Hidden";
                     XmlBalance = "Баланс, руб";
                 }
                 else
                 {
                     AccountBalance = HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account;
-                    DebitAccount = "Депозитный счет";
+                    AnotherAccount = "Депозитный счет";
                     Visibility = "Visible";
                     XmlBalance = "Баланс";
                 }
             }
         }
+
+        /// <summary>Свойство видимости элементов разметки в зависимости от выбранного счета</summary>
         public string Visibility
         {
             get { return visibility; }
@@ -105,38 +102,28 @@ namespace ДЗ_11.ViewModels
 
         }
 
+        /// <summary>Свойство видимости для суммы на счете, активируется при первом загрузке страницы до момента выбора каког-либо счета</summary>
         public string VisibilityAccountBalance
         {
             get { return visibilityAccountBalance; }
             set { Set(ref visibilityAccountBalance, value); }
         }
 
-        private List<string> clientAccount = new List<string>
-        {
-            "Основной счет",
-            "Депозитный счет"
-        };
+        /// <summary>Текстовое представление клиентских аккаунтов</summary>
         public List<string> ClientAccount
         {
-            get
-            {
-                return clientAccount = !Client.DepositAccount.DepositNotExist ? clientAccount : new List<string> { "Основной счет" };
-            }
+            get{ return clientAccount; }
             set { Set(ref clientAccount, value); }
         }
 
-
+        /// <summary>Количество средств на выбранном счете</summary>
         public double AccountBalance
         {
             get { return accountBalance; }
-            set
-            {
-
-                Set(ref accountBalance, value);
-            }
+            set{ Set(ref accountBalance, value); }
         }
 
-        private Cash currency;
+        /// <summary>Подсчета "Основного счета" клиента</summary>
         public Cash Currency
         {
             get { return currency; }
@@ -158,6 +145,7 @@ namespace ДЗ_11.ViewModels
             }
         }
 
+        #region Команда перевода среств клиента между счетами
         public ICommand TransferAmountCommand { get; }
 
         private bool CanTransferAmountCommandExecute(object parametr)
@@ -168,7 +156,7 @@ namespace ДЗ_11.ViewModels
         private void OnTransferAmountCommandExecuted(object parametr)
         {
             var test = parametr as string;
-            if(SelectedAccount == "Основной счет")
+            if (SelectedAccount == "Основной счет")
             {
                 switch (Currency)
                 {
@@ -190,13 +178,9 @@ namespace ДЗ_11.ViewModels
                 HelpClass.TempClient.DepositAccount.BalanceRUB_Account -= TransferAmount;
             }
             Application.Current.Windows[1].Close();
-        }
+        } 
+        #endregion
 
-
-        //private double CanValuteConversation(Cash cash)
-        //{
-        //    if(TransferAmount > AccountBalance || TransferAmount <= 0)
-        //}
         public TransferBetweenAccountsViewModel()
         {
             TransferAmountCommand = new RelayCommand(OnTransferAmountCommandExecuted, CanTransferAmountCommandExecute);
