@@ -95,8 +95,8 @@
     <Compile Include="Views\Pages\DepositAccount.xaml.cs">
       <DependentUpon>DepositAccount.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\MoneyTransfer.xaml.cs">
-      <DependentUpon>MoneyTransfer.xaml</DependentUpon>
+    <Compile Include="Views\Pages\TransferToAnotherClient.xaml.cs">
+      <DependentUpon>TransferToAnotherClient.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\TransferBetweenAccounts.xaml.cs">
       <DependentUpon>TransferBetweenAccounts.xaml</DependentUpon>
@@ -118,7 +118,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\MoneyTransfer.xaml">
+    <Page Include="Views\Pages\TransferToAnotherClient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

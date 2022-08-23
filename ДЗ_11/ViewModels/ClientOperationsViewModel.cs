@@ -9,7 +9,7 @@ namespace ДЗ_11.ViewModels
 {
     internal class ClientOperationsViewModel : ViewModel
     {
-        private Page moneyTransfers;
+        private Page transferToAnotherClient;
         private Page currentPage;
         private Page cashToAccount;
         private Page transferBetweenAccounts;
@@ -27,10 +27,10 @@ namespace ДЗ_11.ViewModels
             set { Set(ref cashToAccount, value); }
         }
 
-        public Page MoneyTransfers
+        public Page TransferToAnotherClient
         {
-            get { return moneyTransfers; }
-            set { Set(ref moneyTransfers, value); }
+            get { return transferToAnotherClient; }
+            set { Set(ref transferToAnotherClient, value); }
         }
         
         public Page CurrentPage
@@ -56,7 +56,7 @@ namespace ДЗ_11.ViewModels
                     break;
                 case 2: CurrentPage = TransferBetweenAccounts;
                     break;
-                case 3: CurrentPage = MoneyTransfers;
+                case 3: CurrentPage = TransferToAnotherClient;
                     break;
             }
         }
@@ -85,7 +85,7 @@ namespace ДЗ_11.ViewModels
         {
             OpenPageCommand = new RelayCommand(OnOpenPageCommandExecuted, CanOpenPageCommandExecute);
             OpenPageCreatDepositCommand = new RelayCommand(OnOpenPageCreatDepositCommandExecuted, CanOpenPageCreatDepositCommandExecute);
-            MoneyTransfers = new Views.Pages.MoneyTransfer();
+            TransferToAnotherClient = new Views.Pages.MoneyTransfer();
             TransferBetweenAccounts = new Views.Pages.TransferBetweenAccounts();
             CashToAccount = new Views.Pages.CashToAccount();
             CreateDepositAccount = new Views.Pages.DepositAccount();
