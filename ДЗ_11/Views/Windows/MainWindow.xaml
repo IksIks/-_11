@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:view="clr-namespace:ДЗ_11.ViewModels"
         mc:Ignorable="d"
-        Title="BankSystem" Height="683" Width="1213" MinWidth="1040"
+        Title="BankSystem" Height="683" Width="1100" MinWidth="1100"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <view:MainWindowViewModel/>
@@ -35,14 +35,34 @@
             <StackPanel Grid.Column="0" Orientation="Vertical" Background="LightGray">
                 <Button Content="Добавить клиента" Width="150" Padding="0,0,6,0"
                    VerticalAlignment="Top" Margin="10,10,10,0" Command="{Binding AddNewUserCommand}"/>
-                <Button Content="Удалить клиента" Width="150" Padding="0,0,6,0"
-                   VerticalAlignment="Top" Margin="10,10,10,0" Command="{Binding DeleteClientCommand}"
-                        CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}" Cursor="Hand"/>
+                <!--<Button Content="Информация о клиенте" Margin="10,10,10,0" Command="{Binding ClientInformationCommand}"
+                        CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"/>-->
+                
                 <Button Content="Операции" Width="150" Padding="0,0,6,0"
                    VerticalAlignment="Top" Margin="10,10,10,0" Command="{Binding ClientOperationsCommand}"
-                        CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}" Cursor="Hand"/>
-                <Label Content="{Binding ValuteCurse}" HorizontalAlignment="Center" Margin="0,350,0,0" FontSize="14"/>
-                <Separator Background="Red" />
+                        CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"/>
+                <StackPanel Orientation="Vertical" Margin="10,10">
+                    <TextBlock Text="{Binding ElementName=DataGrid, Path=SelectedItem.LastName}"/>
+                    <TextBlock Text="{Binding ElementName=DataGrid, Path=SelectedItem.Name}"/>
+                    <TextBlock Text="{Binding ElementName=DataGrid, Path=SelectedItem.Patronymic}"/>
+                    <Separator Foreground="Black"/>
+                    <Label Content="Рублевый счет"/>
+                    <TextBlock Text="{Binding ElementName=DataGrid, Path=SelectedItem.NonDepositAccount.BalanceRUB_Account, StringFormat={}{0} RUB}"/>
+                    <Separator Foreground="Black"/>
+                    <Label Content="Долларовый счет"/>
+                    <TextBlock Text="{Binding ElementName=DataGrid, Path=SelectedItem.NonDepositAccount.BalanceUSD_Account, StringFormat={}{0} USD}"/>
+                    <Separator Foreground="Black"/>
+                    <Label Content="Евро счет"/>
+                    <TextBlock Text="{Binding ElementName=DataGrid, Path=SelectedItem.NonDepositAccount.BalanceEURO_Account, StringFormat={}{0} EUR}"/>
+                    <Separator Foreground="Black"/>
+                    <Label Content="Депозитный счет"/>
+                    <TextBlock Text="{Binding ElementName=DataGrid, Path=SelectedItem.DepositAccount.BalanceRUB_Account, StringFormat={}{0} RUB}"/>
+                </StackPanel>
+                <Button Content="Удалить клиента" Width="150" Padding="0,0,6,0"
+                   VerticalAlignment="Top" Margin="10,100,10,0" Command="{Binding DeleteClientCommand}"
+                        CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"/>
+                <Label Content="{Binding ValuteCurse}" HorizontalAlignment="Center" Margin="0,50,0,0" FontSize="14"/>
+                <Separator Background="Red"/>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="25"/>
@@ -60,7 +80,7 @@
             </StackPanel>
             <DataGrid Name="DataGrid" Grid.Column="1" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Clients}"
                       GridLinesVisibility="Vertical" CanUserDeleteRows="False" Width="Auto"
-                      AlternatingRowBackground="LightGray" VerticalGridLinesBrush="DarkGray">
+                      AlternatingRowBackground="LightGray" VerticalGridLinesBrush="DarkGray" Margin="0,0,10,0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id клиента" Width="Auto" Binding="{Binding Id}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Фамилия" Width="Auto" Binding="{Binding LastName}" />

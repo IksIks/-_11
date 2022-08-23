@@ -12,7 +12,7 @@ namespace ДЗ_11.ViewModels
 {
     internal class TransferToAnotherClientViewModel : ViewModel
     {
-        //public Client CurrentClient { get; set; } = HelpClass.TempClient;
+        public Client CurrentClient { get; set; } = HelpClass.TempClient;
         public Client AnotherClient { get; set; }
         private string visibility = "Hidden";
         private string visibilityAccountBalance = "Hidden";
@@ -144,11 +144,6 @@ namespace ДЗ_11.ViewModels
                         break;
                 }
                 ChangingCustomerData(AnotherClient);
-                //for (int i = 0; i < HelpClass.Clients.Count; i++)
-                //{
-                //    if (HelpClass.Clients[i].Id == AnotherClient.Id)
-                //        HelpClass.Clients[i] = AnotherClient;
-                //}
             }
             else
             {
