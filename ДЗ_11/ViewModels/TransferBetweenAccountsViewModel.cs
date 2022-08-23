@@ -112,7 +112,7 @@ namespace ДЗ_11.ViewModels
         /// <summary>Текстовое представление клиентских аккаунтов</summary>
         public List<string> ClientAccount
         {
-            get{ return clientAccount; }
+            get{ return HelpClass.TempClient.DepositAccount.DepositNotExist ? new List<string> { "Основной счет" } : clientAccount; }
             set { Set(ref clientAccount, value); }
         }
 
@@ -150,7 +150,7 @@ namespace ДЗ_11.ViewModels
 
         private bool CanTransferAmountCommandExecute(object parametr)
         {
-            if (TransferAmount > AccountBalance || TransferAmount <= 0) return false;
+            if (TransferAmount > AccountBalance || TransferAmount <= 0 || HelpClass.TempClient.DepositAccount.DepositNotExist || SelectedAccount == null) return false;
             return true;
         }
         private void OnTransferAmountCommandExecuted(object parametr)

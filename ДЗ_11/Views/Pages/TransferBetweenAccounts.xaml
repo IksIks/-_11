@@ -8,7 +8,7 @@
       xmlns:enum="clr-namespace:ДЗ_11.Services"
       xmlns:fa="http://schemas.fontawesome.com/icons/"
       d:DesignHeight="300" d:DesignWidth="250"
-      Title="TransferBetweenAccounts" Background="White">
+      Title="TransferBetweenAccounts">
     <Page.DataContext>
         <view:TransferBetweenAccountsViewModel/>
     </Page.DataContext>

@@ -12,38 +12,29 @@ namespace ДЗ_11.ViewModels
 {
     internal class TransferToAnotherClientViewModel : ViewModel
     {
-        public Client CurrentClient { get; set; } = HelpClass.TempClient;
         public Client AnotherClient { get; set; }
         private string visibility = "Hidden";
         private string visibilityAccountBalance = "Hidden";
         private string selectedAccount;
         private Cash currency;
-        private double accountBalance = HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account;
         private string xmlBalance;
         private double transferAmount;
+        private double accountBalance = HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account;
+        private List<string> clientAccount = new List<string>
+        {
+            "Основной счет",
+            "Депозитный счет"
+        };
+        public Client CurrentClient { get; set; } = HelpClass.TempClient;
+
         public ObservableCollection<Client> Clients { get; set; } = HelpClass.Clients;
+
+
 
         public double TransferAmount
         {
             get { return transferAmount; }
-            set
-            {
-                Set(ref transferAmount, value);
-                switch (Currency)
-                {
-                    case Cash.RUB:
-                        //ConversionValute = TransferAmount;
-                        break;
-                    case Cash.USD:
-                        //ConversionValute = TransferAmount * GetValute.GetDataCurrentValute(Currency).Item3;
-                        break;
-                    case Cash.EUR:
-                        //ConversionValute = TransferAmount * GetValute.GetDataCurrentValute(Currency).Item3;
-                        break;
-                    default:
-                        break;
-                }
-            }
+            set{ Set(ref transferAmount, value); }
         }
 
         public double AccountBalance
@@ -83,11 +74,11 @@ namespace ДЗ_11.ViewModels
             get { return visibilityAccountBalance; }
             set { Set(ref visibilityAccountBalance, value); }
         }
-        public List<string> ClientAccount { get; set; } = new List<string>
+        public List<string> ClientAccount
         {
-            "Основной счет",
-            "Депозитный счет"
-        };
+            get { return HelpClass.TempClient.DepositAccount.DepositNotExist ? new List<string> { "Основной счет" } : clientAccount; }
+            set { Set(ref clientAccount, value); }
+        }
 
         public Cash Currency
         {
@@ -121,7 +112,7 @@ namespace ДЗ_11.ViewModels
 
         private bool CanTransferAmountCommandExecute(object parametr)
         {
-            if (TransferAmount > AccountBalance || TransferAmount <= 0) return false;
+            if (TransferAmount > AccountBalance || TransferAmount <= 0 || AnotherClient == null || AnotherClient.Id == CurrentClient.Id || SelectedAccount == null) return false;
             return true;
         }
         private void OnTransferAmountCommandExecuted(object parametr)

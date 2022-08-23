@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ДЗ_11.Views.Windows" mc:Ignorable="d"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:view="clr-namespace:ДЗ_11.ViewModels"
-        Title="Операции" Height="400" Width="580" Background="LightGray"
+        Title="Операции" Height="400" Width="580" Background="BlanchedAlmond"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <view:ClientOperationsViewModel/>
