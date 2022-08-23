@@ -3,13 +3,63 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ДЗ_11.Views.Pages"
-      mc:Ignorable="d" 
-      d:DesignHeight="200" d:DesignWidth="150"
-      Title="MoneyTransfers">
+      xmlns:local="clr-namespace:ДЗ_11.Views.Pages" mc:Ignorable="d"
+      xmlns:view="clr-namespace:ДЗ_11.ViewModels"
+      xmlns:enum="clr-namespace:ДЗ_11.Services"
+      d:DesignHeight="320" d:DesignWidth="270"
+      xmlns:fa="http://schemas.fontawesome.com/icons/"
+      Title="MoneyTransfers" Background="LightGray">
+    <Page.DataContext>
+        <view:TransferToAnotherClientViewModel/>
+    </Page.DataContext>
 
-
-    <Grid >
-        
-    </Grid>
+    <StackPanel Orientation="Vertical" Margin="10,5,10,5">
+        <TextBlock>
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0} {1} {2}">
+                    <Binding Path="CurrentClient.LastName"/>
+                    <Binding Path="CurrentClient.Name"/>
+                    <Binding Path="CurrentClient.Patronymic"/>
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+        <TextBlock Style="{StaticResource MaterialDesignCharacterCounterTextBlock}"  Text="Счет списания" FontSize="12" HorizontalAlignment="Left" Width="80"/>
+        <ComboBox ItemsSource="{Binding ClientAccount}"  SelectedItem="{Binding SelectedAccount}"/>
+        <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="79"/>
+            <ColumnDefinition Width="51"/>
+        </Grid.ColumnDefinitions>
+        <ComboBox Grid.Column="0" Margin="2,2,2,2" ItemsSource="{Binding Source={enum:BindEnumClass {x:Type enum:Cash}}}"
+                      SelectedItem="{Binding Currency, UpdateSourceTrigger=Default, Mode=TwoWay}" Visibility="{Binding Visibility}"/>
+        <Label Grid.Column="1" Content="{Binding XmlBalance}" Margin="2,2,2,2"/>
+        <TextBlock Grid.Column="2" FontSize="14" Margin="2,5,-40,5" Text="{Binding AccountBalance, StringFormat=N2}" Visibility="{Binding VisibilityAccountBalance}"/>
+        </Grid>
+        <StackPanel Orientation="Vertical">
+            <TextBlock Style="{StaticResource MaterialDesignCharacterCounterTextBlock}" Text="Сумма списания" FontSize="14" Foreground="Black" TextWrapping="Wrap" TextAlignment="Left"/>
+            <TextBox FontSize="14" Height="25" Width="160" Margin="2" HorizontalAlignment="Left" Text="{Binding TransferAmount, UpdateSourceTrigger=PropertyChanged, Delay=300}"/>
+        </StackPanel>
+        <Separator Margin="0,10,0,10" Background="Red"/>
+        <Label Content="Выберите кому сделать перевод"/>
+        <ComboBox ItemsSource="{Binding Clients}" SelectedItem="{Binding AnotherClient}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1} {2} {3}">
+                                <Binding Path="LastName"/>
+                                <Binding Path="Name"/>
+                                <Binding Path="Patronymic"/>
+                                <Binding Path="Passport"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label Content="важно" Foreground="Red" Width="52" HorizontalAlignment="Left"/>
+        <Label Content="При переводе - средства будут зачислены на аналогчний валютный счет клиента"/>
+        <Button Content="Перевести" Margin="15" Command="{Binding TransferAmountCommand}" CommandParameter="{Binding ClientAccount}"/>
+    </StackPanel>
 </Page>

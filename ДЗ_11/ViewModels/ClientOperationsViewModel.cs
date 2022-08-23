@@ -64,7 +64,7 @@ namespace ДЗ_11.ViewModels
 
         #endregion
 
-        #region Команда открытия счета
+        #region Команда открытия депозитного счета
         public ICommand OpenPageCreatDepositCommand { get; }
         private void OnOpenPageCreatDepositCommandExecuted(object parametr)
         {

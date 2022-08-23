@@ -25,7 +25,7 @@
         <TextBlock Style="{StaticResource MaterialDesignCharacterCounterTextBlock}"  Text="Счет списания" FontSize="12" HorizontalAlignment="Left" Width="80"/>
         <ComboBox ItemsSource="{Binding ClientAccount}"  SelectedItem="{Binding SelectedAccount}">
         </ComboBox>
-        <Grid >
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="79"/>
@@ -48,6 +48,6 @@
             <Label Content="Будет зачислено" Foreground="Red" Width="107"/>
             <TextBlock Text="{Binding ConversionValute}" Margin="4" HorizontalAlignment="Stretch"/>
         </StackPanel>
-        <Button Content="Перевести" Margin="15" Command="{Binding TransferAmountCommand}" CommandParameter="{Binding ClientAccount}"/>
+        <Button Content="Перевести" Margin="15" Command="{Binding TransferAmountCommand}"/>
     </StackPanel>
 </Page>

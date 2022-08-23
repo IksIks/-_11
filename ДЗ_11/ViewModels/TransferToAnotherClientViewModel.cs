@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using ДЗ_11.Data;
@@ -9,39 +10,19 @@ using ДЗ_11.ViewModels.Base;
 
 namespace ДЗ_11.ViewModels
 {
-    internal class TransferBetweenAccountsViewModel : ViewModel
+    internal class TransferToAnotherClientViewModel : ViewModel
     {
-        private string anotherAccount;
-        private double transferAmount;
-        private string xmlBalance;
+        //public Client CurrentClient { get; set; } = HelpClass.TempClient;
+        public Client AnotherClient { get; set; }
+        private string visibility = "Hidden";
+        private string visibilityAccountBalance = "Hidden";
         private string selectedAccount;
-        private string visibility = "Hidden"; // для работы с разметкой изменить на Visible
-        private string visibilityAccountBalance = "Hidden"; // для работы с разметкой изменить на Visible
-        private double accountBalance = HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account;
-        private double сonversionValute;
-        private List<string> clientAccount = new List<string>
-        {
-            "Основной счет",
-            "Депозитный счет"
-        };
         private Cash currency;
-        public Client Client { get; set; } = HelpClass.TempClient;
+        private double accountBalance = HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account;
+        private string xmlBalance;
+        private double transferAmount;
+        public ObservableCollection<Client> Clients { get; set; } = HelpClass.Clients;
 
-        /// <summary>Сумма после перевода в USD или EUR, для RUB - сумма не меняется</summary>
-        public double ConversionValute
-        {
-            get { return сonversionValute; }
-            set { Set(ref сonversionValute, value); }
-        }
-
-        /// <summary>Счет для зачисления</summary>
-        public string AnotherAccount
-        {
-            get { return anotherAccount; }
-            set { Set(ref anotherAccount, value); }
-        }
-
-        /// <summary>Сумма для зачисления на счет</summary>
         public double TransferAmount
         {
             get { return transferAmount; }
@@ -50,11 +31,14 @@ namespace ДЗ_11.ViewModels
                 Set(ref transferAmount, value);
                 switch (Currency)
                 {
-                    case Cash.RUB: ConversionValute = TransferAmount;
+                    case Cash.RUB:
+                        //ConversionValute = TransferAmount;
                         break;
-                    case Cash.USD: ConversionValute = TransferAmount * GetValute.GetDataCurrentValute(Currency).Item3;
+                    case Cash.USD:
+                        //ConversionValute = TransferAmount * GetValute.GetDataCurrentValute(Currency).Item3;
                         break;
-                    case Cash.EUR: ConversionValute = TransferAmount * GetValute.GetDataCurrentValute(Currency).Item3;
+                    case Cash.EUR:
+                        //ConversionValute = TransferAmount * GetValute.GetDataCurrentValute(Currency).Item3;
                         break;
                     default:
                         break;
@@ -62,14 +46,11 @@ namespace ДЗ_11.ViewModels
             }
         }
 
-        /// <summary>Текстовое поле для указания счета в разметке</summary>
-        public string XmlBalance
+        public double AccountBalance
         {
-            get { return xmlBalance; }
-            set { Set(ref xmlBalance, value); }
+            get { return accountBalance; }
+            set { Set(ref accountBalance, value); }
         }
-
-        /// <summary>Выбранный пользователем счет в разметке</summary>
         public string SelectedAccount
         {
             get { return selectedAccount; }
@@ -80,50 +61,34 @@ namespace ДЗ_11.ViewModels
                 if (selectedAccount == "Депозитный счет")
                 {
                     AccountBalance = HelpClass.TempClient.DepositAccount.BalanceRUB_Account;
-                    AnotherAccount = "Основной счет";
                     Visibility = "Hidden";
                     XmlBalance = "Баланс, руб";
                 }
                 else
                 {
                     AccountBalance = HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account;
-                    AnotherAccount = "Депозитный счет";
                     Visibility = "Visible";
                     XmlBalance = "Баланс";
                 }
             }
         }
 
-        /// <summary>Свойство видимости элементов разметки в зависимости от выбранного счета</summary>
         public string Visibility
         {
             get { return visibility; }
             set { Set(ref visibility, value); }
-
         }
-
-        /// <summary>Свойство видимости для суммы на счете, активируется при первом загрузке страницы до момента выбора каког-либо счета</summary>
         public string VisibilityAccountBalance
         {
             get { return visibilityAccountBalance; }
             set { Set(ref visibilityAccountBalance, value); }
         }
-
-        /// <summary>Текстовое представление клиентских аккаунтов</summary>
-        public List<string> ClientAccount
+        public List<string> ClientAccount { get; set; } = new List<string>
         {
-            get{ return clientAccount; }
-            set { Set(ref clientAccount, value); }
-        }
+            "Основной счет",
+            "Депозитный счет"
+        };
 
-        /// <summary>Количество средств на выбранном счете</summary>
-        public double AccountBalance
-        {
-            get { return accountBalance; }
-            set{ Set(ref accountBalance, value); }
-        }
-
-        /// <summary>Подсчета "Основного счета" клиента</summary>
         public Cash Currency
         {
             get { return currency; }
@@ -145,7 +110,13 @@ namespace ДЗ_11.ViewModels
             }
         }
 
-        #region Команда перевода среств клиента между счетами
+        public string XmlBalance
+        {
+            get { return xmlBalance; }
+            set { Set(ref xmlBalance, value); }
+        }
+
+        #region Команда перевода среств клиента другому клиенту
         public ICommand TransferAmountCommand { get; }
 
         private bool CanTransferAmountCommandExecute(object parametr)
@@ -161,29 +132,47 @@ namespace ДЗ_11.ViewModels
                 {
                     case Cash.RUB:
                         HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account -= TransferAmount;
+                        AnotherClient.NonDepositAccount.BalanceRUB_Account += TransferAmount;
                         break;
                     case Cash.USD:
                         HelpClass.TempClient.NonDepositAccount.BalanceUSD_Account -= TransferAmount;
+                        AnotherClient.NonDepositAccount.BalanceUSD_Account += TransferAmount;
                         break;
                     case Cash.EUR:
                         HelpClass.TempClient.NonDepositAccount.BalanceEURO_Account -= TransferAmount;
+                        AnotherClient.NonDepositAccount.BalanceEURO_Account += TransferAmount;
                         break;
                 }
-                HelpClass.TempClient.DepositAccount.BalanceRUB_Account += ConversionValute;
+                ChangingCustomerData(AnotherClient);
+                //for (int i = 0; i < HelpClass.Clients.Count; i++)
+                //{
+                //    if (HelpClass.Clients[i].Id == AnotherClient.Id)
+                //        HelpClass.Clients[i] = AnotherClient;
+                //}
             }
             else
             {
-                HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account += ConversionValute;
                 HelpClass.TempClient.DepositAccount.BalanceRUB_Account -= TransferAmount;
+                AnotherClient.DepositAccount.BalanceRUB_Account += TransferAmount;
+                ChangingCustomerData(AnotherClient);
             }
             Application.Current.Windows[1].Close();
-        } 
+        }
         #endregion
 
-        public TransferBetweenAccountsViewModel()
+        private void ChangingCustomerData(Client client)
+        {
+            for (int i = 0; i < HelpClass.Clients.Count; i++)
+            {
+                if (HelpClass.Clients[i].Id == client.Id)
+                    HelpClass.Clients[i] = client;
+            }
+        }
+
+
+        public TransferToAnotherClientViewModel()
         {
             TransferAmountCommand = new RelayCommand(OnTransferAmountCommandExecuted, CanTransferAmountCommandExecute);
         }
-
     }
 }

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using ДЗ_11.Models;
-using ДЗ_11.Services;
 
 namespace ДЗ_11.Data
 {
     internal class HelpClass
     {
+        public static ObservableCollection<Client> Clients { get; set; }
         public static Client TempClient { get; set; } = new Client();
         
         //public static Tuple<string, string, double> ValuteUSDCurse;

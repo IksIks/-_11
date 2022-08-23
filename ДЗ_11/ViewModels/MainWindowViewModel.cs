@@ -263,7 +263,7 @@ namespace ДЗ_11.ViewModels
             //GetValute getValute = new GetValute();
             ValuteUSDCourse = GetValute.GetDataCurrentValute(Cash.USD);
             ValuteEURCourse = GetValute.GetDataCurrentValute(Cash.EUR);
-            
+            HelpClass.Clients = Clients;
         }
     }
 }
