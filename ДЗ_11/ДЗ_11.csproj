@@ -86,12 +86,16 @@
     <Compile Include="ViewModels\AddClientViewModel.cs" />
     <Compile Include="ViewModels\CashToAccountViewModel.cs" />
     <Compile Include="ViewModels\ClientOperationsViewModel.cs" />
+    <Compile Include="ViewModels\CloseAccountsViewModel.cs" />
     <Compile Include="ViewModels\DepositAccountViewModel.cs" />
     <Compile Include="ViewModels\RoleChoiseViewModel.cs" />
     <Compile Include="ViewModels\TransferBetweenAccountsViewModel.cs" />
     <Compile Include="ViewModels\TransferToAnotherClientViewModel.cs" />
     <Compile Include="Views\Pages\CashToAccount.xaml.cs">
       <DependentUpon>CashToAccount.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\CloseAccounts.xaml.cs">
+      <DependentUpon>CloseAccounts.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\DepositAccount.xaml.cs">
       <DependentUpon>DepositAccount.xaml</DependentUpon>
@@ -112,6 +116,10 @@
       <DependentUpon>RoleChoise.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\Pages\CashToAccount.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\CloseAccounts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

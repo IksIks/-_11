@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ДЗ_11.Data;
@@ -14,6 +15,15 @@ namespace ДЗ_11.ViewModels
         private Page cashToAccount;
         private Page transferBetweenAccounts;
         private Page createDepositAccount;
+        private Page closeAccounts;
+        bool blockButton;
+
+        
+        public Page CloseAccounts
+        {
+            get { return closeAccounts; }
+            set { Set( ref closeAccounts, value); }
+        }
 
         public Page TransferBetweenAccounts
         {
@@ -58,9 +68,20 @@ namespace ДЗ_11.ViewModels
                     break;
                 case 3: CurrentPage = TransferToAnotherClient;
                     break;
+                case 4: CurrentPage = CloseAccounts;
+                    {
+                        MessageBox.Show("Будьте внимательны, отменить выбранные действия нельзя", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        CurrentPage = CloseAccounts;
+                        blockButton = true;
+                    }
+                    break;
             }
         }
-        private bool CanOpenPageCommandExecute(object parametr) => true;
+        private bool CanOpenPageCommandExecute(object parametr)
+        { 
+            if(blockButton) return false;
+            return true;
+        }
 
         #endregion
 
@@ -89,6 +110,7 @@ namespace ДЗ_11.ViewModels
             TransferBetweenAccounts = new Views.Pages.TransferBetweenAccounts();
             CashToAccount = new Views.Pages.CashToAccount();
             CreateDepositAccount = new Views.Pages.DepositAccount();
+            CloseAccounts = new Views.Pages.CloseAccounts();
         }
     }
 }

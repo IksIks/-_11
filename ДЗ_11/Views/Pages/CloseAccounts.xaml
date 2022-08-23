@@ -1,0 +1,35 @@
+﻿<Page x:Class="ДЗ_11.Views.Pages.CloseAccounts"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ДЗ_11.Views.Pages" mc:Ignorable="d" 
+      xmlns:view="clr-namespace:ДЗ_11.ViewModels"
+      xmlns:fa="http://schemas.fontawesome.com/icons/"
+      d:DesignHeight="250" d:DesignWidth="270"
+      Title="CloseAccounts" Background="Wheat">
+    <Page.DataContext>
+        <view:CloseAccountsViewModel/>
+    </Page.DataContext>
+    <StackPanel Orientation="Vertical">
+        <TextBlock FontSize="14" FontWeight="Bold">
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0} {1} {2}">
+                    <Binding Path="Client.LastName"/>
+                    <Binding Path="Client.Name"/>
+                    <Binding Path="Client.Patronymic"/>
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <fa:ImageAwesome Icon="Solid_Info" Height="20" Foreground="Red" Margin="10"/>
+                <TextBlock Text="Закрыть можно только один из счетов. При закрытии, все средства будут автоматически переведены на оставшийся счет,
+                                 но только в рублях. Полное закрытие всех счетов возможно при удалении клиента с потерей всех средств" TextWrapping="Wrap" FontSize="10" Width="210"/>
+            </StackPanel>
+        </TextBlock>
+        <Button Content="Закрыть Депозитный счет" Margin="15" Background="Red"/>
+        <Button Content="Закрыть Основной счет" Margin="10" Background="Red"/>
+        
+    </StackPanel>
+</Page>

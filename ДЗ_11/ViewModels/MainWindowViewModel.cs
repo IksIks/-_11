@@ -4,9 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Navigation;
 using ДЗ_11.Data;
 using ДЗ_11.Infrastructure.Commands;
 using ДЗ_11.Models;
@@ -19,6 +17,7 @@ namespace ДЗ_11.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
+        //private bool CanOverrideFile;
         public string ValuteCurse { get; private set; } = $"Курс валют на {DateTime.Now:dd/MM/yyyy}";
         public Tuple<string, string, double> ValuteEURCourse { get; private set; }
         public Tuple<string, string, double> ValuteUSDCourse { get; private set; }
@@ -120,7 +119,7 @@ namespace ДЗ_11.ViewModels
         {
             if (Clients.Count > 0)
             {
-                RoleChoiseViewModel.ManadgerRole = true;
+                //RoleChoiseViewModel.ManadgerRole = true;
                 return true;
             }
             return false;
@@ -134,6 +133,7 @@ namespace ДЗ_11.ViewModels
         public ICommand RestoreBankClientsCommand { get; }
         private void OnRestoreBankClientsCommandExecuted(object parameter)
         {
+            //CanOverrideFile = true;
             using (StreamReader read = new StreamReader(bankClients))
             {
                 string line;
@@ -177,17 +177,6 @@ namespace ДЗ_11.ViewModels
         }
         private bool CanCloseAplicationCommandEcecute(object parameter) => true;
         #endregion
-
-        public ICommand ClientInformationCommand { get; }
-        private bool CanClientInformationCommandEcecute(object parameter)
-        {
-            if (parameter is Client) return true;
-            return false;
-        }
-        private void OnClientInformationCommandExecuted(object parameter)
-        {
-            HelpClass.TempClient = parameter as Client;
-        }
 
         #region Команда выполнения операции с клиентом
         public ICommand ClientOperationsCommand { get; }
@@ -271,7 +260,6 @@ namespace ДЗ_11.ViewModels
             RestoreBankClientsCommand = new RelayCommand(OnRestoreBankClientsCommandExecuted, CanRestoreBankClientsCommandExecute);
             CloseAplicationCommand = new RelayCommand(OnCloseAplicationCommandExecuted, CanCloseAplicationCommandEcecute);
             ClientOperationsCommand = new RelayCommand(OnClientOperationsCommadExecuted, CanClientOperationsCommandExecute);
-            ClientInformationCommand = new RelayCommand(OnClientInformationCommandExecuted, CanClientInformationCommandEcecute);
             Clients.CollectionChanged += Clients_CollectionChanged;
             ValuteUSDCourse = GetValute.GetDataCurrentValute(Cash.USD);
             ValuteEURCourse = GetValute.GetDataCurrentValute(Cash.EUR);

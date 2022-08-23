@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ДЗ_11.Views.Windows" mc:Ignorable="d"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:view="clr-namespace:ДЗ_11.ViewModels"
-        Title="Операции" Height="400" Width="580" Background="BlanchedAlmond"
+        Title="Операции" Height="400" Width="600" Background="BlanchedAlmond"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <view:ClientOperationsViewModel/>
@@ -59,7 +59,7 @@
                     <TextBlock Text="Открытие депозитного счета"/>
                 </StackPanel>
             </Button>
-            <Button Background="Red" Command="{Binding OpenPageCommand}" Margin="0,30">
+            <Button Background="Red" Command="{Binding OpenPageCommand}" CommandParameter="4" Margin="0,30">
                 <Button.Effect>
                     <DropShadowEffect/>
                 </Button.Effect>
