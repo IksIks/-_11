@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using ДЗ_11.Data;
@@ -103,22 +102,11 @@ namespace ДЗ_11.ViewModels
             string fileLog = "bankLog.txt";
             if (!File.Exists(bankClients))
                 File.Create(bankClients).Close();
-            List<Guid> listGuid = new List<Guid>();
-            using (StreamReader read = new StreamReader(bankClients))
-            {
-                string[] line;
-                while (!read.EndOfStream)
-                {
-                    line = read.ReadLine().Split(' ');
-                    listGuid.Add(Guid.Parse(line[0]));
-                }
-            }
-            using (StreamWriter write = File.AppendText(bankClients))
+            using (StreamWriter write = new StreamWriter(bankClients))
             {
                 foreach (var item in Clients)
                 {
-                    if (!listGuid.Contains(item.Id))
-                        write.WriteLine(item.ToString());
+                    write.WriteLine(item.ToString());
                 }
             }
             using (StreamWriter write = File.AppendText(fileLog))
@@ -151,7 +139,6 @@ namespace ДЗ_11.ViewModels
         private void OnRestoreBankClientsCommandExecuted(object parameter)
         {
             //CanOverrideFile = true;
-
             using (StreamReader read = new StreamReader(bankClients))
             {
                 string line;
