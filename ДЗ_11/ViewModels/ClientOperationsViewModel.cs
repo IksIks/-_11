@@ -18,42 +18,49 @@ namespace ДЗ_11.ViewModels
         private Page closeAccounts;
         bool blockButton;
 
-        
+        #region Страницы
+        /// <summary>Страница закрытия счета</summary>
         public Page CloseAccounts
         {
             get { return closeAccounts; }
-            set { Set( ref closeAccounts, value); }
+            set { Set(ref closeAccounts, value); }
         }
 
+        /// <summary>Страница перевода между своими счетами</summary>
         public Page TransferBetweenAccounts
         {
             get { return transferBetweenAccounts; }
             set { Set(ref transferBetweenAccounts, value); }
         }
 
+        /// <summary>Страница перевода между своими счетами</summary>
         public Page CashToAccount
         {
             get { return cashToAccount; }
             set { Set(ref cashToAccount, value); }
         }
 
+        /// <summary>Страница переводу жругому клиенту</summary>
         public Page TransferToAnotherClient
         {
             get { return transferToAnotherClient; }
             set { Set(ref transferToAnotherClient, value); }
         }
-        
+
+        /// <summary>Страница для поля Frame в XAML</summary>
         public Page CurrentPage
         {
             get { return currentPage; }
             set { Set(ref currentPage, value); }
         }
 
+        /// <summary>Страница создания Депозитного счета</summary>
         public Page CreateDepositAccount
         {
             get { return createDepositAccount; }
             set { Set(ref createDepositAccount, value); }
         }
+        #endregion
 
         #region Команда открытия страницы
         public ICommand OpenPageCommand { get; }
@@ -93,7 +100,7 @@ namespace ДЗ_11.ViewModels
         }
         private bool CanOpenPageCreatDepositCommandExecute(object parametr)
         {
-            if (HelpClass.TempClient.DepositAccount.DepositNotExist)
+            if (HelpClass.TempClient.DepositAccount.DepositNotExist && !blockButton)
             { 
                 return true;
             }

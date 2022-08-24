@@ -8,9 +8,7 @@ namespace ДЗ_11.Models
         private double balanceRUB_Account;
         private double balanceUSD_Account;
         private double balanceEURO_Account;
-        //private Cash currency;
-
-        
+       
         public override DateTime DateOfCreation { get; set; }
         public override DateTime DateOfClose { get; set; }
 
@@ -29,17 +27,12 @@ namespace ДЗ_11.Models
             get => balanceEURO_Account;
             set => Set(ref balanceEURO_Account, value);
         }
-        //public override Cash Currency
-        //{
-        //    get => currency;
-        //    set => Set(ref currency, value);
-        //}
-
+        
         public NonDepositAccount() : base()
-        {            
+        {
             balanceRUB_Account = 0;
             balanceUSD_Account = 0;
-            BalanceEURO_Account = 0;
+            balanceEURO_Account = 0;
         }
 
         public NonDepositAccount(DateTime dateOfCreation, double balanceRUB_Account, double balanceUSD_Account, double balanceEURO_Account, DateTime dateOfClose)

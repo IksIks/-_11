@@ -24,12 +24,12 @@
         <TextBlock HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal">
                 <fa:ImageAwesome Icon="Solid_Info" Height="20" Foreground="Red" Margin="10"/>
-                <TextBlock Text="Закрыть можно только один из счетов. При закрытии, все средства будут автоматически переведены на оставшийся счет,
+                <TextBlock Text="Закрыть можно только один из счетов, при условии открытого дипозитного счета. При закрытии, все средства будут автоматически переведены на оставшийся счет,
                                  но только в рублях. Полное закрытие всех счетов возможно при удалении клиента с потерей всех средств" TextWrapping="Wrap" FontSize="10" Width="210"/>
             </StackPanel>
         </TextBlock>
-        <Button Content="Закрыть Депозитный счет" Margin="15" Background="Red"/>
-        <Button Content="Закрыть Основной счет" Margin="10" Background="Red"/>
+        <Button Content="Закрыть Депозитный счет" Margin="15" Background="Red" Command="{Binding CloseDepositeAccountCommand}"/>
+        <Button Content="Закрыть Основной счет" Margin="10" Background="Red" Command="{Binding CloseNonDepositeAccountCommand}"/>
         
     </StackPanel>
 </Page>
