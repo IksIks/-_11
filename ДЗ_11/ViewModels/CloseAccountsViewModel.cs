@@ -8,9 +8,11 @@ namespace ДЗ_11.ViewModels
 {
     internal class CloseAccountsViewModel
     {
-        private Client Client = HelpClass.TempClient;
+        public Client Client { get; } = HelpClass.TempClient;
 
 
+        #region Команда закрытия основного счета
+        /// <summary>Команда закрытия основного счета</summary>
         public ICommand CloseNonDepositeAccountCommand { get; }
         private bool CanCloseNonDepositeAccountCommandExecute(object parameter)
         {
@@ -28,7 +30,10 @@ namespace ДЗ_11.ViewModels
             Client.DepositAccount.BalanceRUB_Account += Client.NonDepositAccount.BalanceEURO_Account * GetValute.GetDataCurrentValute(Services.Cash.EUR).Item3;
             Client.NonDepositAccount.BalanceEURO_Account = 0;
         }
+        #endregion
 
+        #region Команда закрытия депозитного счета
+        /// <summary>Команда закрытия депозитного счета</summary>
         public ICommand CloseDepositeAccountCommand { get; }
         private bool CanCloseDepositeAccountCommandExecute(object parameter)
         {
@@ -43,7 +48,8 @@ namespace ДЗ_11.ViewModels
             Client.DepositAccount.BalanceRUB_Account = 0;
             Client.DepositAccount.DateOfClose = DateTime.Now;
             Client.DepositAccount.DepositNotExist = true;
-        }
+        } 
+        #endregion
 
         public CloseAccountsViewModel()
         {

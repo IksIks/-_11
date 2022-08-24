@@ -18,31 +18,34 @@ namespace ДЗ_11.ViewModels
     internal class MainWindowViewModel : ViewModel
     {
         //private bool CanOverrideFile;
+        #region Поля
+        private string role = RoleChoiseViewModel.ManadgerRole ? "Менеджер" : "Консультант";
+        private readonly string bankClients = "bankClients.txt";
+        private ObservableCollection<Client> clients = new ObservableCollection<Client>();
+        private string clientChanges;
+        #endregion
+
+        #region Свойства
         public string ValuteCurse { get; private set; } = $"Курс валют на {DateTime.Now:dd/MM/yyyy}";
         public Tuple<string, string, double> ValuteEURCourse { get; private set; }
         public Tuple<string, string, double> ValuteUSDCourse { get; private set; }
 
-        private string role = RoleChoiseViewModel.ManadgerRole ? "Менеджер" : "Консультант";
-        private readonly string bankClients = "bankClients.txt";
-
         /// <summary> Коллекция для хранения изменений</summary>
-        public List<string> ChangedPropertys { get; set; } = new List<string>();
+        private List<string> ChangedPropertys { get; set; } = new List<string>();
 
         /// <summary> Основная коллекция клиентов</summary>
-        private ObservableCollection<Client> clients = new ObservableCollection<Client>();
         public ObservableCollection<Client> Clients
         {
             get => clients;
             set => Set(ref clients, value);
         }
 
-        #region Свойство для отображения изменений в окне
-        private string clientChanges;
+        /// <summary>Свойство для отображения изменений в окне</summary>
         public string ClientChanges
         {
             get => clientChanges;
             set => Set(ref clientChanges, value);
-        }
+        } 
         #endregion
 
         #region Команды управления
@@ -82,6 +85,7 @@ namespace ДЗ_11.ViewModels
         public ICommand DeleteClientCommand { get; }
         private void OnDeleteClientCommandExecuted(object parameter)
         {
+            if(MessageBox.Show("Вы точно уверены?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
             Clients.Remove(parameter as Client);
         }
         private bool CanDeleteClientCommandExecute(object parameter) => parameter is Client && RoleChoiseViewModel.ManadgerRole; /*? true : false;*/
@@ -114,6 +118,7 @@ namespace ДЗ_11.ViewModels
             }
             ClientChanges = $"{role} сохранил клиентов в базу";
             ChangedPropertys.Add(clientChanges);
+            MessageBox.Show("Выполнено","Уведомление",MessageBoxButton.OK);
         }
         private bool CanSaveCommandExecute(object parametr)
         {
@@ -190,7 +195,6 @@ namespace ДЗ_11.ViewModels
         #endregion
         #endregion
 
-
         /// <summary>
         /// Автоматические клиенты для тестирования
         /// </summary>
@@ -250,7 +254,6 @@ namespace ДЗ_11.ViewModels
             }
         }
 
-
         public MainWindowViewModel()
         {
             ChangeRoleCommand = new RelayCommand(OnChangeRoleCommandExecuted, CanChangeRoleCommandExecute);
@@ -264,7 +267,6 @@ namespace ДЗ_11.ViewModels
             ValuteUSDCourse = GetValute.GetDataCurrentValute(Cash.USD);
             ValuteEURCourse = GetValute.GetDataCurrentValute(Cash.EUR);
             HelpClass.Clients = Clients;
-            
         }
     }
 }

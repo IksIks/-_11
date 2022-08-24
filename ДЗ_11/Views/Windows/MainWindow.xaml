@@ -11,7 +11,7 @@
         <view:MainWindowViewModel/>
     </Window.DataContext>
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
+        <Menu DockPanel.Dock="Top" Background="Gray">
             <MenuItem Header="Меню" Height="20" Width="auto">
                 <MenuItem Header="Сохранить базу" FontSize="14" Command="{Binding SaveCommand}"/>
                 <MenuItem Header="Загрузить базу" FontSize="14" Command="{Binding RestoreBankClientsCommand}"/>
@@ -35,9 +35,6 @@
             <StackPanel Grid.Column="0" Orientation="Vertical" Background="LightGray">
                 <Button Content="Добавить клиента" Width="150" Padding="0,0,6,0"
                    VerticalAlignment="Top" Margin="10,10,10,0" Command="{Binding AddNewUserCommand}"/>
-                <!--<Button Content="Информация о клиенте" Margin="10,10,10,0" Command="{Binding ClientInformationCommand}"
-                        CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"/>-->
-                
                 <Button Content="Операции" Width="150" Padding="0,0,6,0"
                    VerticalAlignment="Top" Margin="10,10,10,0" Command="{Binding ClientOperationsCommand}"
                         CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"/>
@@ -79,8 +76,8 @@
                 </Grid>
             </StackPanel>
             <DataGrid Name="DataGrid" Grid.Column="1" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Clients}"
-                      GridLinesVisibility="Vertical" CanUserDeleteRows="False" Width="Auto"
-                      AlternatingRowBackground="LightGray" VerticalGridLinesBrush="DarkGray" Margin="0,0,10,0">
+                      GridLinesVisibility="Vertical" CanUserDeleteRows="False" Width="Auto" Background="Wheat"
+                      VerticalGridLinesBrush="DarkGray" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id клиента" Width="Auto" Binding="{Binding Id}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Фамилия" Width="Auto" Binding="{Binding LastName}" />

@@ -11,12 +11,10 @@ namespace ДЗ_11.ViewModels
 {
     internal class CashToAccountViewModel : ViewModel
     {
-        
-       
+
+        public Client Client { get; } = HelpClass.TempClient;
         
         private double transferAmount;
-        public string select = default;
-        
         public double TransferAmount
         {
             get { return transferAmount; }
@@ -24,15 +22,9 @@ namespace ДЗ_11.ViewModels
         }
 
         public Cash Currency { private get; set; }
-        //{
-        //    get { return currency; }
-        //    set { Set (ref currency, value); }
-        //}
-        #region Команды
 
-        /// <summary>
-        /// Команда пополнения счета клиента
-        /// </summary>
+        #region Команда пополнения счета клиента
+        /// <summary>Команда пополнения счета клиента</summary>
         public ICommand CreditToAccountCommand { get; }
         private bool CanCreditToAccountCommandExecute(object parametr)
         {
@@ -60,5 +52,3 @@ namespace ДЗ_11.ViewModels
         }
     }
 }
-//Продумать вывод списка счетов для выбора на какой счет зачислять(основной или кредитный => этот должен быть сначала открыт, если нету то выдать предупреждение)
-//
