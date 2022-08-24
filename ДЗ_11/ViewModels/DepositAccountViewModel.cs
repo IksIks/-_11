@@ -11,6 +11,7 @@ namespace ДЗ_11.ViewModels
     internal class DepositAccountViewModel : ViewModel
     {
         private double transferAmount; 
+        public Client Client { get; private set; } = HelpClass.TempClient;
         public double TransferAmount
         {
             get { return transferAmount; }
@@ -38,7 +39,6 @@ namespace ДЗ_11.ViewModels
             HelpClass.TempClient.DepositAccount.DepositNotExist = false;
             Application.Current.Windows[1].Close();
         }
-        public Client Client { get; private set; } = HelpClass.TempClient;
 
         public DepositAccountViewModel()
         {

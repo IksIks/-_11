@@ -26,22 +26,23 @@ namespace ДЗ_11.ViewModels
             "Депозитный счет"
         };
         public Client CurrentClient { get; set; } = HelpClass.TempClient;
-
         public ObservableCollection<Client> Clients { get; set; } = HelpClass.Clients;
 
 
-
+        /// <summary>Сумма для зачисления на счет</summary>
         public double TransferAmount
         {
             get { return transferAmount; }
             set{ Set(ref transferAmount, value); }
         }
-
+        /// <summary>Количество средств на выбранном счете</summary>
         public double AccountBalance
         {
             get { return accountBalance; }
             set { Set(ref accountBalance, value); }
         }
+
+        /// <summary>Выбранный пользователем счет в разметке</summary>
         public string SelectedAccount
         {
             get { return selectedAccount; }
@@ -64,22 +65,27 @@ namespace ДЗ_11.ViewModels
             }
         }
 
+        /// <summary>Свойство видимости элементов разметки в зависимости от выбранного счета</summary>
         public string Visibility
         {
             get { return visibility; }
             set { Set(ref visibility, value); }
         }
+
         public string VisibilityAccountBalance
         {
             get { return visibilityAccountBalance; }
             set { Set(ref visibilityAccountBalance, value); }
         }
+
+        /// <summary>Текстовое представление клиентских аккаунтов</summary>
         public List<string> ClientAccount
         {
             get { return HelpClass.TempClient.DepositAccount.DepositNotExist ? new List<string> { "Основной счет" } : clientAccount; }
             set { Set(ref clientAccount, value); }
         }
 
+        /// <summary>Подсчета "Основного счета" клиента</summary>
         public Cash Currency
         {
             get { return currency; }
@@ -101,6 +107,7 @@ namespace ДЗ_11.ViewModels
             }
         }
 
+        /// <summary>Текстовое поле для указания счета в разметке</summary>
         public string XmlBalance
         {
             get { return xmlBalance; }
@@ -145,7 +152,8 @@ namespace ДЗ_11.ViewModels
             Application.Current.Windows[1].Close();
         }
         #endregion
-
+        /// <summary>Передача в основной список клиентов окна MainWindowViewModel</summary>
+        /// <param name="client"></param>
         private void ChangingCustomerData(Client client)
         {
             for (int i = 0; i < HelpClass.Clients.Count; i++)
