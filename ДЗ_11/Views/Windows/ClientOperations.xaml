@@ -19,7 +19,7 @@
         <StackPanel Orientation="Vertical" Margin="5,5,5,5" Grid.Column="0">
             <Button Margin="0,0,0,10" Command="{Binding OpenPageCommand}" CommandParameter="1">
                 <Button.Effect>
-                    <DropShadowEffect/>
+                    <DropShadowEffect ShadowDepth="4"/>
                 </Button.Effect>
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -30,7 +30,7 @@
             </Button>
             <Button Margin="0,0,0,10" Command="{Binding OpenPageCommand}" CommandParameter="2">
                 <Button.Effect>
-                    <DropShadowEffect/>
+                    <DropShadowEffect ShadowDepth="4"/>
                 </Button.Effect>
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -41,7 +41,7 @@
             </Button>
             <Button Margin="0,0,0,10" Command="{Binding OpenPageCommand}" CommandParameter="3">
                 <Button.Effect>
-                    <DropShadowEffect/>
+                    <DropShadowEffect ShadowDepth="4"/>
                 </Button.Effect>
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -52,7 +52,7 @@
             </Button>
             <Button Margin="0,0,0,10" Command="{Binding OpenPageCreatDepositCommand}">
                 <Button.Effect>
-                    <DropShadowEffect/>
+                    <DropShadowEffect ShadowDepth="4"/>
                 </Button.Effect>
                 <StackPanel Orientation="Horizontal">
                     <fa:ImageAwesome Icon="Solid_Wallet" Height="15" Margin="0,0,10,0"/>
@@ -61,7 +61,7 @@
             </Button>
             <Button Background="Red" Command="{Binding OpenPageCommand}" CommandParameter="4" Margin="0,30">
                 <Button.Effect>
-                    <DropShadowEffect/>
+                    <DropShadowEffect ShadowDepth="4"/>
                 </Button.Effect>
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
