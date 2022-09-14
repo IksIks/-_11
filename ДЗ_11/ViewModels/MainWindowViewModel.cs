@@ -99,6 +99,12 @@ namespace ДЗ_11.ViewModels
         public ICommand SaveCommand { get; }
         private void OnSaveCommandExecuted(object parametr)
         {
+            byte accessLevel = 0;
+            if (!RoleChoiseViewModel.ManadgerRole)
+            { 
+                accessLevel = 1;
+                RoleChoiseViewModel.ManadgerRole = true;
+            }
             string fileLog = "bankLog.txt";
             if (!File.Exists(bankClients))
                 File.Create(bankClients).Close();
@@ -118,6 +124,10 @@ namespace ДЗ_11.ViewModels
             }
             ClientChanges = $"{role} сохранил клиентов в базу";
             ChangedPropertys.Add(clientChanges);
+            if (accessLevel == 1)
+            {
+                RoleChoiseViewModel.ManadgerRole = false;
+            }
             MessageBox.Show("Выполнено","Уведомление",MessageBoxButton.OK);
         }
         private bool CanSaveCommandExecute(object parametr)
