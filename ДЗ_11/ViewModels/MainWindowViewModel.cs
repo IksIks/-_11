@@ -18,6 +18,8 @@ namespace ДЗ_11.ViewModels
     internal class MainWindowViewModel : ViewModel
     {
         //private bool CanOverrideFile;
+
+        private static event Action<string> ChangeClientsCollection;
         #region Поля
         private string role = RoleChoiseViewModel.ManadgerRole ? "Менеджер" : "Консультант";
         private readonly string bankClients = "bankClients.txt";
@@ -59,7 +61,16 @@ namespace ДЗ_11.ViewModels
             addClientWindow.ShowDialog();
             if (String.IsNullOrEmpty(HelpClass.TempClient.Name))
                 Clients.Remove(HelpClass.TempClient);
-            else Clients.Add(HelpClass.TempClient);
+            else
+            { 
+                Clients.Add(HelpClass.TempClient);
+                ChangeClientsCollection?.Invoke($"{DateTime.Now} Менеджер добавил клиента {HelpClass.TempClient.Id} {HelpClass.TempClient.LastName}" +
+                                                $" {HelpClass.TempClient.Name} {HelpClass.TempClient.Patronymic}");
+            }
+        }
+        private void Change_Clients_Collection(string message)
+        {
+            ChangedPropertys.Add(message);
         }
         private bool CanAddNewUserCommandExecute(object parametr)
         {
@@ -85,8 +96,11 @@ namespace ДЗ_11.ViewModels
         public ICommand DeleteClientCommand { get; }
         private void OnDeleteClientCommandExecuted(object parameter)
         {
-            if(MessageBox.Show("Вы точно уверены?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
-            Clients.Remove(parameter as Client);
+            var removeClient = parameter as Client;
+            if(MessageBox.Show("Вы точно уверены?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes)
+            Clients.Remove(removeClient as Client);
+            ChangeClientsCollection?.Invoke($"{DateTime.Now} Менеджер удалил клиента {removeClient.Id} {removeClient.LastName}" +
+                                            $" {removeClient.Name} {removeClient.Patronymic}");
         }
         private bool CanDeleteClientCommandExecute(object parameter) => parameter is Client && RoleChoiseViewModel.ManadgerRole; /*? true : false;*/
 
@@ -115,6 +129,8 @@ namespace ДЗ_11.ViewModels
                     write.WriteLine(item.ToString());
                 }
             }
+            ClientChanges = $"{DateTime.Now} {role} сохранил клиентов в базу\n {new string('-', 40)}";
+            ChangedPropertys.Add(clientChanges);
             using (StreamWriter write = File.AppendText(fileLog))
             {
                 foreach (var item in ChangedPropertys)
@@ -122,8 +138,6 @@ namespace ДЗ_11.ViewModels
                     write.WriteLine(item);
                 }
             }
-            ClientChanges = $"{role} сохранил клиентов в базу";
-            ChangedPropertys.Add(clientChanges);
             if (accessLevel == 1)
             {
                 RoleChoiseViewModel.ManadgerRole = false;
@@ -172,7 +186,7 @@ namespace ДЗ_11.ViewModels
                     Clients.Add(client);
                 }
             }
-            ClientChanges = $"{role} загрузил клиентов из базы";
+            ClientChanges = $"{DateTime.Now} {role} загрузил клиентов из базы";
             ChangedPropertys.Add(ClientChanges);
         }
 
@@ -205,23 +219,6 @@ namespace ДЗ_11.ViewModels
         #endregion
         #endregion
 
-        /// <summary>
-        /// Автоматические клиенты для тестирования
-        /// </summary>
-        //private void CreateClients()
-        //{
-        //    for (int i = 1; i < 6; i++)
-        //    {
-        //        Client temp = new Client("LastName" + i,
-        //                                "name" + i,
-        //                                "Patronymic" + i,
-        //                                (i * Math.Pow(10, 8)).ToString(),
-        //                                (i * 1111111111).ToString());
-
-        //       Clients.Add(temp);
-        //    }
-        //}
-
         /// <summary> Метод для отслеживания изменений в свойствах елементов коллекции Clients </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -229,8 +226,7 @@ namespace ДЗ_11.ViewModels
         {
             if (sender is Client tempClient)
             {
-                ClientChanges = $"{role} изменил в {tempClient.Id} поле {tempClient.ClientPropertyTranslater[e.PropertyName]}, " +
-                                $"время {tempClient.DateClientChange = DateTime.Now}";
+                ClientChanges = $"{DateTime.Now} {role} изменил в {tempClient.Id} поле {tempClient.ClientPropertyTranslater[e.PropertyName]}";
             }
             ChangedPropertys.Add(ClientChanges);
         }
@@ -246,26 +242,28 @@ namespace ДЗ_11.ViewModels
             if (e.NewItems != null)
                 foreach (INotifyPropertyChanged item in e.NewItems)
                     item.PropertyChanged += WriteChanges;
-            switch (e.Action)
-            {
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
-                    {
-                        ClientChanges = $"{role} добавил клиента {(e.NewItems[0] as Client).Id}";
-                        ChangedPropertys.Add(ClientChanges);
-                        break;
-                    }
+            
+            //switch (e.Action)
+            //{
+            //    case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+            //        {
+            //            ClientChanges = $"{role} добавил клиента {(e.NewItems[0] as Client).Id}";
+            //            ChangedPropertys.Add(ClientChanges);
+            //            break;
+            //        }
 
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
-                    {
-                        ClientChanges = $"Менеджер удалил клиента {(e.OldItems[0] as Client).Id}";
-                        ChangedPropertys.Add(ClientChanges);
-                        break;
-                    }
-            }
+            //    case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+            //        {
+            //            ClientChanges = $"Менеджер удалил клиента {(e.OldItems[0] as Client).Id}";
+            //            ChangedPropertys.Add(ClientChanges);
+            //            break;
+            //        }
+            //}
         }
 
         public MainWindowViewModel()
         {
+            ChangeClientsCollection += Change_Clients_Collection;
             ChangeRoleCommand = new RelayCommand(OnChangeRoleCommandExecuted, CanChangeRoleCommandExecute);
             AddNewUserCommand = new RelayCommand(OnAddNewUserCommandExecuted, CanAddNewUserCommandExecute);
             DeleteClientCommand = new RelayCommand(OnDeleteClientCommandExecuted, CanDeleteClientCommandExecute);

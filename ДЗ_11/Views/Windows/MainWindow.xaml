@@ -77,7 +77,7 @@
             </StackPanel>
             <DataGrid Name="DataGrid" Grid.Column="1" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Clients}"
                       GridLinesVisibility="Vertical" CanUserDeleteRows="False" Width="Auto" Background="Wheat"
-                      VerticalGridLinesBrush="DarkGray" >
+                      VerticalGridLinesBrush="DarkGray">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id клиента" Width="Auto" Binding="{Binding Id}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Фамилия" Width="Auto" Binding="{Binding LastName}" />
