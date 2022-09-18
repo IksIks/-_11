@@ -18,6 +18,7 @@ namespace ДЗ_11.ViewModels
         private Page closeAccounts;
         bool blockButton;
 
+
         #region Страницы
         /// <summary>Страница закрытия счета</summary>
         public Page CloseAccounts

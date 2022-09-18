@@ -17,9 +17,9 @@
         <TextBlock FontWeight="Bold" FontSize="14">
             <TextBlock.Text>
                 <MultiBinding StringFormat="{}{0} {1} {2}">
-                    <Binding Path="CurrentClient.LastName"/>
-                    <Binding Path="CurrentClient.Name"/>
-                    <Binding Path="CurrentClient.Patronymic"/>
+                    <Binding Path="Client.LastName"/>
+                    <Binding Path="Client.Name"/>
+                    <Binding Path="Client.Patronymic"/>
                 </MultiBinding>
             </TextBlock.Text>
         </TextBlock>

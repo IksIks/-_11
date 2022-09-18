@@ -15,7 +15,7 @@ namespace ДЗ_11.Models
         private string phoneNumber = default;
         private string passport = default;
 
-
+        
         #endregion
 
         #region Свойства

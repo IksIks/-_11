@@ -9,7 +9,7 @@ namespace ДЗ_11.ViewModels
     internal class CloseAccountsViewModel
     {
         public Client Client { get; } = HelpClass.TempClient;
-
+        public static event Action<string> CloseAccount;
 
         #region Команда закрытия основного счета
         /// <summary>Команда закрытия основного счета</summary>
@@ -29,6 +29,7 @@ namespace ДЗ_11.ViewModels
             Client.NonDepositAccount.BalanceUSD_Account = 0;
             Client.DepositAccount.BalanceRUB_Account += Client.NonDepositAccount.BalanceEURO_Account * GetValute.GetDataCurrentValute(Services.Cash.EUR).Item3;
             Client.NonDepositAccount.BalanceEURO_Account = 0;
+            CloseAccount?.Invoke($"{DateTime.Now} {Client.Id} {Client.LastName} {Client.Name} {Client.Patronymic} Основной счет закрыт");
         }
         #endregion
 
@@ -48,6 +49,7 @@ namespace ДЗ_11.ViewModels
             Client.DepositAccount.BalanceRUB_Account = 0;
             Client.DepositAccount.DateOfClose = DateTime.Now;
             Client.DepositAccount.DepositNotExist = true;
+            CloseAccount?.Invoke($"{Client.DepositAccount.DateOfClose} {Client.Id} {Client.LastName} {Client.Name} {Client.Patronymic} Депозитный счет закрыт");
         } 
         #endregion
 

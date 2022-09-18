@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using ДЗ_11.Data;
@@ -11,7 +12,7 @@ namespace ДЗ_11.ViewModels
 {
     internal class CashToAccountViewModel : ViewModel
     {
-
+        public static event Action<string> NotifyAccountChange;
         public Client Client { get; } = HelpClass.TempClient;
         
         private double transferAmount;
@@ -42,12 +43,15 @@ namespace ДЗ_11.ViewModels
                 case Cash.EUR: HelpClass.TempClient.NonDepositAccount.BalanceEURO_Account += TransferAmount;
                     break;
             }
+            NotifyAccountChange?.Invoke($"{DateTime.Now} {Client.Id} {Client.LastName} {Client.Name} {Client.Patronymic}" +
+                                        $" на {Currency} счет зачисленно {TransferAmount} {Currency}");
             Application.Current.Windows[1].Close();
         }
         #endregion
 
         public CashToAccountViewModel()
         {
+            
             CreditToAccountCommand = new RelayCommand(OnCreditToAccountCommandExecuted, CanCreditToAccountCommandExecute);
         }
     }

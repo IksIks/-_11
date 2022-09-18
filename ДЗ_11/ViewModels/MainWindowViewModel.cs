@@ -17,9 +17,8 @@ namespace ДЗ_11.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-        //private bool CanOverrideFile;
-
-        private static event Action<string> ChangeClientsCollection;
+        
+        private static Action<string> ChangeClientsCollection;
         #region Поля
         private string role = RoleChoiseViewModel.ManadgerRole ? "Менеджер" : "Консультант";
         private readonly string bankClients = "bankClients.txt";
@@ -227,6 +226,7 @@ namespace ДЗ_11.ViewModels
             if (sender is Client tempClient)
             {
                 ClientChanges = $"{DateTime.Now} {role} изменил в {tempClient.Id} поле {tempClient.ClientPropertyTranslater[e.PropertyName]}";
+                
             }
             ChangedPropertys.Add(ClientChanges);
         }
@@ -263,7 +263,13 @@ namespace ДЗ_11.ViewModels
 
         public MainWindowViewModel()
         {
+            TransferToAnotherClientViewModel.NotifyTransferToAnotherClient += Change_Clients_Collection;
+            TransferBetweenAccountsViewModel.NotifyTransferBetweenAccounts += Change_Clients_Collection;
+            DepositAccountViewModel.OpenDepositAccount += Change_Clients_Collection;
+            CloseAccountsViewModel.CloseAccount += Change_Clients_Collection;
+            CashToAccountViewModel.NotifyAccountChange += Change_Clients_Collection;
             ChangeClientsCollection += Change_Clients_Collection;
+            Clients.CollectionChanged += Clients_CollectionChanged;
             ChangeRoleCommand = new RelayCommand(OnChangeRoleCommandExecuted, CanChangeRoleCommandExecute);
             AddNewUserCommand = new RelayCommand(OnAddNewUserCommandExecuted, CanAddNewUserCommandExecute);
             DeleteClientCommand = new RelayCommand(OnDeleteClientCommandExecuted, CanDeleteClientCommandExecute);
@@ -271,7 +277,6 @@ namespace ДЗ_11.ViewModels
             RestoreBankClientsCommand = new RelayCommand(OnRestoreBankClientsCommandExecuted, CanRestoreBankClientsCommandExecute);
             CloseAplicationCommand = new RelayCommand(OnCloseAplicationCommandExecuted, CanCloseAplicationCommandEcecute);
             ClientOperationsCommand = new RelayCommand(OnClientOperationsCommadExecuted, CanClientOperationsCommandExecute);
-            Clients.CollectionChanged += Clients_CollectionChanged;
             ValuteUSDCourse = GetValute.GetDataCurrentValute(Cash.USD);
             ValuteEURCourse = GetValute.GetDataCurrentValute(Cash.EUR);
             HelpClass.Clients = Clients;

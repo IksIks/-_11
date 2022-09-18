@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -25,9 +26,9 @@ namespace ДЗ_11.ViewModels
             "Основной счет",
             "Депозитный счет"
         };
-        public Client CurrentClient { get; set; } = HelpClass.TempClient;
+        public Client Client { get; private set; } = HelpClass.TempClient;
         public ObservableCollection<Client> Clients { get; set; } = HelpClass.Clients;
-
+        public static event Action<string> NotifyTransferToAnotherClient;
 
         /// <summary>Сумма для зачисления на счет</summary>
         public double TransferAmount
@@ -119,7 +120,7 @@ namespace ДЗ_11.ViewModels
 
         private bool CanTransferAmountCommandExecute(object parametr)
         {
-            if (TransferAmount > AccountBalance || TransferAmount <= 0 || AnotherClient == null || AnotherClient.Id == CurrentClient.Id || SelectedAccount == null) return false;
+            if (TransferAmount > AccountBalance || TransferAmount <= 0 || AnotherClient == null || AnotherClient.Id == Client.Id || SelectedAccount == null) return false;
             return true;
         }
         private void OnTransferAmountCommandExecuted(object parametr)
@@ -129,24 +130,30 @@ namespace ДЗ_11.ViewModels
                 switch (Currency)
                 {
                     case Cash.RUB:
-                        HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account -= TransferAmount;
+                        Client.NonDepositAccount.BalanceRUB_Account -= TransferAmount;
                         AnotherClient.NonDepositAccount.BalanceRUB_Account += TransferAmount;
                         break;
                     case Cash.USD:
-                        HelpClass.TempClient.NonDepositAccount.BalanceUSD_Account -= TransferAmount;
+                        Client.NonDepositAccount.BalanceUSD_Account -= TransferAmount;
                         AnotherClient.NonDepositAccount.BalanceUSD_Account += TransferAmount;
                         break;
                     case Cash.EUR:
-                        HelpClass.TempClient.NonDepositAccount.BalanceEURO_Account -= TransferAmount;
+                        Client.NonDepositAccount.BalanceEURO_Account -= TransferAmount;
                         AnotherClient.NonDepositAccount.BalanceEURO_Account += TransferAmount;
                         break;
                 }
+                NotifyTransferToAnotherClient?.Invoke($"{DateTime.Now} {Client.Id} {Client.LastName} {Client.Name} {Client.Patronymic} " +
+                                                          $"перевел {AnotherClient.Id} {AnotherClient.LastName} {AnotherClient.Name} {AnotherClient.Patronymic} " +
+                                                          $"{TransferAmount} {Currency}");
                 ChangingCustomerData(AnotherClient);
             }
             else
             {
-                HelpClass.TempClient.DepositAccount.BalanceRUB_Account -= TransferAmount;
+                Client.DepositAccount.BalanceRUB_Account -= TransferAmount;
                 AnotherClient.DepositAccount.BalanceRUB_Account += TransferAmount;
+                NotifyTransferToAnotherClient?.Invoke($"{DateTime.Now} {Client.Id} {Client.LastName} {Client.Name} {Client.Patronymic} " +
+                                                              $"перевел {AnotherClient.Id} {AnotherClient.LastName} {AnotherClient.Name} {AnotherClient.Patronymic} " +
+                                                              $"{TransferAmount} {Currency}");
                 ChangingCustomerData(AnotherClient);
             }
             Application.Current.Windows[1].Close();

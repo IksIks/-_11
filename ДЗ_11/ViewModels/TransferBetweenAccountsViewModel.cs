@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using ДЗ_11.Data;
@@ -25,7 +26,8 @@ namespace ДЗ_11.ViewModels
             "Депозитный счет"
         };
         private Cash currency;
-        public Client Client { get; set; } = HelpClass.TempClient;
+        public static event Action<string> NotifyTransferBetweenAccounts;
+        public Client Client { get; private set; } = HelpClass.TempClient;
 
         /// <summary>Сумма после перевода в USD или EUR, для RUB - сумма не меняется</summary>
         public double ConversionValute
@@ -79,14 +81,14 @@ namespace ДЗ_11.ViewModels
                 VisibilityAccountBalance = "Visible";
                 if (selectedAccount == "Депозитный счет")
                 {
-                    AccountBalance = HelpClass.TempClient.DepositAccount.BalanceRUB_Account;
+                    AccountBalance = Client.DepositAccount.BalanceRUB_Account;
                     AnotherAccount = "Основной счет";
                     Visibility = "Hidden";
                     XmlBalance = "Баланс, руб";
                 }
                 else
                 {
-                    AccountBalance = HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account;
+                    AccountBalance = Client.NonDepositAccount.BalanceRUB_Account;
                     AnotherAccount = "Депозитный счет";
                     Visibility = "Visible";
                     XmlBalance = "Баланс";
@@ -112,7 +114,7 @@ namespace ДЗ_11.ViewModels
         /// <summary>Текстовое представление клиентских аккаунтов</summary>
         public List<string> ClientAccount
         {
-            get{ return HelpClass.TempClient.DepositAccount.DepositNotExist ? new List<string> { "Основной счет" } : clientAccount; }
+            get{ return Client.DepositAccount.DepositNotExist ? new List<string> { "Основной счет" } : clientAccount; }
             set { Set(ref clientAccount, value); }
         }
 
@@ -133,13 +135,13 @@ namespace ДЗ_11.ViewModels
                 switch (currency)
                 {
                     case Cash.RUB:
-                        AccountBalance = HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account;
+                        AccountBalance = Client.NonDepositAccount.BalanceRUB_Account;
                         break;
                     case Cash.USD:
-                        AccountBalance = HelpClass.TempClient.NonDepositAccount.BalanceUSD_Account;
+                        AccountBalance = Client.NonDepositAccount.BalanceUSD_Account;
                         break;
                     case Cash.EUR:
-                        AccountBalance = HelpClass.TempClient.NonDepositAccount.BalanceEURO_Account;
+                        AccountBalance = Client.NonDepositAccount.BalanceEURO_Account;
                         break;
                 }
             }
@@ -150,7 +152,7 @@ namespace ДЗ_11.ViewModels
 
         private bool CanTransferAmountCommandExecute(object parametr)
         {
-            if (TransferAmount > AccountBalance || TransferAmount <= 0 || HelpClass.TempClient.DepositAccount.DepositNotExist || SelectedAccount == null) return false;
+            if (TransferAmount > AccountBalance || TransferAmount <= 0 || Client.DepositAccount.DepositNotExist || SelectedAccount == null) return false;
             return true;
         }
         private void OnTransferAmountCommandExecuted(object parametr)
@@ -160,21 +162,25 @@ namespace ДЗ_11.ViewModels
                 switch (Currency)
                 {
                     case Cash.RUB:
-                        HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account -= TransferAmount;
+                        Client.NonDepositAccount.BalanceRUB_Account -= TransferAmount;
                         break;
                     case Cash.USD:
-                        HelpClass.TempClient.NonDepositAccount.BalanceUSD_Account -= TransferAmount;
+                        Client.NonDepositAccount.BalanceUSD_Account -= TransferAmount;
                         break;
                     case Cash.EUR:
-                        HelpClass.TempClient.NonDepositAccount.BalanceEURO_Account -= TransferAmount;
+                        Client.NonDepositAccount.BalanceEURO_Account -= TransferAmount;
                         break;
                 }
-                HelpClass.TempClient.DepositAccount.BalanceRUB_Account += ConversionValute;
+                Client.DepositAccount.BalanceRUB_Account += ConversionValute;
+                NotifyTransferBetweenAccounts?.Invoke($"{DateTime.Now} {Client.Id} {Client.LastName} {Client.Name} {Client.Patronymic}" +
+                                                      $" перевод {TransferAmount} с {Currency} --> Депозитный");
             }
             else
             {
-                HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account += ConversionValute;
-                HelpClass.TempClient.DepositAccount.BalanceRUB_Account -= TransferAmount;
+                Client.NonDepositAccount.BalanceRUB_Account += ConversionValute;
+                Client.DepositAccount.BalanceRUB_Account -= TransferAmount;
+                NotifyTransferBetweenAccounts?.Invoke($"{DateTime.Now} {Client.Id} {Client.LastName} {Client.Name} {Client.Patronymic}" +
+                                                      $" перевод {TransferAmount} с Депозитного --> Основной");
             }
             Application.Current.Windows[1].Close();
         } 

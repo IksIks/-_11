@@ -10,6 +10,7 @@ namespace ДЗ_11.ViewModels
 {
     internal class DepositAccountViewModel : ViewModel
     {
+        public static event Action<string> OpenDepositAccount;
         private double transferAmount; 
         public Client Client { get; private set; } = HelpClass.TempClient;
         public double TransferAmount
@@ -33,10 +34,11 @@ namespace ДЗ_11.ViewModels
         }
         private void OnCreditToAccountCommandExecuted(object parametr)
         {
-            HelpClass.TempClient.DepositAccount.BalanceRUB_Account = TransferAmount;
-            HelpClass.TempClient.DepositAccount.DateOfCreation = DateTime.Now;
-            HelpClass.TempClient.DepositAccount.DepositPercent = DepositPercent;
-            HelpClass.TempClient.DepositAccount.DepositNotExist = false;
+            Client.DepositAccount.BalanceRUB_Account = TransferAmount;
+            Client.DepositAccount.DateOfCreation = DateTime.Now;
+            Client.DepositAccount.DepositPercent = DepositPercent;
+            Client.DepositAccount.DepositNotExist = false;
+            OpenDepositAccount?.Invoke($"{Client.DepositAccount.DateOfCreation} {Client.Id} {Client.LastName} {Client.Name} {Client.Patronymic} Открыт депозитный счет");
             Application.Current.Windows[1].Close();
         }
 
