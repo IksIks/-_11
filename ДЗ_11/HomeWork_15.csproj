@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{408870EA-D059-4881-83E4-204A84019C8A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ДЗ_11</RootNamespace>
-    <AssemblyName>ДЗ_11</AssemblyName>
+    <RootNamespace>HomeWork_15</RootNamespace>
+    <AssemblyName>HomeWork_15</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
