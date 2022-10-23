@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml.Serialization;
 using ДЗ_11.Services;
 
@@ -16,11 +17,20 @@ namespace ДЗ_11.Data
         /// <returns></returns>
         private void DownloadValuteData()
         {
-            var client = new HttpClient();
-            var page = $"http://www.cbr.ru/scripts/XML_daily.asp?date_req={DateTime.Now:dd/MM/yyyy}";
-            var response = client.GetAsync(page).Result;
-            var content = response.Content.ReadAsStringAsync().Result;
-            File.WriteAllText("ValuteCurse.xml", content);
+            try
+            {
+                var client = new HttpClient();
+                var page = $"http://www.cbr.ru/scripts/XML_daily.asp?date_req={DateTime.Now:dd/MM/yyyy}";
+                var response = client.GetAsync(page).Result;
+                var content = response.Content.ReadAsStringAsync().Result;
+                File.WriteAllText("ValuteCurse.xml", content);
+            }
+            catch
+            {
+                MessageBox.Show("Остутсвует интеренет подключение");
+                Application.Current.Windows[0].Close();
+            }
+           
         }
 
         /// <summary>
