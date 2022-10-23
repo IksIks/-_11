@@ -4,14 +4,9 @@ using ДЗ_11.Models.AbstractModels;
 namespace ДЗ_11.Models
 {
     internal class NonDepositAccount : BaseAccount
-    {    
-        private double balanceRUB_Account;
-        private double balanceUSD_Account;
-        private double balanceEURO_Account;
-       
+    {
         public override DateTime DateOfCreation { get; set; }
         public override DateTime DateOfClose { get; set; }
-
         public override double BalanceRUB_Account
         {
             get => balanceRUB_Account;
@@ -27,7 +22,10 @@ namespace ДЗ_11.Models
             get => balanceEURO_Account;
             set => Set(ref balanceEURO_Account, value);
         }
-        
+
+        private double balanceRUB_Account;
+        private double balanceUSD_Account;
+        private double balanceEURO_Account;
         public NonDepositAccount() : base()
         {
             balanceRUB_Account = 0;
@@ -40,7 +38,7 @@ namespace ДЗ_11.Models
             DateOfCreation = dateOfCreation;
             this.balanceRUB_Account = balanceRUB_Account;
             this.balanceUSD_Account = balanceUSD_Account;
-            this.balanceEURO_Account= balanceEURO_Account;
+            this.balanceEURO_Account = balanceEURO_Account;
             DateOfClose = dateOfClose;
         }
 

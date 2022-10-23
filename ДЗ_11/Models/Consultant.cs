@@ -6,14 +6,14 @@ namespace ДЗ_11.Models
     {
         public override void AddClient()
         {
-            
+
         }
 
         public override void DeleteClient()
         {
-           
+
         }
 
-        
+
     }
 }

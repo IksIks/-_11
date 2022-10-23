@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Markup;
 
 namespace ДЗ_11.Services
@@ -10,7 +6,7 @@ namespace ДЗ_11.Services
     /// <summary>
     /// Класс для расширения разметки с привязкой ENUM 
     /// </summary>
-    internal class BindEnumClass: MarkupExtension
+    internal class BindEnumClass : MarkupExtension
     {
         public Type MyEnum { get; private set; }
 

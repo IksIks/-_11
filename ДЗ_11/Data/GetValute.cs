@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Serialization;
 using ДЗ_11.Services;
@@ -30,7 +29,7 @@ namespace ДЗ_11.Data
                 MessageBox.Show("Остутсвует интеренет подключение");
                 Application.Current.Windows[0].Close();
             }
-           
+
         }
 
         /// <summary>
@@ -58,7 +57,7 @@ namespace ДЗ_11.Data
             var valute = GetFromXML();
             foreach (var item in valute.Valute)
             {
-                if(item.CharCode == cash.ToString())
+                if (item.CharCode == cash.ToString())
                 {
                     var valuteName = item.Name;
                     var valuteValue = double.Parse(item.Value);
@@ -85,7 +84,7 @@ namespace ДЗ_11.Data
 
         [XmlAttribute("name")]
         public string Name { get; set; }
-        public ValCurs(){ }
+        public ValCurs() { }
     }
     public class Valute
     {
@@ -96,6 +95,6 @@ namespace ДЗ_11.Data
         public string Nominal { get; set; }
         public string Name { get; set; }
         public string Value { get; set; }
-        public Valute(){ }
+        public Valute() { }
     }
 }

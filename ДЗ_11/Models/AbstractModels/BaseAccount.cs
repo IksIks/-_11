@@ -16,5 +16,5 @@ namespace ДЗ_11.Models.AbstractModels
             DateOfClose = DateTime.MinValue;
         }
     }
-   
+
 }

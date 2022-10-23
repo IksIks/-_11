@@ -18,7 +18,6 @@ namespace ДЗ_11.ViewModels
         private Page closeAccounts;
         bool blockButton;
 
-
         #region Страницы
         /// <summary>Страница закрытия счета</summary>
         public Page CloseAccounts
@@ -63,6 +62,17 @@ namespace ДЗ_11.ViewModels
         }
         #endregion
 
+        public ClientOperationsViewModel()
+        {
+            OpenPageCommand = new RelayCommand(OnOpenPageCommandExecuted, CanOpenPageCommandExecute);
+            OpenPageCreatDepositCommand = new RelayCommand(OnOpenPageCreatDepositCommandExecuted, CanOpenPageCreatDepositCommandExecute);
+            TransferToAnotherClient = new Views.Pages.MoneyTransfer();
+            TransferBetweenAccounts = new Views.Pages.TransferBetweenAccounts();
+            CashToAccount = new Views.Pages.CashToAccount();
+            CreateDepositAccount = new Views.Pages.DepositAccount();
+            CloseAccounts = new Views.Pages.CloseAccounts();
+        }
+
         #region Команда открытия страницы
         public ICommand OpenPageCommand { get; }
         private void OnOpenPageCommandExecuted(object parametr)
@@ -70,13 +80,17 @@ namespace ДЗ_11.ViewModels
             byte buttonIndexInXAML = Convert.ToByte(parametr);
             switch (buttonIndexInXAML)
             {
-                case 1: CurrentPage = CashToAccount;
+                case 1:
+                    CurrentPage = CashToAccount;
                     break;
-                case 2: CurrentPage = TransferBetweenAccounts;
+                case 2:
+                    CurrentPage = TransferBetweenAccounts;
                     break;
-                case 3: CurrentPage = TransferToAnotherClient;
+                case 3:
+                    CurrentPage = TransferToAnotherClient;
                     break;
-                case 4: CurrentPage = CloseAccounts;
+                case 4:
+                    CurrentPage = CloseAccounts;
                     {
                         MessageBox.Show("Будьте внимательны, отменить выбранные действия нельзя", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
                         CurrentPage = CloseAccounts;
@@ -86,8 +100,8 @@ namespace ДЗ_11.ViewModels
             }
         }
         private bool CanOpenPageCommandExecute(object parametr)
-        { 
-            if(blockButton) return false;
+        {
+            if (blockButton) return false;
             return true;
         }
 
@@ -102,7 +116,7 @@ namespace ДЗ_11.ViewModels
         private bool CanOpenPageCreatDepositCommandExecute(object parametr)
         {
             if (HelpClass.TempClient.DepositAccount.DepositNotExist && !blockButton)
-            { 
+            {
                 return true;
             }
             return false;
@@ -110,15 +124,5 @@ namespace ДЗ_11.ViewModels
 
         #endregion
 
-        public ClientOperationsViewModel()
-        {
-            OpenPageCommand = new RelayCommand(OnOpenPageCommandExecuted, CanOpenPageCommandExecute);
-            OpenPageCreatDepositCommand = new RelayCommand(OnOpenPageCreatDepositCommandExecuted, CanOpenPageCreatDepositCommandExecute);
-            TransferToAnotherClient = new Views.Pages.MoneyTransfer();
-            TransferBetweenAccounts = new Views.Pages.TransferBetweenAccounts();
-            CashToAccount = new Views.Pages.CashToAccount();
-            CreateDepositAccount = new Views.Pages.DepositAccount();
-            CloseAccounts = new Views.Pages.CloseAccounts();
-        }
     }
 }

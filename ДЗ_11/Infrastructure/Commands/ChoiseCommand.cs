@@ -1,8 +1,4 @@
-﻿using System.Windows;
-using ДЗ_11.Infrastructure.Commands.Base;
-using ДЗ_11.ViewModels;
-
-namespace ДЗ_11.Infrastructure.Commands
+﻿namespace ДЗ_11.Infrastructure.Commands
 {
     //internal class ChoiseCommand : Command
     //{

@@ -14,27 +14,11 @@ namespace ДЗ_11.ViewModels
     internal class TransferToAnotherClientViewModel : ViewModel
     {
         public Client AnotherClient { get; set; }
-        private string visibility = "Hidden";
-        private string visibilityAccountBalance = "Hidden";
-        private string selectedAccount;
-        private Cash currency;
-        private string xmlBalance;
-        private double transferAmount;
-        private double accountBalance = HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account;
-        private List<string> clientAccount = new List<string>
-        {
-            "Основной счет",
-            "Депозитный счет"
-        };
-        public Client Client { get; private set; } = HelpClass.TempClient;
-        public ObservableCollection<Client> Clients { get; set; } = HelpClass.Clients;
-        public static event Action<string> NotifyTransferToAnotherClient;
-
         /// <summary>Сумма для зачисления на счет</summary>
         public double TransferAmount
         {
             get { return transferAmount; }
-            set{ Set(ref transferAmount, value); }
+            set { Set(ref transferAmount, value); }
         }
         /// <summary>Количество средств на выбранном счете</summary>
         public double AccountBalance
@@ -114,6 +98,28 @@ namespace ДЗ_11.ViewModels
             get { return xmlBalance; }
             set { Set(ref xmlBalance, value); }
         }
+        public Client Client { get; private set; } = HelpClass.TempClient;
+        public ObservableCollection<Client> Clients { get; set; } = HelpClass.Clients;
+        public static event Action<string> NotifyTransferToAnotherClient;
+
+        private string visibility = "Hidden";
+        private string visibilityAccountBalance = "Hidden";
+        private string selectedAccount;
+        private Cash currency;
+        private string xmlBalance;
+        private double transferAmount;
+        private double accountBalance = HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account;
+        private List<string> clientAccount = new List<string>
+        {
+            "Основной счет",
+            "Депозитный счет"
+        };
+
+        public TransferToAnotherClientViewModel()
+        {
+            TransferAmountCommand = new RelayCommand(OnTransferAmountCommandExecuted, CanTransferAmountCommandExecute);
+        }
+
 
         #region Команда перевода среств клиента другому клиенту
         public ICommand TransferAmountCommand { get; }
@@ -159,6 +165,7 @@ namespace ДЗ_11.ViewModels
             Application.Current.Windows[1].Close();
         }
         #endregion
+
         /// <summary>Передача в основной список клиентов окна MainWindowViewModel</summary>
         /// <param name="client"></param>
         private void ChangingCustomerData(Client client)
@@ -168,12 +175,6 @@ namespace ДЗ_11.ViewModels
                 if (HelpClass.Clients[i].Id == client.Id)
                     HelpClass.Clients[i] = client;
             }
-        }
-
-
-        public TransferToAnotherClientViewModel()
-        {
-            TransferAmountCommand = new RelayCommand(OnTransferAmountCommandExecuted, CanTransferAmountCommandExecute);
         }
     }
 }

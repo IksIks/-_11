@@ -9,14 +9,19 @@ namespace ДЗ_11.ViewModels
 {
     internal class AddClientViewModel : ViewModel
     {
-        private Client newClient;
         public Client NewClient
         {
             get { return newClient; }
             set { Set(ref newClient, value); }
         }
+        private Client newClient;
+        public AddClientViewModel()
+        {
+            CreateNewClientCommand = new RelayCommand(OnCreateNewClientCommandExecuted, CanCreateNewClientCommandExecute);
+            StopCreateNewClientCommand = new RelayCommand(OnStopCreateNewClientCommandExecuted, CanStopCreateNewClientCommandExecute);
+            NewClient = new Client();
+        }
 
-        
         #region Команда добавления нового клиента
         /// <summary>Команда добавления нового клиента</summary>
         public ICommand CreateNewClientCommand { get; }
@@ -32,7 +37,7 @@ namespace ДЗ_11.ViewModels
             return false;
         }
         #endregion
-        
+
 
         #region Команда отмены создания нового клиента
         /// <summary>Команда отмены создания нового клиента</summary>
@@ -45,11 +50,5 @@ namespace ДЗ_11.ViewModels
         private bool CanStopCreateNewClientCommandExecute(object parameter) => true;
         #endregion
 
-        public AddClientViewModel()
-        {
-            CreateNewClientCommand = new RelayCommand(OnCreateNewClientCommandExecuted, CanCreateNewClientCommandExecute);
-            StopCreateNewClientCommand = new RelayCommand(OnStopCreateNewClientCommandExecuted, CanStopCreateNewClientCommandExecute);
-            NewClient = new Client();
-        }
     }
 }

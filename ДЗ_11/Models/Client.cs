@@ -7,17 +7,6 @@ namespace ДЗ_11.Models
 {
     internal class Client : ViewModel
     {
-        #region Поля
-        private Guid id;
-        private string name = default;
-        private string lastName = default;
-        private string patronymic = default;
-        private string phoneNumber = default;
-        private string passport = default;
-
-        
-        #endregion
-
         #region Свойства
         public Guid Id
         {
@@ -102,7 +91,16 @@ namespace ДЗ_11.Models
             {"DateClientChange", "Дата изменения клиента"}
         };
         #endregion
+        #region Поля
+        private Guid id;
+        private string name = default;
+        private string lastName = default;
+        private string patronymic = default;
+        private string phoneNumber = default;
+        private string passport = default;
 
+
+        #endregion
         #region Конструкторы
         public Client()
         {

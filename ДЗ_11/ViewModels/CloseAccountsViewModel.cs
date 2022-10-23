@@ -10,6 +10,11 @@ namespace ДЗ_11.ViewModels
     {
         public Client Client { get; } = HelpClass.TempClient;
         public static event Action<string> CloseAccount;
+        public CloseAccountsViewModel()
+        {
+            CloseDepositeAccountCommand = new RelayCommand(OnCloseDepositeAccountCommandExecuted, CanCloseDepositeAccountCommandExecute);
+            CloseNonDepositeAccountCommand = new RelayCommand(OnCloseNonDepositeAccountCommandExecuted, CanCloseNonDepositeAccountCommandExecute);
+        }
 
         #region Команда закрытия основного счета
         /// <summary>Команда закрытия основного счета</summary>
@@ -50,13 +55,8 @@ namespace ДЗ_11.ViewModels
             Client.DepositAccount.DateOfClose = DateTime.Now;
             Client.DepositAccount.DepositNotExist = true;
             CloseAccount?.Invoke($"{Client.DepositAccount.DateOfClose} {Client.Id} {Client.LastName} {Client.Name} {Client.Patronymic} Депозитный счет закрыт");
-        } 
+        }
         #endregion
 
-        public CloseAccountsViewModel()
-        {
-            CloseDepositeAccountCommand = new RelayCommand(OnCloseDepositeAccountCommandExecuted, CanCloseDepositeAccountCommandExecute);
-            CloseNonDepositeAccountCommand = new RelayCommand(OnCloseNonDepositeAccountCommandExecuted, CanCloseNonDepositeAccountCommandExecute);
-        }
     }
 }

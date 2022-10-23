@@ -11,20 +11,24 @@ namespace ДЗ_11.ViewModels
     internal class DepositAccountViewModel : ViewModel
     {
         public static event Action<string> OpenDepositAccount;
-        private double transferAmount; 
-        public Client Client { get; private set; } = HelpClass.TempClient;
         public double TransferAmount
         {
             get { return transferAmount; }
-            set { Set( ref transferAmount, value); }
+            set { Set(ref transferAmount, value); }
         }
-        
-        private double depositPercent = HelpClass.TempClient.DepositAccount.DepositPercent;
+        public Client Client { get; private set; } = HelpClass.TempClient;
         public double DepositPercent
         {
             get { return depositPercent; }
             set { Set(ref depositPercent, value); }
         }
+        public DepositAccountViewModel()
+        {
+            CreditToAccountCommand = new RelayCommand(OnCreditToAccountCommandExecuted, CanCreditToAccountCommandExecute);
+        }
+
+        private double transferAmount;
+        private double depositPercent = HelpClass.TempClient.DepositAccount.DepositPercent;
 
         public ICommand CreditToAccountCommand { get; }
         private bool CanCreditToAccountCommandExecute(object parametr)
@@ -42,10 +46,6 @@ namespace ДЗ_11.ViewModels
             Application.Current.Windows[1].Close();
         }
 
-        public DepositAccountViewModel()
-        {
-            CreditToAccountCommand = new RelayCommand(OnCreditToAccountCommandExecuted, CanCreditToAccountCommandExecute);
-        }
 
     }
 }

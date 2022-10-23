@@ -12,20 +12,6 @@ namespace ДЗ_11.ViewModels
 {
     internal class TransferBetweenAccountsViewModel : ViewModel
     {
-        private string anotherAccount;
-        private double transferAmount;
-        private string xmlBalance;
-        private string selectedAccount;
-        private string visibility = "Hidden"; // для работы с разметкой изменить на Visible
-        private string visibilityAccountBalance = "Hidden"; // для работы с разметкой изменить на Visible
-        private double accountBalance = HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account;
-        private double сonversionValute;
-        private List<string> clientAccount = new List<string>
-        {
-            "Основной счет",
-            "Депозитный счет"
-        };
-        private Cash currency;
         public static event Action<string> NotifyTransferBetweenAccounts;
         public Client Client { get; private set; } = HelpClass.TempClient;
 
@@ -52,11 +38,14 @@ namespace ДЗ_11.ViewModels
                 Set(ref transferAmount, value);
                 switch (Currency)
                 {
-                    case Cash.RUB: ConversionValute = TransferAmount;
+                    case Cash.RUB:
+                        ConversionValute = TransferAmount;
                         break;
-                    case Cash.USD: ConversionValute = TransferAmount * GetValute.GetDataCurrentValute(Currency).Item3;
+                    case Cash.USD:
+                        ConversionValute = TransferAmount * GetValute.GetDataCurrentValute(Currency).Item3;
                         break;
-                    case Cash.EUR: ConversionValute = TransferAmount * GetValute.GetDataCurrentValute(Currency).Item3;
+                    case Cash.EUR:
+                        ConversionValute = TransferAmount * GetValute.GetDataCurrentValute(Currency).Item3;
                         break;
                     default:
                         break;
@@ -114,7 +103,7 @@ namespace ДЗ_11.ViewModels
         /// <summary>Текстовое представление клиентских аккаунтов</summary>
         public List<string> ClientAccount
         {
-            get{ return Client.DepositAccount.DepositNotExist ? new List<string> { "Основной счет" } : clientAccount; }
+            get { return Client.DepositAccount.DepositNotExist ? new List<string> { "Основной счет" } : clientAccount; }
             set { Set(ref clientAccount, value); }
         }
 
@@ -122,7 +111,7 @@ namespace ДЗ_11.ViewModels
         public double AccountBalance
         {
             get { return accountBalance; }
-            set{ Set(ref accountBalance, value); }
+            set { Set(ref accountBalance, value); }
         }
 
         /// <summary>Подсчета "Основного счета" клиента</summary>
@@ -145,6 +134,26 @@ namespace ДЗ_11.ViewModels
                         break;
                 }
             }
+        }
+
+        private string anotherAccount;
+        private double transferAmount;
+        private string xmlBalance;
+        private string selectedAccount;
+        private string visibility = "Hidden"; // для работы с разметкой изменить на Visible
+        private string visibilityAccountBalance = "Hidden"; // для работы с разметкой изменить на Visible
+        private double accountBalance = HelpClass.TempClient.NonDepositAccount.BalanceRUB_Account;
+        private double сonversionValute;
+        private List<string> clientAccount = new List<string>
+        {
+            "Основной счет",
+            "Депозитный счет"
+        };
+        private Cash currency;
+
+        public TransferBetweenAccountsViewModel()
+        {
+            TransferAmountCommand = new RelayCommand(OnTransferAmountCommandExecuted, CanTransferAmountCommandExecute);
         }
 
         #region Команда перевода среств клиента между счетами
@@ -183,13 +192,9 @@ namespace ДЗ_11.ViewModels
                                                       $" перевод {TransferAmount} с Депозитного --> Основной");
             }
             Application.Current.Windows[1].Close();
-        } 
+        }
         #endregion
 
-        public TransferBetweenAccountsViewModel()
-        {
-            TransferAmountCommand = new RelayCommand(OnTransferAmountCommandExecuted, CanTransferAmountCommandExecute);
-        }
 
     }
 }

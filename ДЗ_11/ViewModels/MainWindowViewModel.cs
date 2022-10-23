@@ -17,15 +17,8 @@ namespace ДЗ_11.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-        
-        private static Action<string> ChangeClientsCollection;
-        #region Поля
-        private string role = RoleChoiseViewModel.ManadgerRole ? "Менеджер" : "Консультант";
-        private readonly string bankClients = "bankClients.txt";
-        private ObservableCollection<Client> clients = new ObservableCollection<Client>();
-        private string clientChanges;
-        #endregion
 
+        private static Action<string> ChangeClientsCollection;
         #region Свойства
         public string ValuteCurse { get; private set; } = $"Курс валют на {DateTime.Now:dd/MM/yyyy}";
         public Tuple<string, string, double> ValuteEURCourse { get; private set; }
@@ -46,8 +39,35 @@ namespace ДЗ_11.ViewModels
         {
             get => clientChanges;
             set => Set(ref clientChanges, value);
-        } 
+        }
         #endregion
+
+        #region Поля
+        private string role = RoleChoiseViewModel.ManadgerRole ? "Менеджер" : "Консультант";
+        private readonly string bankClients = "bankClients.txt";
+        private ObservableCollection<Client> clients = new ObservableCollection<Client>();
+        private string clientChanges;
+        #endregion
+        public MainWindowViewModel()
+        {
+            TransferToAnotherClientViewModel.NotifyTransferToAnotherClient += Change_Clients_Collection;
+            TransferBetweenAccountsViewModel.NotifyTransferBetweenAccounts += Change_Clients_Collection;
+            DepositAccountViewModel.OpenDepositAccount += Change_Clients_Collection;
+            CloseAccountsViewModel.CloseAccount += Change_Clients_Collection;
+            CashToAccountViewModel.NotifyAccountChange += Change_Clients_Collection;
+            ChangeClientsCollection += Change_Clients_Collection;
+            Clients.CollectionChanged += Clients_CollectionChanged;
+            ChangeRoleCommand = new RelayCommand(OnChangeRoleCommandExecuted, CanChangeRoleCommandExecute);
+            AddNewUserCommand = new RelayCommand(OnAddNewUserCommandExecuted, CanAddNewUserCommandExecute);
+            DeleteClientCommand = new RelayCommand(OnDeleteClientCommandExecuted, CanDeleteClientCommandExecute);
+            SaveCommand = new RelayCommand(OnSaveCommandExecuted, CanSaveCommandExecute);
+            RestoreBankClientsCommand = new RelayCommand(OnRestoreBankClientsCommandExecuted, CanRestoreBankClientsCommandExecute);
+            CloseAplicationCommand = new RelayCommand(OnCloseAplicationCommandExecuted, CanCloseAplicationCommandEcecute);
+            ClientOperationsCommand = new RelayCommand(OnClientOperationsCommadExecuted, CanClientOperationsCommandExecute);
+            ValuteUSDCourse = GetValute.GetDataCurrentValute(Cash.USD);
+            ValuteEURCourse = GetValute.GetDataCurrentValute(Cash.EUR);
+            HelpClass.Clients = Clients;
+        }
 
         #region Команды управления
 
@@ -61,7 +81,7 @@ namespace ДЗ_11.ViewModels
             if (String.IsNullOrEmpty(HelpClass.TempClient.Name))
                 Clients.Remove(HelpClass.TempClient);
             else
-            { 
+            {
                 Clients.Add(HelpClass.TempClient);
                 ChangeClientsCollection?.Invoke($"{DateTime.Now} Менеджер добавил клиента {HelpClass.TempClient.Id} {HelpClass.TempClient.LastName}" +
                                                 $" {HelpClass.TempClient.Name} {HelpClass.TempClient.Patronymic}");
@@ -96,8 +116,8 @@ namespace ДЗ_11.ViewModels
         private void OnDeleteClientCommandExecuted(object parameter)
         {
             var removeClient = parameter as Client;
-            if(MessageBox.Show("Вы точно уверены?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes)
-            Clients.Remove(removeClient as Client);
+            if (MessageBox.Show("Вы точно уверены?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes)
+                Clients.Remove(removeClient as Client);
             ChangeClientsCollection?.Invoke($"{DateTime.Now} Менеджер удалил клиента {removeClient.Id} {removeClient.LastName}" +
                                             $" {removeClient.Name} {removeClient.Patronymic}");
         }
@@ -114,7 +134,7 @@ namespace ДЗ_11.ViewModels
         {
             byte accessLevel = 0;
             if (!RoleChoiseViewModel.ManadgerRole)
-            { 
+            {
                 accessLevel = 1;
                 RoleChoiseViewModel.ManadgerRole = true;
             }
@@ -141,7 +161,7 @@ namespace ДЗ_11.ViewModels
             {
                 RoleChoiseViewModel.ManadgerRole = false;
             }
-            MessageBox.Show("Выполнено","Уведомление",MessageBoxButton.OK);
+            MessageBox.Show("Выполнено", "Уведомление", MessageBoxButton.OK);
         }
         private bool CanSaveCommandExecute(object parametr)
         {
@@ -226,7 +246,7 @@ namespace ДЗ_11.ViewModels
             if (sender is Client tempClient)
             {
                 ClientChanges = $"{DateTime.Now} {role} изменил в {tempClient.Id} поле {tempClient.ClientPropertyTranslater[e.PropertyName]}";
-                
+
             }
             ChangedPropertys.Add(ClientChanges);
         }
@@ -242,7 +262,7 @@ namespace ДЗ_11.ViewModels
             if (e.NewItems != null)
                 foreach (INotifyPropertyChanged item in e.NewItems)
                     item.PropertyChanged += WriteChanges;
-            
+
             //switch (e.Action)
             //{
             //    case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
@@ -261,25 +281,6 @@ namespace ДЗ_11.ViewModels
             //}
         }
 
-        public MainWindowViewModel()
-        {
-            TransferToAnotherClientViewModel.NotifyTransferToAnotherClient += Change_Clients_Collection;
-            TransferBetweenAccountsViewModel.NotifyTransferBetweenAccounts += Change_Clients_Collection;
-            DepositAccountViewModel.OpenDepositAccount += Change_Clients_Collection;
-            CloseAccountsViewModel.CloseAccount += Change_Clients_Collection;
-            CashToAccountViewModel.NotifyAccountChange += Change_Clients_Collection;
-            ChangeClientsCollection += Change_Clients_Collection;
-            Clients.CollectionChanged += Clients_CollectionChanged;
-            ChangeRoleCommand = new RelayCommand(OnChangeRoleCommandExecuted, CanChangeRoleCommandExecute);
-            AddNewUserCommand = new RelayCommand(OnAddNewUserCommandExecuted, CanAddNewUserCommandExecute);
-            DeleteClientCommand = new RelayCommand(OnDeleteClientCommandExecuted, CanDeleteClientCommandExecute);
-            SaveCommand = new RelayCommand(OnSaveCommandExecuted, CanSaveCommandExecute);
-            RestoreBankClientsCommand = new RelayCommand(OnRestoreBankClientsCommandExecuted, CanRestoreBankClientsCommandExecute);
-            CloseAplicationCommand = new RelayCommand(OnCloseAplicationCommandExecuted, CanCloseAplicationCommandEcecute);
-            ClientOperationsCommand = new RelayCommand(OnClientOperationsCommadExecuted, CanClientOperationsCommandExecute);
-            ValuteUSDCourse = GetValute.GetDataCurrentValute(Cash.USD);
-            ValuteEURCourse = GetValute.GetDataCurrentValute(Cash.EUR);
-            HelpClass.Clients = Clients;
-        }
+
     }
 }

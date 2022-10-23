@@ -1,9 +1,7 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using ДЗ_11.Data;
 using ДЗ_11.Infrastructure.Commands;
-using ДЗ_11.Models;
 using ДЗ_11.ViewModels.Base;
 
 namespace ДЗ_11.ViewModels
@@ -24,6 +22,12 @@ namespace ДЗ_11.ViewModels
             window.Show();
             var roleChoise = Application.Current.Windows[0];
             roleChoise.Close();
+        }
+        public RoleChoiseViewModel()
+        {
+            ConsultantRoleApplicationCommand = new RelayCommand(OnConsultantRoleApplicationCommandExecuted, CanConsultantRoleApplicationCommandCanExecute);
+            ManagerRoleApplicationCommand = new RelayCommand(OnManagerRoleApplicationCommandExecuted, CanManagerRoleApplicationCommandCanExecute);
+            GetValute get = new GetValute();
         }
 
         #region Команда выбора прав доступа для консультанта
@@ -49,11 +53,6 @@ namespace ДЗ_11.ViewModels
 
         #endregion
 
-        public RoleChoiseViewModel()
-        {
-            ConsultantRoleApplicationCommand = new RelayCommand(OnConsultantRoleApplicationCommandExecuted, CanConsultantRoleApplicationCommandCanExecute);
-            ManagerRoleApplicationCommand = new RelayCommand(OnManagerRoleApplicationCommandExecuted, CanManagerRoleApplicationCommandCanExecute);
-            GetValute get = new GetValute();
-        }
+
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ДЗ_11.Models.AbstractModels
+﻿namespace ДЗ_11.Models.AbstractModels
 {
     internal abstract class BaseUser
     {
@@ -8,7 +6,7 @@ namespace ДЗ_11.Models.AbstractModels
 
         public abstract void DeleteClient();
 
-        
+
 
     }
 }
